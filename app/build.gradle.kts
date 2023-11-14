@@ -52,6 +52,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
     // Room
+
     implementation("androidx.room:room-runtime:2.6.0")
     ksp("androidx.room:room-compiler:2.6.0")
     implementation("androidx.room:room-ktx:2.6.0")
@@ -63,14 +64,12 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:2.2.0")
 
     // Picasso
-    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation ("jp.wasabeef:picasso-transformations:2.4.0")
 
     // Daimajia (Dessin)
     implementation("com.daimajia.easing:library:2.0@aar")
     implementation("com.daimajia.androidanimations:library:2.3@aar")
-
-    // Amitshekhar (Debug)
-    debugImplementation("com.amitshekhar.android:debug-db:1.0.6")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -78,7 +77,9 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     // Graphique
+
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
     implementation("com.kofigyan.stateprogressbar:stateprogressbar:1.0.0")
     implementation("com.makeramen:roundedimageview:2.3.0")
 
