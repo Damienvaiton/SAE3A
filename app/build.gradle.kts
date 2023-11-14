@@ -77,10 +77,9 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     // Graphique
-
+/*
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
-    implementation("com.kofigyan.stateprogressbar:stateprogressbar:1.0.0")
+    implementation("com.kofigyan.stateprogressbar:stateprogressbar:1.0.0")*/
     implementation("com.makeramen:roundedimageview:2.3.0")
 
 
