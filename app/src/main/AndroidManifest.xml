@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="fr.dut.ptut2021">
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
-        android:name=".adapters.ApplicationPtut"
+        android:name=".EdukidApp"
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/icon_edukid"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_edukid_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
-        android:theme="@style/Theme.PTUT2021">
+        android:theme="@style/Theme.Edukid"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".views.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
         <activity
             android:name=".activities.LoadingPage"
             android:screenOrientation="portrait"
@@ -71,7 +90,6 @@
         <activity
             android:name=".activities.SubGameMenu"
             android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false" />-->
     </application>
-
 </manifest>
