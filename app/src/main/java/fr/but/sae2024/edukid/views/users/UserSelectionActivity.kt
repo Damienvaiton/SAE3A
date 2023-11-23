@@ -16,15 +16,15 @@ class UserSelectionActivity : AppCompatActivity() {
     var UserRv: RecyclerView? = null
 
     val UserViewModel = ProfileViewModel()
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.tag("UserSelectionActivity").e("onCreate called")
         setContentView(R.layout.user_selection_activity)
+
 
         UserRv = findViewById(R.id.recyclerview_users)
 
         UserRv?.adapter = UserSelectionAdapter()
-
-
 
 
 
@@ -34,7 +34,6 @@ class UserSelectionActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         UserViewModel.createAndGetDatabase()
-       // TODO("Creataion de la recycler view")
     }
 
 
