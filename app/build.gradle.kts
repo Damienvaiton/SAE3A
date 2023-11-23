@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -53,10 +53,10 @@ dependencies {
 
     // Room
     implementation("androidx.room:room-runtime:2.6.0")
-    ksp("androidx.room:room-compiler:2.6.0")
+    kapt("androidx.room:room-compiler:2.6.0")
     implementation("androidx.room:room-ktx:2.6.0")
 
-    //Recycler View
+    // Recycler View
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     // Archcore Testing
@@ -72,8 +72,11 @@ dependencies {
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    // Gson
+    implementation ("com.google.code.gson:gson:2.8.7")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // Graphique
 /*
@@ -81,16 +84,17 @@ dependencies {
     implementation("com.kofigyan.stateprogressbar:stateprogressbar:1.0.0")*/
     implementation("com.makeramen:roundedimageview:2.3.0")
 
-
     // Co Routine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
     // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("androidx.annotation:annotation:1.7.0")
-
+    implementation ("com.jakewharton.timber:timber:5.0.1")
+    implementation("androidx.annotation:annotation:1.6.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+
+    // Chiffrement
+    implementation("com.ToxicBakery.library.bcrypt:bcrypt:1.0.9")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
