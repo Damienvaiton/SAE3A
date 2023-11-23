@@ -3,6 +3,7 @@ package fr.but.sae2024.edukid.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import fr.but.sae2024.edukid.utils.enums.UserRole
 
 @Entity(tableName = "users")
 data class User (
@@ -13,28 +14,22 @@ data class User (
     @ColumnInfo(name = "password")
     val password: String? = null,
 
-    @ColumnInfo(name = "name")
-    val name: String? = null,
-
-    @ColumnInfo(name = "lastname")
-    val lastName: String? = null,
-
     @ColumnInfo(name = "mail")
     val mail: String? = null,
 
-    @ColumnInfo(name = "bio")
-    val bio: String? = null,
-
-    @ColumnInfo(name = "birthdate")
-    val birthdate: String? = null,
-
     @ColumnInfo(name = "picture")
-    val profilPicture: String? = null,
+    val picture: String? = null,
+
+    @ColumnInfo(name = "picture_type")
+    val pictureType: Int? = null,
+
+    @ColumnInfo(name = "role")
+    val role: UserRole = UserRole.CHILD,
 
     @ColumnInfo(name = "created")
-    val created: String? = null,
+    val created: Long? = null,
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var idUsers: Int? = null
+    var id: Int? = null
 }
