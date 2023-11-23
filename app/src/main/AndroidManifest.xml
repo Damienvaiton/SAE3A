@@ -19,12 +19,13 @@
         android:icon="@mipmap/icon_edukid"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_edukid_round"
+        android:enableOnBackInvokedCallback="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Edukid"
-        tools:targetApi="31">
+        tools:targetApi="34">
 
         <activity
-            android:name=".views.main.MainActivity"
+            android:name=".views.users.UserSelectionActivity"
             android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name">
