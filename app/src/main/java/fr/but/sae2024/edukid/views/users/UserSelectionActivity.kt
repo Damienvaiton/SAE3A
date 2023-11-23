@@ -1,14 +1,12 @@
 package fr.but.sae2024.edukid.views.users
 
 import android.app.AlertDialog
-import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.BuildCompat
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
+import fr.but.sae2024.edukid.utils.MyScharedPreferences
 import fr.but.sae2024.edukid.viewmodel.ProfileViewModel
 import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
 import timber.log.Timber
@@ -57,6 +55,11 @@ class UserSelectionActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Timber.i("onDestroy called")
+    }
+
+
+    fun saveUserScharedPreferences(){
+        MyScharedPreferences.saveUser(this, "user")
     }
 
 
