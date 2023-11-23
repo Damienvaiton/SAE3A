@@ -9,12 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.BuildCompat
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
+import fr.but.sae2024.edukid.viewmodel.ProfileViewModel
 import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
 import timber.log.Timber
 
 class UserSelectionActivity : AppCompatActivity() {
 
     var UserRv: RecyclerView? = null
+
+    val UserViewModel = ProfileViewModel()
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.user_selection_activity)
@@ -32,17 +35,11 @@ class UserSelectionActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        createAndGetDatabase()
+        UserViewModel.createAndGetDatabase()
        // TODO("Creataion de la recycler view")
     }
 
-    fun createAndGetDatabase() {
-        /*
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "database-name"
-        ).build()*/
-    }
+
 
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this)
