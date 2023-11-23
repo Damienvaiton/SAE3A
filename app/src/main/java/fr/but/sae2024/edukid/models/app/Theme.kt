@@ -1,16 +1,15 @@
-package fr.but.sae2024.edukid.models
+package fr.but.sae2024.edukid.models.app
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "words")
-data class Word (
-
+@Entity(tableName = "themes")
+data class Theme (
     @PrimaryKey
-    @ColumnInfo(name = "word")
-    val word: String,
+    @ColumnInfo(name = "name")
+    val name: String,
 
     @ColumnInfo(name = "image")
     val image: Int? = null
-){}
+)

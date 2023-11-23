@@ -1,4 +1,4 @@
-package fr.but.sae2024.edukid.models
+package fr.but.sae2024.edukid.models.app
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
