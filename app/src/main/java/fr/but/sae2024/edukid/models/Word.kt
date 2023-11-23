@@ -9,7 +9,7 @@ data class Word (
 
     @PrimaryKey
     @ColumnInfo(name = "word")
-    val word: String? = null,
+    val word: String,
 
     @ColumnInfo(name = "image")
     val image: Int? = null

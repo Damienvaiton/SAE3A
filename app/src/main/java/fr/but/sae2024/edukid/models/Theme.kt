@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class Theme (
     @PrimaryKey
     @ColumnInfo(name = "name")
-    val word: String? = null,
+    val name: String,
 
     @ColumnInfo(name = "image")
     val image: Int? = null
