@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import fr.but.sae2024.edukid.database.dao.UserDao
-import fr.but.sae2024.edukid.models.User
+import fr.but.sae2024.edukid.models.app.User
 import fr.but.sae2024.edukid.utils.Converters
 
 @Database(entities = [User::class], version = 1)

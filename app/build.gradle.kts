@@ -51,10 +51,8 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
-
-    //Aucune idée de ce que c'est
-    implementation ("androidx.activity:activity-ktx:1.8.1")
-
+    //SplashScreen
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
     // Room
     implementation("androidx.room:room-runtime:2.6.0")
