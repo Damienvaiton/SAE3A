@@ -3,11 +3,12 @@ package fr.but.sae2024.edukid.views.users.adapters
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import fr.but.sae2024.edukid.models.User
+import fr.but.sae2024.edukid.models.app.User
 
-class UserSelectionAdapter( ) : RecyclerView.Adapter<UserSelectionAdapter.UserSelectionViewHolder>() {
+class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<UserSelectionAdapter.UserSelectionViewHolder>() {
 
     inner class UserSelectionViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview) {
+
     }
 
 
@@ -24,8 +25,7 @@ class UserSelectionAdapter( ) : RecyclerView.Adapter<UserSelectionAdapter.UserSe
     }
 
     override fun getItemCount(): Int {
-       // TODO("Not yet implemented")
-        return 0
+        return listUser.size
     }
 
 }
