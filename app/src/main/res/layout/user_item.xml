@@ -14,8 +14,8 @@
         android:layout_alignParentEnd="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:riv_corner_radius="5dp"
-        tools:layout_editor_absoluteY="7dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="5dp" />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/icon_modif"
@@ -25,9 +25,12 @@
         android:layout_alignParentEnd="true"
         android:src="@drawable/settings_icon"
         android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/userAvatar"
+        app:layout_constraintTop_toTopOf="@+id/userAvatar"
+        app:layout_constraintEnd_toEndOf="@+id/userAvatar"
+        app:layout_constraintBottom_toBottomOf="@+id/userAvatar"
         app:riv_corner_radius="5dp"
-        tools:layout_editor_absoluteX="285dp"
-        tools:layout_editor_absoluteY="30dp" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <TextView
         android:id="@+id/userName"
