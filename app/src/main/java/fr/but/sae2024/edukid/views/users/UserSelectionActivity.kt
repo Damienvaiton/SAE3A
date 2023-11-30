@@ -6,14 +6,22 @@ import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
+import fr.but.sae2024.edukid.database.EdukidDatabase
+import fr.but.sae2024.edukid.database.dao.UserDao
 import fr.but.sae2024.edukid.utils.MyScharedPreferences
 import fr.but.sae2024.edukid.viewmodel.ProfileViewModel
 import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class UserSelectionActivity : AppCompatActivity() {
 
     var UserRv: RecyclerView? = null
+
+    val db = EdukidDatabase.getInstance()
+    val userDao: UserDao? = null
 
     val UserViewModel = ProfileViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,9 +30,13 @@ class UserSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.user_selection_activity)
 
 
+
         UserRv = findViewById(R.id.recyclerview_users)
 
-        UserRv?.adapter = UserSelectionAdapter()
+        CoroutineScope(Dispatchers.IO).launch {
+            UserRv?.adapter = UserSelectionAdapter(userDao!!.getAllUsers())
+        }
+
 
 
 
@@ -37,6 +49,7 @@ class UserSelectionActivity : AppCompatActivity() {
         super.onStart()
         UserViewModel.createAndGetDatabase()
     }
+
 
 
 
