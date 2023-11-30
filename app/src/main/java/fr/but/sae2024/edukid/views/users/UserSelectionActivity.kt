@@ -4,12 +4,14 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.database.dao.UserDao
+import fr.but.sae2024.edukid.models.app.User
 import fr.but.sae2024.edukid.utils.MyScharedPreferences
-import fr.but.sae2024.edukid.viewmodel.ProfileViewModel
+import fr.but.sae2024.edukid.viewmodel.UserViewModel
 import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,25 +20,35 @@ import timber.log.Timber
 
 class UserSelectionActivity : AppCompatActivity() {
 
-    var UserRv: RecyclerView? = null
-
     val db = EdukidDatabase.getInstance()
-    val userDao: UserDao? = null
+    val userDao: UserDao = db.userDao()
 
-    val UserViewModel = ProfileViewModel()
+    val userVM = UserViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.tag("UserSelectionActivity").e("onCreate called")
         setContentView(R.layout.user_selection_activity)
 
+        val userRv: RecyclerView = findViewById<RecyclerView>(R.id.recyclerview_users)
 
-
-        UserRv = findViewById(R.id.recyclerview_users)
+        var listUser = listOf<User>()
 
         CoroutineScope(Dispatchers.IO).launch {
-            UserRv?.adapter = UserSelectionAdapter(userDao!!.getAllUsers())
-        }
+             try {
+                 userVM.addManyUser()
+                 listUser = userDao.getAllUsers()
+                 userVM.displayListUser(listUser)
+                 val adapter = UserSelectionAdapter(listUser)
 
+
+                 userRv.adapter = adapter
+                 userRv.layoutManager = LinearLayoutManager(this@UserSelectionActivity)
+                 userRv.setHasFixedSize(true)
+             }
+                catch (e: Exception){
+                    Timber.tag("UserSelectionActivity").e("Error : $e")
+                }
+        }
 
 
 
@@ -47,7 +59,7 @@ class UserSelectionActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        UserViewModel.createAndGetDatabase()
+        Timber.i("onStart called")
     }
 
 

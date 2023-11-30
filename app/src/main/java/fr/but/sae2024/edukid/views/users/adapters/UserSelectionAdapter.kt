@@ -1,5 +1,6 @@
 package fr.but.sae2024.edukid.views.users.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.app.User
+import timber.log.Timber
 
 class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<UserSelectionAdapter.UserSelectionViewHolder>() {
 
@@ -28,11 +30,24 @@ class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<Use
     }
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: UserSelectionViewHolder, position: Int) {
+        val resources = holder.itemView.context.resources
+
         val user = listUser[position]
+
         holder.username.text = user.username
-        holder.profilPicture.setImageResource()
-        holder.paramPicture.setImageResource(R.drawable.)
+
+        Timber.tag("UserSelectionAdapter").e("Username : ${user.username}")
+
+        Timber.tag("UserSelectionAdapter").e("J'entre dans la recherche de l'image")
+        val randomNumber = (1..9).random()
+        val resourceId: Int = resources.getIdentifier("profil$randomNumber", "drawable", holder.itemView.context.packageName)
+        holder.profilPicture.setImageDrawable(resources.getDrawable(resourceId,null))
+        Timber.tag("UserSelectionAdapter").e("J'ai fini de chercher l'image")
+
+
+        holder.paramPicture.setImageResource(R.drawable.settings_icon)
     }
 
     override fun getItemCount(): Int {
