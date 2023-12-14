@@ -12,10 +12,8 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashScreen = installSplashScreen()
-        Thread.sleep(3000)
-        installSplashScreen()
-        setContentView(R.layout.activity_main);
+        //Thread.sleep(3000) //si on veut un splash screen mais bloque le thread donc pas propre
+        setContentView(R.layout.activity_main)
 
     }
 }
