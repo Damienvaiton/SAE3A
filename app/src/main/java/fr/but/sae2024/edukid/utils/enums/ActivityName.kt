@@ -7,5 +7,6 @@ enum class ActivityName {
     SubGameSelectionActivity,
     ResultGameActivity,
     UserDetailActivity,
-    UserManagingActivity
+    UserManagingActivity,
+    StatisticActivity
 }
