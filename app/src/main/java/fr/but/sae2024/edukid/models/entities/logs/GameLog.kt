@@ -1,4 +1,4 @@
-package fr.but.sae2024.edukid.models.logs
+package fr.but.sae2024.edukid.models.entities.logs
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

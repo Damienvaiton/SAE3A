@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import fr.but.sae2024.edukid.models.app.User
+import fr.but.sae2024.edukid.models.entities.app.User
 
 @Dao
 interface UserDao {

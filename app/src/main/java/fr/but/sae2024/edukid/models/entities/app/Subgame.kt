@@ -1,17 +1,16 @@
-package fr.but.sae2024.edukid.models.app
+package fr.but.sae2024.edukid.models.entities.app
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "games")
-data class Game(
-
+@Entity(tableName = "subgames")
+data class Subgame(
     @ColumnInfo(name = "name")
     val name: String,
 
-    @ColumnInfo(name = "theme")
-    val theme: String,
+    @ColumnInfo(name = "game")
+    val game: Int,
 
     @ColumnInfo(name = "image")
     val image: Int? = null,
