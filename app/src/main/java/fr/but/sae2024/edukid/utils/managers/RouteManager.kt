@@ -3,6 +3,7 @@ package fr.but.sae2024.edukid.utils.managers
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import timber.log.Timber
 
 
 enum class ActivitysName {
@@ -14,9 +15,9 @@ enum class GamesName {
 
 class RouteManager {
 
-    public fun startActicity(context : Context, activitysName: ActivitysName, wantToFinish: Boolean, animation: Boolean){
+    public fun startActicity(context : Context, activityName: ActivitysName, wantToFinish: Boolean, animation: Boolean){
 
-        when (activitysName) {
+        when (activityName) {
 
             ActivitysName.UserSelectionActivity -> context.startActivity(
                 Intent().setClass(
@@ -67,13 +68,11 @@ class RouteManager {
                 )
             )
 
-            else -> if (activitysName.toString().isNotEmpty()) {
-                Log.e(
-                    Log.ERROR.toString(),
-                    activitysName.toString() + "is not allowed for a name's activity"
-                )
+            else -> if (activityName.toString().isNotEmpty()) {
+                Timber.tag(Log.ERROR.toString())
+                    .e(activityName.toString() + "is not allowed for a name's activity")
             } else {
-                Log.e(Log.ERROR.toString(), "The name's activity is empty")
+                Timber.tag(Log.ERROR.toString()).e("The name's activity is empty")
             }
         }
     }
@@ -90,13 +89,18 @@ class RouteManager {
                 )
             )
 
-            else -> if (GamesName.toString().isNotEmpty()) {
-                Log.e(
-                    Log.ERROR.toString(),
-                    GamesName.toString() + "is not allowed for a name's game"
+            GamesName.Listen -> context.startActivity(
+                Intent().setClass(
+                    context,
+                    UserManagingActivity::class.java
                 )
+            )
+
+            else -> if (GamesName.toString().isNotEmpty()) {
+                Timber.tag(Log.ERROR.toString())
+                    .e(GamesName.toString() + "is not allowed for a name's game")
             } else {
-                Log.e(Log.ERROR.toString(), "The name's game is empty")
+                Timber.tag(Log.ERROR.toString()).e("The name's game is empty")
             }
 
         }
