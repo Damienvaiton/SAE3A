@@ -1,6 +1,6 @@
 package fr.but.sae2024.edukid.database
 
-import fr.but.sae2024.edukid.models.app.User
+import fr.but.sae2024.edukid.models.entities.app.User
 
 object DatabaseDatasource {
 
