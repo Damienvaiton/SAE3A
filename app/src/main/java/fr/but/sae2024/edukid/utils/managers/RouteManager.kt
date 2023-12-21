@@ -5,6 +5,17 @@ import android.content.Intent
 import android.util.Log
 import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.enums.GameName
+import fr.but.sae2024.edukid.views.Games.Menu.GameSelectionActivity
+import fr.but.sae2024.edukid.views.Games.Play.DrawOnItGame
+import fr.but.sae2024.edukid.views.Games.Play.MemoryGame
+import fr.but.sae2024.edukid.views.Games.Play.PlayWithSoundGame
+import fr.but.sae2024.edukid.views.Games.Play.WordWithHoleGame
+import fr.but.sae2024.edukid.views.ResultsGame.ResultGameActivity
+import fr.but.sae2024.edukid.views.Statistics.StatisticActivity
+import fr.but.sae2024.edukid.views.Themes.ThemeSelectionActivity
+import fr.but.sae2024.edukid.views.Users.Edit.UserManagingActivity
+import fr.but.sae2024.edukid.views.Users.Menu.UserSelectionActivity
+import fr.but.sae2024.edukid.views.Users.Resume.UserDetailActivity
 import timber.log.Timber
 
 class RouteManager {
@@ -37,7 +48,7 @@ class RouteManager {
             ActivityName.SubGameSelectionActivity -> context.startActivity(
                 Intent().setClass(
                     context,
-                    SubGameSelectionActivity::class.java
+                    ActivityName.SubGameSelectionActivity::class.java
                 )
             )
 
@@ -62,12 +73,14 @@ class RouteManager {
                 )
             )
 
-            else -> if (activityName.toString().isNotEmpty()) {
-                Timber.tag(Log.ERROR.toString())
-                    .e("%sis not allowed for a name's activity", activityName.toString())
-            } else {
-                Timber.tag(Log.ERROR.toString()).e("The name's activity is empty")
-            }
+            ActivityName.StatisticActivity -> context.startActivity(
+                Intent().setClass(
+                    context,
+                    StatisticActivity::class.java
+                )
+            )
+
+            else -> Timber.tag(Log.ERROR.toString()).e("Problem with the activity name")
         }
     }
 
@@ -79,21 +92,32 @@ class RouteManager {
             GameName.Draw -> context.startActivity(
                 Intent().setClass(
                     context,
-                    UserManagingActivity::class.java
+                    DrawOnItGame::class.java
                 )
             )
 
             GameName.Listen -> context.startActivity(
                 Intent().setClass(
                     context,
-                    UserManagingActivity::class.java
+                    PlayWithSoundGame::class.java
                 )
             )
 
-            else -> {
-                Timber.tag(Log.ERROR.toString())
-                    .e("%s isn't used in the game", gamesName.toString())
-            }
+            GameName.WordBlank -> context.startActivity(
+                Intent().setClass(
+                    context,
+                    WordWithHoleGame::class.java
+                )
+            )
+
+            GameName.Memory -> context.startActivity(
+                Intent().setClass(
+                    context,
+                    MemoryGame::class.java
+                )
+            )
+
+            else -> Timber.tag(Log.ERROR.toString()).e("Problem with the game name")
 
         }
     }
