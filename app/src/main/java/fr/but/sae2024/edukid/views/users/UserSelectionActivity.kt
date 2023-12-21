@@ -7,17 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
-import fr.but.sae2024.edukid.database.EdukidDatabase
-import fr.but.sae2024.edukid.database.dao.UserDao
-import fr.but.sae2024.edukid.models.app.User
-import fr.but.sae2024.edukid.utils.enums.UserRole
 import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
 import timber.log.Timber
 
 class UserSelectionActivity : AppCompatActivity() {
 
-    val db = EdukidDatabase.getInstance()
-    val userDao: UserDao = db.userDao()
 
     val userViewModel by viewModels<UserViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,22 +21,13 @@ class UserSelectionActivity : AppCompatActivity() {
 
         val userRv: RecyclerView = findViewById<RecyclerView>(R.id.recyclerview_users)
 
-        var listUser = listOf<User>()
 
-        val user = User(
-            "admin",
-            "admin",
-            "adminmailtest.com",
-            null,
-            1,
-            UserRole.PARENT,
-            0
-        )
+
 
         userViewModel.listUserLiveData.observe(this) {
 
 
-            listUser = it
+            val listUser = it
             val adapter = UserSelectionAdapter(listUser)
             userRv.adapter = adapter
             userRv.layoutManager = LinearLayoutManager(this@UserSelectionActivity)
