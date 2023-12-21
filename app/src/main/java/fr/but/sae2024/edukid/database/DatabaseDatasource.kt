@@ -1,4 +1,4 @@
-package fr.but.sae2024.edukid.datasource
+package fr.but.sae2024.edukid.database
 
 object DatabaseDatasource {
 
