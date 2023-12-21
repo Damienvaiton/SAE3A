@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import fr.but.sae2024.edukid.database.dao.UserDao
 import fr.but.sae2024.edukid.models.entities.app.User
-import fr.but.sae2024.edukid.utils.Converters
+import fr.but.sae2024.edukid.utils.managers.ConverterManager
 
 @Database(entities = [User::class], version = 1)
-@TypeConverters(Converters::class)
+@TypeConverters(ConverterManager::class)
 abstract class EdukidDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

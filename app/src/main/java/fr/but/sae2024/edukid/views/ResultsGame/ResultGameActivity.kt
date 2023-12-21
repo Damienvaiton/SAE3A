@@ -1,4 +1,4 @@
-package fr.but.sae2024.edukid.views.ResultsGame
+package fr.but.sae2024.edukid.views.resultsgame
 
 class ResultGameActivity {
 }

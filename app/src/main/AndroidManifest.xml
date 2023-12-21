@@ -25,7 +25,7 @@
         tools:targetApi="34">
 
         <activity
-            android:name=".views.users.UserSelectionActivity"
+            android:name=".views.users.menu.UserSelectionActivity"
             android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name">

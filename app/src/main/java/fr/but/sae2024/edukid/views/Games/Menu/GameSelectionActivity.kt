@@ -1,4 +1,4 @@
-package fr.but.sae2024.edukid.views.Games.Menu
+package fr.but.sae2024.edukid.views.games.menu
 
 class GameSelectionActivity {
 }

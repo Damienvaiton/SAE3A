@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.database.dao.UserDao
-import fr.but.sae2024.edukid.models.app.User
+import fr.but.sae2024.edukid.models.entities.app.User
 import fr.but.sae2024.edukid.repositories.UserRepository
 import fr.but.sae2024.edukid.utils.enums.UserRole
 import kotlinx.coroutines.launch

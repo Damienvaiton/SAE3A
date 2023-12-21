@@ -1,4 +1,4 @@
-package fr.but.sae2024.edukid.views.Games.Play
+package fr.but.sae2024.edukid.views.games.play
 
 class MemoryGame {
 }

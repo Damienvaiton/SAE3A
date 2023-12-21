@@ -5,17 +5,17 @@ import android.content.Intent
 import android.util.Log
 import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.enums.GameName
-import fr.but.sae2024.edukid.views.Games.Menu.GameSelectionActivity
-import fr.but.sae2024.edukid.views.Games.Play.DrawOnItGame
-import fr.but.sae2024.edukid.views.Games.Play.MemoryGame
-import fr.but.sae2024.edukid.views.Games.Play.PlayWithSoundGame
-import fr.but.sae2024.edukid.views.Games.Play.WordWithHoleGame
-import fr.but.sae2024.edukid.views.ResultsGame.ResultGameActivity
-import fr.but.sae2024.edukid.views.Statistics.StatisticActivity
-import fr.but.sae2024.edukid.views.Themes.ThemeSelectionActivity
-import fr.but.sae2024.edukid.views.Users.Edit.UserManagingActivity
-import fr.but.sae2024.edukid.views.Users.Menu.UserSelectionActivity
-import fr.but.sae2024.edukid.views.Users.Resume.UserDetailActivity
+import fr.but.sae2024.edukid.views.games.menu.GameSelectionActivity
+import fr.but.sae2024.edukid.views.games.play.DrawOnItGame
+import fr.but.sae2024.edukid.views.games.play.MemoryGame
+import fr.but.sae2024.edukid.views.games.play.PlayWithSoundGame
+import fr.but.sae2024.edukid.views.games.play.WordWithHoleGame
+import fr.but.sae2024.edukid.views.resultsgame.ResultGameActivity
+import fr.but.sae2024.edukid.views.statistics.StatisticActivity
+import fr.but.sae2024.edukid.views.themes.ThemeSelectionActivity
+import fr.but.sae2024.edukid.views.users.edit.UserManagingActivity
+import fr.but.sae2024.edukid.views.users.menu.UserSelectionActivity
+import fr.but.sae2024.edukid.views.users.resume.UserDetailActivity
 import timber.log.Timber
 
 class RouteManager {
