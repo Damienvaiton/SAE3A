@@ -1,10 +1,12 @@
-package fr.but.sae2024.edukid.viewmodel
+package fr.but.sae2024.edukid.views.users
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.database.dao.UserDao
 import fr.but.sae2024.edukid.models.app.User
+import fr.but.sae2024.edukid.repositories.UserRepository
 import fr.but.sae2024.edukid.utils.enums.UserRole
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -13,6 +15,14 @@ class UserViewModel : ViewModel() {
 
     val db = EdukidDatabase.getInstance()
     val userDao: UserDao = db.userDao()
+
+
+
+    private val _listUserLiveData : MutableLiveData<List<User>> = MutableLiveData<List<User>>()
+    val listUserLiveData : MutableLiveData<List<User>> = _listUserLiveData
+
+    private val userRepo = UserRepository
+
 
     fun displayListUser(listUser: List<User>) {
 
@@ -55,6 +65,28 @@ class UserViewModel : ViewModel() {
                 }
             }
         }
+
+    fun getListUser() {
+        viewModelScope.launch {
+            userRepo.getAllUsers()
+                .collect {
+                    _listUserLiveData.postValue(it)
+                }
+        }
+    }
+
+    fun insertUser(user: User) {
+        viewModelScope.launch {
+            userRepo.insertUser(user)
+        }
+    }
+
+    fun deleteUser(user: User) {
+        viewModelScope.launch {
+            userRepo.deleteUser(user)
+        }
+    }
+
 
 
 }

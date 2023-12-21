@@ -2,7 +2,7 @@ package fr.but.sae2024.edukid.views.users
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.os.PersistableBundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,12 +10,8 @@ import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.database.dao.UserDao
 import fr.but.sae2024.edukid.models.app.User
-import fr.but.sae2024.edukid.utils.MyScharedPreferences
-import fr.but.sae2024.edukid.viewmodel.UserViewModel
+import fr.but.sae2024.edukid.utils.enums.UserRole
 import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class UserSelectionActivity : AppCompatActivity() {
@@ -23,7 +19,7 @@ class UserSelectionActivity : AppCompatActivity() {
     val db = EdukidDatabase.getInstance()
     val userDao: UserDao = db.userDao()
 
-    val userVM = UserViewModel()
+    val userViewModel by viewModels<UserViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.tag("UserSelectionActivity").e("onCreate called")
@@ -33,36 +29,39 @@ class UserSelectionActivity : AppCompatActivity() {
 
         var listUser = listOf<User>()
 
-        CoroutineScope(Dispatchers.IO).launch {
-             try {
-                 userVM.addManyUser()
-                 listUser = userDao.getAllUsers()
-                 userVM.displayListUser(listUser)
-                 val adapter = UserSelectionAdapter(listUser)
+        val user = User(
+            "admin",
+            "admin",
+            "adminmailtest.com",
+            null,
+            1,
+            UserRole.PARENT,
+            0
+        )
+
+        userViewModel.listUserLiveData.observe(this) {
 
 
-                 userRv.adapter = adapter
-                 userRv.layoutManager = LinearLayoutManager(this@UserSelectionActivity)
-                 userRv.setHasFixedSize(true)
-             }
-                catch (e: Exception){
-                    Timber.tag("UserSelectionActivity").e("Error : $e")
-                }
+            listUser = it
+            val adapter = UserSelectionAdapter(listUser)
+            userRv.adapter = adapter
+            userRv.layoutManager = LinearLayoutManager(this@UserSelectionActivity)
+            userRv.setHasFixedSize(true)
+
         }
 
 
 
-
+        userViewModel.getListUser()
 
 
     }
+
 
     override fun onStart() {
         super.onStart()
         Timber.i("onStart called")
     }
-
-
 
 
     override fun onBackPressed() {
@@ -84,16 +83,8 @@ class UserSelectionActivity : AppCompatActivity() {
     }
 
 
-    fun saveUserScharedPreferences(){
-        MyScharedPreferences.saveUser(this, "user")
-    }
-
-
-
-
-
-
-
-
 }
+
+
+
 

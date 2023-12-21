@@ -1,4 +1,4 @@
-package fr.but.sae2024.edukid.viewmodel
+package fr.but.sae2024.edukid.views.main
 
 import androidx.lifecycle.ViewModel
 
