@@ -10,7 +10,7 @@ import fr.but.sae2024.edukid.views.games.play.DrawOnItGame
 import fr.but.sae2024.edukid.views.games.play.MemoryGame
 import fr.but.sae2024.edukid.views.games.play.PlayWithSoundGame
 import fr.but.sae2024.edukid.views.games.play.WordWithHoleGame
-import fr.but.sae2024.edukid.views.resultsgame.ResultGameActivity
+import fr.but.sae2024.edukid.views.resultsGame.ResultGameActivity
 import fr.but.sae2024.edukid.views.statistics.StatisticActivity
 import fr.but.sae2024.edukid.views.themes.ThemeSelectionActivity
 import fr.but.sae2024.edukid.views.users.edit.UserManagingActivity

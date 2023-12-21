@@ -1,7 +1,7 @@
 package fr.but.sae2024.edukid.repositories
 
 import fr.but.sae2024.edukid.database.DatabaseDatasource
-import fr.but.sae2024.edukid.models.app.User
+import fr.but.sae2024.edukid.models.entities.app.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

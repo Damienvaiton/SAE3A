@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
-import fr.but.sae2024.edukid.models.app.User
+import fr.but.sae2024.edukid.models.entities.app.User
 import timber.log.Timber
 
 class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<UserSelectionAdapter.UserSelectionViewHolder>() {
