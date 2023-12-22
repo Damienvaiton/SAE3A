@@ -7,127 +7,73 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".EdukidApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/icon_edukid"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_edukid_round"
-        android:enableOnBackInvokedCallback="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Edukid"
         tools:targetApi="34">
-
         <activity
-            android:name=".views.users.menu.UserSelectionActivity"
-            android:screenOrientation="portrait"
-            android:exported="true"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".views.themes.ThemeSelectionActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".views.statistics.StatisticActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".views.resultsGame.ResultGameActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".views.games.menu.GameSelectionActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".views.games.menu.SubGameSelectionActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".views.games.play.DrawOnItGame"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".views.games.play.MemoryGame"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".views.games.play.PlayWithSoundGame"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".views.games.play.WordWithHoleGame"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
-        <!--
-        <activity
-            android:name=".activities.LoadingPage"
-            android:screenOrientation="portrait"
+            android:name=".views.splashscreen.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".game.DrawOnIt"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".views.users.menu.UserSelectionActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name=".game.PlayWithSound"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".views.themes.ThemeSelectionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ResultGamePage"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".views.statistics.StatisticActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.UserResume"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".views.resultsGame.ResultGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.UserEdit"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".views.games.menu.GameSelectionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.StatisticPage"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".views.games.menu.SubGameSelectionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".game.WordWithHole"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".views.games.play.DrawOnItGame"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".game.Memory"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".views.games.play.MemoryGame"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.UserMenu"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:name=".views.games.play.PlayWithSoundGame"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ThemeMenu"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".activities.GameMenu"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SubGameMenu"
-            android:screenOrientation="portrait"
-            android:exported="false" />-->
+            android:name=".views.games.play.WordWithHoleGame"
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
+
 </manifest>

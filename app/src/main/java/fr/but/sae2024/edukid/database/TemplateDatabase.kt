@@ -7,20 +7,31 @@ import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.models.entities.app.Word
 import fr.but.sae2024.edukid.models.entities.games.Card
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 
 
-object DatabaseTemplate {
+object TemplateDatabase {
     private var db = EdukidDatabase.getInstance()
     private val themeLettres = "Lettres"
     val themeChiffres = "Chiffres"
 
 
-    suspend fun initDatabase(context: Context) {
-        createThemes()
-        createGames()
-        createSubGames()
-        createWords()
-        createCards(context)
+    suspend fun initDatabase(context: Context) : Flow<Boolean> = flow {
+        try{
+            createThemes()
+            createGames()
+            createSubGames()
+            createWords()
+            createCards(context)
+            emit(true)
+        } catch (e: Exception) {
+            Timber.e("Error in initDatabase : $e")
+            emit(false)
+        } finally {
+            Timber.i("initDatabase finished")
+        }
     }
 
     private suspend fun createThemes() {
