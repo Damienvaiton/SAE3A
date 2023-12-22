@@ -1,7 +1,7 @@
 package fr.but.sae2024.edukid.database
 
-import android.R
 import android.content.Context
+import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.app.Game
 import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.models.entities.app.Theme

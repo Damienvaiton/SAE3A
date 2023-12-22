@@ -7,19 +7,19 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "games_logs")
 data class GameLog(
 
-    @ColumnInfo(name = "game")
-    val game: Int,
+    @ColumnInfo(name = "game_id")
+    val gameId: Int,
 
-    @ColumnInfo(name = "subgame")
-    val subgame: Int? = null,
+    @ColumnInfo(name = "subgame_id")
+    val subgameId: Int? = null,
 
-    @ColumnInfo(name = "user")
-    val user: Int,
+    @ColumnInfo(name = "user_id")
+    val userId: Int,
 
     @ColumnInfo(name = "stars")
     val stars: Int,
 
-    @ColumnInfo(name = "diffuculty")
+    @ColumnInfo(name = "difficulty")
     val diffuculty: Int,
 
     @ColumnInfo(name = "ended_at")
