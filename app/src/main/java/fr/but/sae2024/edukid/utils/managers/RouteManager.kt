@@ -18,9 +18,9 @@ import fr.but.sae2024.edukid.views.users.menu.UserSelectionActivity
 import fr.but.sae2024.edukid.views.users.resume.UserDetailActivity
 import timber.log.Timber
 
-class RouteManager {
+object RouteManager {
 
-    public fun startActicity(context : Context, activityName: ActivityName, wantToFinish: Boolean, animation: Boolean){
+    fun startActicity(context : Context, activityName: ActivityName, wantToFinish: Boolean, animation: Boolean){
 
         when (activityName) {
 
@@ -84,7 +84,7 @@ class RouteManager {
         }
     }
 
-    public fun startGame(context : Context, gamesName: GameName, wantToFinish: Boolean, animation: Boolean) {
+    fun startGame(context : Context, gamesName: GameName, wantToFinish: Boolean, animation: Boolean) {
 
         when (gamesName) {
 

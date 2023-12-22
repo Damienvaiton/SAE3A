@@ -4,8 +4,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "memory_data")
-data class MemoryData (
+@Entity(tableName = "memory_data_card_cross_ref")
+data class MemoryDataCardCrossRef(
+
+    @PrimaryKey
+    @ColumnInfo(name = "card_value")
+    var cardValue : String,
 
     @PrimaryKey
     @ColumnInfo(name = "user_id")
@@ -19,15 +23,6 @@ data class MemoryData (
     @ColumnInfo(name = "subcategory")
     var subCategory : Int,
 
-    @ColumnInfo(name = "difficulty")
-    var difficulty : Int,
-
-    @ColumnInfo(name = "max_difficulty")
-    var maxDifficulty : Int,
-
-    @ColumnInfo(name = "win_streak")
-    var winStreak : Int,
-
-    @ColumnInfo(name = "lose_streak")
-    var loseStreak : Int,
+    @ColumnInfo(name = "used")
+    var used : Int,
 )
