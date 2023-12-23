@@ -4,18 +4,18 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "memory_data")
+@Entity(
+    tableName = "memory_data",
+    primaryKeys = ["user_id", "category", "subcategory"]
+)
 data class MemoryData (
 
-    @PrimaryKey
     @ColumnInfo(name = "user_id")
     var userId : Int,
 
-    @PrimaryKey
     @ColumnInfo(name = "category")
     var category : String,
 
-    @PrimaryKey
     @ColumnInfo(name = "subcategory")
     var subCategory : Int,
 

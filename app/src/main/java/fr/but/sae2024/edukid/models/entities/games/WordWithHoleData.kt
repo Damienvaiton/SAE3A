@@ -4,14 +4,15 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity (tableName = "word_with_hole_data")
+@Entity (
+    tableName = "word_with_hole_data",
+    primaryKeys = ["user_id", "result"]
+)
 data class WordWithHoleData(
 
-    @PrimaryKey
     @ColumnInfo(name = "user_id")
     var userId : Int,
 
-    @PrimaryKey
     @ColumnInfo(name = "result")
     var result : String,
 

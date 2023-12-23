@@ -10,10 +10,10 @@ import fr.but.sae2024.edukid.models.entities.games.Card
 @Dao
 interface CardDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertCard(memoryCard: Card?)
+    suspend fun insertCard(memoryCard: Card)
 
     @Update
-    suspend fun updateCard(memoryCard: Card?)
+    suspend fun updateCard(memoryCard: Card)
 
     @Query("SELECT * FROM cards WHERE value LIKE :cardValue")
     suspend fun getCard(cardValue: String?): Card?

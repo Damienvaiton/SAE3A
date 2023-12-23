@@ -10,10 +10,10 @@ import fr.but.sae2024.edukid.models.entities.games.MemoryData
 @Dao
 interface MemoryDataDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertMemoryData(memoryData: MemoryData?)
+    suspend fun insertMemoryData(memoryData: MemoryData)
 
     @Update
-    suspend fun updateMemoryData(memoryData: MemoryData?)
+    suspend fun updateMemoryData(memoryData: MemoryData)
 
     @Query("SELECT * FROM memory_data WHERE user_id = :userId AND category LIKE :category AND subcategory = :subCategory")
     suspend fun getMemoryData(userId: Int, category: String?, subCategory: Int): MemoryData?

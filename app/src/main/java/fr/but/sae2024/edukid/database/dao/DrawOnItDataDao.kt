@@ -10,10 +10,10 @@ import fr.but.sae2024.edukid.models.entities.games.DrawOnItData
 @Dao
 interface DrawOnItDataDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertDOIData(drawOnItData: DrawOnItData?)
+    suspend fun insertDOIData(drawOnItData: DrawOnItData)
 
     @Update
-    suspend fun updateDOIData(drawOnItData: DrawOnItData?)
+    suspend fun updateDOIData(drawOnItData: DrawOnItData)
 
     @Query("UPDATE draw_on_it SET last_used = 0 WHERE user_id = :userId")
     suspend fun updateAllDOIDataLastUsed(userId: Int)

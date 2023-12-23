@@ -40,7 +40,7 @@ interface UserDao {
     suspend fun getUserImageMaxInt(): String?
 
     @Update
-    suspend fun updateUser(user: User?)
+    suspend fun updateUser(user: User)
 
     @Query("DELETE FROM users WHERE id = :userId")
     suspend fun deleteUserById(userId: Int)

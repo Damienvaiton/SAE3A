@@ -2,10 +2,10 @@ package fr.but.sae2024.edukid.models
 
 class DataSymbol {
 
-    var pts = ArrayList<Point>()
-    var nbTrait = ArrayList<ArrayList<Int>>()
+    private var pts : ArrayList<Point> = arrayListOf()
+    private var nbTrait : ArrayList<ArrayList<Int>> = arrayListOf()
 
-    fun getPts(): ArrayList<Point>? {
+    fun getPts(): ArrayList<Point> {
         return pts
     }
 
@@ -164,7 +164,7 @@ class DataSymbol {
         }
     }
 
-    fun getNbTrait(): ArrayList<ArrayList<Int>>? {
+    fun getNbTrait(): ArrayList<ArrayList<Int>> {
         return nbTrait
     }
 }

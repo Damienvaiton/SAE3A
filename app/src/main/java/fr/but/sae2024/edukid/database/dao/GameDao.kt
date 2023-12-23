@@ -10,28 +10,28 @@ import fr.but.sae2024.edukid.models.entities.app.Game
 @Dao
 interface GameDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertGame(game: Game?)
+    suspend fun insertGame(game: Game)
 
     @Query("SELECT * FROM games")
-    suspend fun getAllGames(): List<Game?>
+    suspend fun getAllGames(): List<Game>
 
     @Query("SELECT * FROM games WHERE theme = :themeName")
-    suspend fun getAllGamesByTheme(themeName: String?): List<Game?>?
+    suspend fun getAllGamesByTheme(themeName: String): List<Game>
 
     @Query("SELECT * FROM games WHERE id = :gameId")
-    suspend fun getGameById(gameId: Int): Game?
+    suspend fun getGameById(gameId: Int): Game
 
     @Query("SELECT name FROM games WHERE id = :gameId")
-    suspend fun getGameNameByGameId(gameId: Int): String?
+    suspend fun getGameNameByGameId(gameId: Int): String
 
     @Query("SELECT theme FROM games WHERE id = :gameId")
-    suspend fun getThemeByGameId(gameId: Int): String?
+    suspend fun getThemeByGameId(gameId: Int): String
 
     @Query("SELECT id FROM games WHERE name = :gameName AND theme = :themeName")
-    suspend fun getGameId(gameName: String?, themeName: String?): Int
+    suspend fun getGameId(gameName: String, themeName: String): Int
 
     @Update
-    suspend fun updateGame(game: Game?)
+    suspend fun updateGame(game: Game)
 
     @Query("DELETE FROM games WHERE id = :gameId")
     suspend fun deleteGameById(gameId: Int)

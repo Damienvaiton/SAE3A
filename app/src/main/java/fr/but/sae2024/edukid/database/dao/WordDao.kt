@@ -9,7 +9,7 @@ import fr.but.sae2024.edukid.models.entities.app.Word
 @Dao
 interface WordDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertWord(word: Word?)
+    suspend fun insertWord(word: Word)
 
     @Query("SELECT * FROM words")
     suspend fun getAllWords(): List<Word?>?

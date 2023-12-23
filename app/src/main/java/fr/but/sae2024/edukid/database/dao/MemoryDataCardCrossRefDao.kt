@@ -10,10 +10,10 @@ import fr.but.sae2024.edukid.models.entities.games.MemoryDataCardCrossRef
 @Dao
 interface MemoryDataCardCrossRefDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertMemoryDataCard(memoryDataCardCrossRef: MemoryDataCardCrossRef?)
+    suspend fun insertMemoryDataCard(memoryDataCardCrossRef: MemoryDataCardCrossRef)
 
     @Update
-    suspend fun updateMemoryDataCard(memoryDataCardCrossRef: MemoryDataCardCrossRef?)
+    suspend fun updateMemoryDataCard(memoryDataCardCrossRef: MemoryDataCardCrossRef)
 
     @Query("SELECT * FROM memory_data_card_cross_ref WHERE user_id = :userId AND category LIKE :category AND subcategory = :subCategory AND card_value LIKE :cardValue")
     suspend fun getMemoryDataCard(

@@ -4,14 +4,15 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "draw_on_it")
+@Entity(
+    tableName = "draw_on_it",
+    primaryKeys = ["user_id", "draw"]
+)
 data class DrawOnItData(
 
-    @PrimaryKey
     @ColumnInfo(name = "user_id")
     val userId : Int,
 
-    @PrimaryKey
     @ColumnInfo(name = "draw")
     val draw : String,
 

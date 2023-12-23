@@ -17,6 +17,7 @@ import fr.but.sae2024.edukid.database.dao.SubgameDao
 import fr.but.sae2024.edukid.database.dao.UserDao
 import fr.but.sae2024.edukid.database.dao.WordDao
 import fr.but.sae2024.edukid.database.dao.WordWithHoleDataDao
+import fr.but.sae2024.edukid.models.entities.app.Game
 import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.models.entities.app.User
@@ -31,6 +32,7 @@ import fr.but.sae2024.edukid.models.entities.logs.GameLog
 import fr.but.sae2024.edukid.utils.managers.ConverterManager
 
 @Database(entities = [
+    Game::class,
     User::class,
     Theme::class,
     Subgame::class,

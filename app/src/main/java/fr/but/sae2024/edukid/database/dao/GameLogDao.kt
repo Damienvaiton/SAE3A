@@ -13,19 +13,19 @@ import fr.but.sae2024.edukid.models.entities.logs.GameLog
 interface GameLogDao {
     //GAME LOG
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertGameLog(gameLog: GameLog?)
+    suspend fun insertGameLog(gameLog: GameLog)
 
     @Query("SELECT * FROM games_logs WHERE user_id = :userId")
     suspend fun getAllGameLogByUserId(userId: Int): List<GameLog?>
 
     @Query("SELECT * FROM games_logs WHERE user_id = :userId ORDER BY ended_at DESC LIMIT 60")
-    suspend fun getAllGameLogByUserLimit(userId: Int): List<GameLog?>?
+    suspend fun getAllGameLogByUserLimit(userId: Int): List<GameLog>
 
     @Query("SELECT l.* FROM games_logs  AS l NATURAL JOIN games AS g WHERE l.user_id = :userId AND g.theme LIKE :themeName ORDER BY ended_at DESC LIMIT 60")
-    suspend fun getAllGameLogByUserLimitByTheme(userId: Int, themeName: String?): List<GameLog?>?
+    suspend fun getAllGameLogByUserLimitByTheme(userId: Int, themeName: String?): List<GameLog>
 
     @Query("SELECT * FROM games_logs WHERE user_id = :userId AND ended_at >= :minTime")
-    suspend fun getAllGameLogAfterTime(userId: Int, minTime: Long): List<GameLog?>?
+    suspend fun getAllGameLogAfterTime(userId: Int, minTime: Long): List<GameLog>
 
     @Query("SELECT l.* FROM games_logs as l NATURAL JOIN games AS g WHERE l.user_id = :userId AND g.theme LIKE :themeName AND l.ended_at >= :minTime")
     suspend fun getAllGameLogAfterTimeByTheme(
@@ -56,13 +56,13 @@ interface GameLogDao {
     suspend fun getAllGameLogBySubGame(userId: Int, gameId: Int, subGameId: Int): List<GameLog?>?
 
     @Query("SELECT g.* FROM games AS g NATURAL JOIN games_logs AS l WHERE l.user_id = :userId AND g.id = l.game_id AND g.theme LIKE :themeName GROUP BY g.id")
-    suspend fun getAllGamePlayed(userId: Int, themeName: String?): List<Game?>?
+    suspend fun getAllGamePlayed(userId: Int, themeName: String?): List<Game>
 
     @Query("SELECT s.* FROM subgames AS s NATURAL JOIN games_logs AS l WHERE l.user_id = :userId AND l.game_id = :gameId AND s.game_id = l.game_id GROUP BY s.id")
-    suspend fun getAllSubGamePlayed(userId: Int, gameId: Int): List<Subgame?>?
+    suspend fun getAllSubGamePlayed(userId: Int, gameId: Int): List<Subgame>
 
     @Query("SELECT avg(stars) FROM games_logs WHERE user_id = :userId AND game_id = :gameId AND difficulty = :difficulty")
-    suspend fun getGameAvgByGameIdAndDifficulty(userId: Int, gameId: Int, difficulty: Int): Float?
+    suspend fun getGameAvgByGameIdAndDifficulty(userId: Int, gameId: Int, difficulty: Int): Float
 
     @Query("SELECT avg(stars) FROM games_logs AS l NATURAL JOIN subgames AS s WHERE l.user_id = :userId AND l.game_id = :gameId AND l.game_id = s.game_id AND l.subgame_id = :subGameId AND l.difficulty = :difficulty")
     suspend fun getGameAvgBySubGameIdAndDifficulty(
@@ -70,7 +70,7 @@ interface GameLogDao {
         gameId: Int,
         subGameId: Int,
         difficulty: Int
-    ): Float?
+    ): Float
 
     suspend fun tabGameLogIsEmpty(userId: Int): Boolean {
         return getAllGameLogByUserId(userId).isEmpty()

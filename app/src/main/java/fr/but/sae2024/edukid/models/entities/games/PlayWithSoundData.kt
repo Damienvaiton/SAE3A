@@ -4,14 +4,15 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity (tableName = "play_with_sound_data")
+@Entity (
+        tableName = "play_with_sound_data",
+        primaryKeys = ["user_id", "result"]
+)
 data class PlayWithSoundData (
 
-        @PrimaryKey
         @ColumnInfo(name = "user_id")
         var userId : Int,
 
-        @PrimaryKey
         @ColumnInfo(name = "result")
         var result : String,
 

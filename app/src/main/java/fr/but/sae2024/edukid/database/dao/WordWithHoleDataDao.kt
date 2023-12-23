@@ -10,10 +10,10 @@ import fr.but.sae2024.edukid.models.entities.games.WordWithHoleData
 @Dao
 interface WordWithHoleDataDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertWWHData(wordWithHoleStats: WordWithHoleData?)
+    suspend fun insertWWHData(wordWithHoleStats: WordWithHoleData)
 
     @Update
-    suspend fun updateWWHData(wordWithHoleStats: WordWithHoleData?)
+    suspend fun updateWWHData(wordWithHoleStats: WordWithHoleData)
 
     @Query("UPDATE word_with_hole_data SET last_used = 0 WHERE user_id = :userId AND last_used = 1")
     suspend fun updateAllWWHDataLastUsed(userId: Int)

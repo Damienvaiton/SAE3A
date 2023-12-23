@@ -19,6 +19,7 @@ object TemplateDatabase {
 
 
     suspend fun initDatabase(context: Context) : Flow<Boolean> = flow {
+        db  = EdukidDatabase.getInstance()
         try{
             createThemes()
             createGames()

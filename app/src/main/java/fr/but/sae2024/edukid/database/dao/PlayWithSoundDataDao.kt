@@ -12,10 +12,10 @@ import fr.but.sae2024.edukid.models.entities.games.PlayWithSoundData
 @Dao
 interface PlayWithSoundDataDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertPWSData(playWithSoundData: PlayWithSoundData?)
+    suspend fun insertPWSData(playWithSoundData: PlayWithSoundData)
 
     @Update
-    suspend fun updatePWSData(playWithSoundData: PlayWithSoundData?)
+    suspend fun updatePWSData(playWithSoundData: PlayWithSoundData)
 
     @Query("UPDATE play_with_sound_data SET last_used = 0 WHERE user_id = :userId AND last_used = 1")
     suspend fun updateAllPWSDataLastUsed(userId: Int)
