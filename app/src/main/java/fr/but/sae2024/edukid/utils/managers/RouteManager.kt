@@ -15,10 +15,10 @@ import fr.but.sae2024.edukid.views.statistics.StatisticActivity
 import fr.but.sae2024.edukid.views.themes.ThemeSelectionActivity
 import fr.but.sae2024.edukid.views.users.edit.UserManagingActivity
 import fr.but.sae2024.edukid.views.users.menu.UserSelectionActivity
-import fr.but.sae2024.edukid.views.users.resume.UserDetailActivity
+import fr.but.sae2024.edukid.views.users.resume.UserAddActivity
 import timber.log.Timber
 
-class RouteManager {
+object RouteManager {
 
     public fun startActicity(context : Context, activityName: ActivityName, wantToFinish: Boolean, animation: Boolean){
 
@@ -62,7 +62,7 @@ class RouteManager {
             ActivityName.UserDetailActivity -> context.startActivity(
                 Intent().setClass(
                     context,
-                    UserDetailActivity::class.java
+                    UserAddActivity::class.java
                 )
             )
 
