@@ -2,12 +2,12 @@ package fr.but.sae2024.edukid.views.splashscreen
 
 import android.animation.Animator
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import androidx.appcompat.app.AppCompatActivity
 import fr.but.sae2024.edukid.R
 
 @SuppressLint("CustomSplashScreen")

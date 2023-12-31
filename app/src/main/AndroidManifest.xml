@@ -39,6 +39,10 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name=".views.users.resume.UserAddActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".views.themes.ThemeSelectionActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

@@ -1,5 +1,6 @@
 package fr.but.sae2024.edukid.views.users
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -66,10 +67,11 @@ class UserViewModel : ViewModel() {
             }
         }
 
-    fun getListUser() {
+    fun getListUser(context : Context){
         viewModelScope.launch {
             userRepo.getAllUsers()
                 .collect {
+
                     _listUserLiveData.postValue(it)
                 }
         }

@@ -35,7 +35,7 @@ class UserSelectionActivity : AppCompatActivity() {
             userRv.setHasFixedSize(true)
 
         }
-        userViewModel.getListUser()
+        userViewModel.getListUser(applicationContext)
     }
 
 

@@ -16,4 +16,8 @@ object DatabaseDatasource {
     suspend fun getAllUsers(): List<User> {
         return EdukidDatabase.getInstance().userDao().getAllUsers()
     }
+
+    suspend fun IsUserEmpty(): Boolean {
+        return EdukidDatabase.getInstance().userDao().tabUserIsEmpty()
+    }
 }
