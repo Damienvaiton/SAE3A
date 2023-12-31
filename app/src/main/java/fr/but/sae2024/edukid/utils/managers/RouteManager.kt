@@ -26,7 +26,7 @@ import timber.log.Timber
 
 object RouteManager {
 
-    fun startActicity(context : Context, activityName: ActivityName, wantToFinish: Boolean = true, animation: Boolean = false) {
+    fun startActivity(context : Context, activityName: ActivityName, wantToFinish: Boolean = true, animation: Boolean = false) {
 
         if (animation) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -69,9 +69,9 @@ object RouteManager {
                 )
             }
 
-            ActivityName.UserDetailActivity -> {
+            ActivityName.UserAddActivity -> {
                 context.startActivity(
-                    Intent(context, UserDetailActivity::class.java)
+                    Intent(context, UserAddActivity::class.java)
                 )
             }
 
