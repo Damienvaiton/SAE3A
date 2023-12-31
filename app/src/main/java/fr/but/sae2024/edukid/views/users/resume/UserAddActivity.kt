@@ -23,6 +23,10 @@ class UserAddActivity : AppCompatActivity()  {
 
         val username = findViewById<TextInputEditText>(R.id.textField_userName)
         val validateButton = findViewById<Button>(R.id.buttonValider_userEditPage)
+        val cancelButton = findViewById<Button>(R.id.buttonCancel_userEditPage)
+
+        cancelButton.visibility = Button.GONE
+
         validateButton.setOnClickListener {
             userViewModel.createUserChild(username.text.toString(), this)
             RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
