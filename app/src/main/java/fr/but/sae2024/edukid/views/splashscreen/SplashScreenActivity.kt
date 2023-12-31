@@ -1,6 +1,5 @@
 package fr.but.sae2024.edukid.views.splashscreen
 
-import android.animation.Animator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View

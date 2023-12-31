@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.but.sae2024.edukid.database.EdukidDatabase
-import fr.but.sae2024.edukid.database.dao.UserDao
 import fr.but.sae2024.edukid.models.entities.app.User
 import fr.but.sae2024.edukid.repositories.UserRepository
 import kotlinx.coroutines.launch
@@ -13,9 +12,6 @@ import kotlinx.coroutines.launch
 class UserViewModel : ViewModel() {
 
     val db = EdukidDatabase.getInstance()
-    val userDao: UserDao = db.userDao()
-
-
 
     private val _listUserLiveData : MutableLiveData<List<User>> = MutableLiveData<List<User>>()
     val listUserLiveData : MutableLiveData<List<User>> = _listUserLiveData
@@ -49,7 +45,4 @@ class UserViewModel : ViewModel() {
             userRepo.deleteUser(user)
         }
     }
-
-
-
 }

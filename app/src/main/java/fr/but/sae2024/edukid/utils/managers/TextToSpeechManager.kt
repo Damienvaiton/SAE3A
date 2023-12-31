@@ -1,7 +1,6 @@
 package fr.but.sae2024.edukid.utils.managers
 
 import android.content.Context
-import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.speech.tts.Voice
 import timber.log.Timber
