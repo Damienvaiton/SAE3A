@@ -9,8 +9,8 @@ data class Subgame(
     @ColumnInfo(name = "name")
     val name: String,
 
-    @ColumnInfo(name = "game")
-    val game: Int,
+    @ColumnInfo(name = "game_id")
+    val gameId: Int,
 
     @ColumnInfo(name = "image")
     val image: Int? = null,

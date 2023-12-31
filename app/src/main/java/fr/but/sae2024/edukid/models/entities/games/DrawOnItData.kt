@@ -2,15 +2,16 @@ package fr.but.sae2024.edukid.models.entities.games
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "draw_on_it",
-    primaryKeys = ["user", "draw"]
+    primaryKeys = ["user_id", "draw"]
 )
 data class DrawOnItData(
 
-    @ColumnInfo(name = "user")
-    val user : Int,
+    @ColumnInfo(name = "user_id")
+    val userId : Int,
 
     @ColumnInfo(name = "draw")
     val draw : String,
