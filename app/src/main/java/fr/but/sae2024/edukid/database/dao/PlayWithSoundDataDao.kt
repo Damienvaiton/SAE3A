@@ -1,7 +1,5 @@
 package fr.but.sae2024.edukid.database.dao
 
-import android.os.Build
-import android.support.annotation.RequiresApi
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy

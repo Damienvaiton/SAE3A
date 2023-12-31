@@ -7,13 +7,14 @@ plugins {
 android {
     namespace = "fr.but.sae2024.edukid"
     compileSdk = 34
+    buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId = "fr.but.sae2024.edukid"
-        minSdk = 24
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,6 +51,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
+
 
     //SplashScreen
     implementation("androidx.core:core-splashscreen:1.0.1")
