@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.speech.tts.Voice
+import timber.log.Timber
 import java.util.Locale
 
 
@@ -42,6 +43,9 @@ object TextToSpeechManager {
                         textToSpeech!!.setVoice(tmpVoice)
                     }
                 }
+            } else {
+                textToSpeech = null
+                Timber.e("Error in initialiser %s", status)
             }
         }
     }
