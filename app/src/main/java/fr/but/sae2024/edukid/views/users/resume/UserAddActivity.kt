@@ -54,6 +54,9 @@ class UserAddActivity : AppCompatActivity()  {
         }
 
         validateButton.setOnClickListener {
+            if (pictureURI == "") {
+                pictureURI = "android.resource://fr.but.sae2024.edukid/drawable/profil1"
+            }
             userViewModel.createUserChild(username.text.toString(), pictureURI , this)
             RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
         }
