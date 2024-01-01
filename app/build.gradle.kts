@@ -53,6 +53,14 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 
+    // Activity
+    implementation("androidx.activity:activity-ktx:1.8.2")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
+
+
 
     //SplashScreen
     implementation("androidx.core:core-splashscreen:1.0.1")

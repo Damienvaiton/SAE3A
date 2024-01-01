@@ -7,13 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import fr.but.sae2024.edukid.database.dao.CardDao
 import fr.but.sae2024.edukid.database.dao.DrawOnItDataDao
-import fr.but.sae2024.edukid.database.dao.ThemeDao
 import fr.but.sae2024.edukid.database.dao.GameDao
 import fr.but.sae2024.edukid.database.dao.GameLogDao
 import fr.but.sae2024.edukid.database.dao.MemoryDataCardCrossRefDao
 import fr.but.sae2024.edukid.database.dao.MemoryDataDao
 import fr.but.sae2024.edukid.database.dao.PlayWithSoundDataDao
 import fr.but.sae2024.edukid.database.dao.SubgameDao
+import fr.but.sae2024.edukid.database.dao.ThemeDao
 import fr.but.sae2024.edukid.database.dao.UserDao
 import fr.but.sae2024.edukid.database.dao.WordDao
 import fr.but.sae2024.edukid.database.dao.WordWithHoleDataDao
@@ -43,8 +43,7 @@ import fr.but.sae2024.edukid.utils.managers.ConverterManager
     MemoryDataCardCrossRef::class,
     PlayWithSoundData::class,
     WordWithHoleData::class,
-    GameLog::class
-                     ], version = 1)
+    GameLog::class], version = 1)
 @TypeConverters(ConverterManager::class)
 abstract class EdukidDatabase : RoomDatabase() {
 

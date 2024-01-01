@@ -1,12 +1,13 @@
 package fr.but.sae2024.edukid.views.users.menu
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
+import fr.but.sae2024.edukid.utils.enums.ActivityName
+import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.views.users.UserViewModel
 import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
 import timber.log.Timber
@@ -46,16 +47,9 @@ class UserSelectionActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Exit")
-        builder.setMessage("Do you want to exit ?")
-        builder.setPositiveButton("Yes") { dialog, which ->
-            super.onBackPressed()
-        }
-        builder.setNegativeButton("No") { dialog, which ->
-            dialog.dismiss()
-        }
-        builder.show()
+        super.onBackPressed()
+        Timber.e("onBackPressed called")
+        RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
     }
 
     override fun onDestroy() {

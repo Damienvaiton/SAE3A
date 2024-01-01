@@ -18,8 +18,8 @@ class UserViewModel : ViewModel() {
 
     private val userRepo = UserRepository
 
-    fun createUserChild(username : String, context : Context){
-        val user = User(username)
+    fun createUserChild(username : String, picture : String, context : Context){
+        val user = User(username , "", "", picture, 0)
         insertUser(user)
     }
 
