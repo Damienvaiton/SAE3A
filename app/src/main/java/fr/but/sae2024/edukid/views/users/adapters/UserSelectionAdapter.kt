@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.app.User
 import timber.log.Timber
@@ -37,6 +38,10 @@ class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<Use
         val user = listUser[position]
 
         holder.username.text = user.username
+        Glide
+            .with(holder.itemView.context)
+            .load(user.picture)
+            .into(holder.profilPicture)
 
         Timber.tag("UserSelectionAdapter").e("Username : ${user.username}")
 

@@ -1,5 +1,6 @@
 package fr.but.sae2024.edukid.views.splashscreen
 
+import android.app.Activity
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +10,6 @@ import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.utils.managers.TextToSpeechManager
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class SplashScreenViewModel : ViewModel() {
 
@@ -23,11 +23,15 @@ class SplashScreenViewModel : ViewModel() {
                 if (success) {
                     chooseStartActivity(context)
                 } else {
-                    Timber.e("Error in initDatabase")
+                    if (context is Activity) {
+                        context.finishAffinity()
+                    }
                 }
             }
         }
     }
+
+
 
     fun chooseStartActivity(context : Context) {
         viewModelScope.launch {
