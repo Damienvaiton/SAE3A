@@ -17,7 +17,7 @@ import fr.but.sae2024.edukid.views.games.play.PlayWithSoundGame
 import fr.but.sae2024.edukid.views.games.play.WordWithHoleGame
 import fr.but.sae2024.edukid.views.resultsGame.ResultGameActivity
 import fr.but.sae2024.edukid.views.statistics.StatisticActivity
-import fr.but.sae2024.edukid.views.themes.ThemeSelectionActivity
+import fr.but.sae2024.edukid.views.themes.menu.ThemeSelectionActivity
 import fr.but.sae2024.edukid.views.users.edit.UserManagingActivity
 import fr.but.sae2024.edukid.views.users.menu.UserSelectionActivity
 import fr.but.sae2024.edukid.views.users.resume.UserAddActivity

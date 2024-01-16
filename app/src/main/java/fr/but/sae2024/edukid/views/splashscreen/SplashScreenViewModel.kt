@@ -36,9 +36,9 @@ class SplashScreenViewModel : ViewModel() {
     fun chooseStartActivity(context : Context) {
         viewModelScope.launch {
             if (user.IsUserEmpty()) {
-                RouteManager.startActivity(context, ActivityName.UserAddActivity, false, true)
+                RouteManager.startActivity(context, ActivityName.UserAddActivity, true, true)
             } else {
-                RouteManager.startActivity(context, ActivityName.UserSelectionActivity, false, true)
+                RouteManager.startActivity(context, ActivityName.UserSelectionActivity, true, true)
             }
         }
     }
