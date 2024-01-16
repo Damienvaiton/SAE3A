@@ -16,7 +16,6 @@ object UserRepository {
         database.deleteUser(user)
     }
 
-
      fun getAllUsers(): Flow<List<User>> = flow {
         emit(database.getAllUsers())
     }
