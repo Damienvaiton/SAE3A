@@ -53,6 +53,4 @@ object CacheDatasource {
     fun setSelectedSubGame(subgame : Subgame) {
         selectedSubGame = subgame
     }
-
-    
 }
