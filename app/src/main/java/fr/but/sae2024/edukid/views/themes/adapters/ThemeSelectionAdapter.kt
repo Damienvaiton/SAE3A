@@ -14,6 +14,9 @@ import fr.but.sae2024.edukid.models.entities.app.Theme
 
 class ThemeSelectionAdapter(val listTheme : List<Theme?>): RecyclerView.Adapter<ThemeSelectionAdapter.ThemeSelectionViewHolder>() {
 
+    private val _themeLD : MutableLiveData<Theme> = MutableLiveData()
+    val themeLD : LiveData<Theme> = _themeLD
+
     inner class ThemeSelectionViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview) {
         val themename = itemview.findViewById<TextView>(R.id.tv_title)
         val themePicture = itemview.findViewById<ImageView>(R.id.Iv_preview)
@@ -38,6 +41,11 @@ class ThemeSelectionAdapter(val listTheme : List<Theme?>): RecyclerView.Adapter<
             .with(holder.itemView.context)
             .load(theme.image)
             .into(holder.themePicture)
+
+        holder.itemView.setOnClickListener {
+            _themeLD.postValue(theme!!)
+        }
+
     }
 
     override fun getItemCount(): Int {
