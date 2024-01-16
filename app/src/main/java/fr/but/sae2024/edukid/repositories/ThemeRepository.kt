@@ -16,8 +16,7 @@ object ThemeRepository {
 
     fun themeDefine(theme : Theme): Flow<Boolean> = flow {
         try {
-            //cache.setTheme(theme)
-            // faire les shared preferences
+            cache.setSelectedTheme(theme)
             emit(true)
         } catch (e: Exception) {
             emit(false)
