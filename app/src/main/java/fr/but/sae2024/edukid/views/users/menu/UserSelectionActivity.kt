@@ -1,13 +1,13 @@
 package fr.but.sae2024.edukid.views.users.menu
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
-import fr.but.sae2024.edukid.utils.enums.ActivityName
-import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.views.users.UserViewModel
 import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
 import timber.log.Timber
@@ -36,6 +36,10 @@ class UserSelectionActivity : AppCompatActivity() {
             userRv.setHasFixedSize(true)
 
         }
+
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
         userViewModel.getListUser(applicationContext)
     }
 
@@ -46,10 +50,19 @@ class UserSelectionActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Timber.e("onBackPressed called")
-        RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val builder = AlertDialog.Builder(this@UserSelectionActivity)
+            builder.setTitle("Quitter l'application")
+            builder.setMessage("Voulez-vous vraiment quitter l'application ?")
+            builder.setPositiveButton("Oui") { _, _ ->
+                finishAffinity()
+            }
+            builder.setNegativeButton("Non") { _, _ ->
+
+            }
+            builder.show()
+        }
     }
 
     override fun onDestroy() {

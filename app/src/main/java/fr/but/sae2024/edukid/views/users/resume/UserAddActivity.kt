@@ -3,10 +3,10 @@ package fr.but.sae2024.edukid.views.users.resume
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import fr.but.sae2024.edukid.R
@@ -48,6 +48,8 @@ class UserAddActivity : AppCompatActivity()  {
 
         cancelButton.visibility = Button.GONE
 
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
 
         importPictureButton.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -62,15 +64,9 @@ class UserAddActivity : AppCompatActivity()  {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        AlertDialog.Builder(this)
-            .setTitle("Attention")
-            .setMessage("Vous allez perdre les modifications non sauvegardées")
-            .setPositiveButton("Quitter") { _, _ ->
-                RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
-            }
-            .setNegativeButton("Rester") { _, _ -> }
-            .show()
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            RouteManager.startActivity(this@UserAddActivity, ActivityName.UserSelectionActivity, false, true)
+        }
     }
 }
