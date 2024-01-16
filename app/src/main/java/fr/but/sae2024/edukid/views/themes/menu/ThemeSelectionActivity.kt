@@ -22,11 +22,7 @@ class ThemeSelectionActivity() : AppCompatActivity() {
 
         val themeRv: RecyclerView = findViewById<RecyclerView>(R.id.rv_theme_selection_activity)
 
-
-
-
         themeViewModel.listThemeLiveData.observe(this) {
-
 
             val listTheme = it
             val adapter = ThemeSelectionAdapter(listTheme)
@@ -34,8 +30,14 @@ class ThemeSelectionActivity() : AppCompatActivity() {
             themeRv.layoutManager = LinearLayoutManager(this@ThemeSelectionActivity)
             themeRv.setHasFixedSize(true)
 
+            adapter.themeLD.observe(this) {
+                themeViewModel.themeDefine(it, this)
+            }
+
         }
-        themeViewModel.getListUser(applicationContext)
+        themeViewModel.getListTheme(applicationContext)
+
+
     }
 
 

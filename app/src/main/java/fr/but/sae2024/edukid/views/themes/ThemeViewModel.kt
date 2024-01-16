@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.repositories.ThemeRepository
+import fr.but.sae2024.edukid.utils.enums.ActivityName
+import fr.but.sae2024.edukid.utils.managers.RouteManager
 import kotlinx.coroutines.launch
 
 class ThemeViewModel: ViewModel(){
@@ -17,13 +19,23 @@ class ThemeViewModel: ViewModel(){
 
     private val themeRepo = ThemeRepository
 
-    fun getListUser(context : Context){
+    fun getListTheme(context : Context){
         viewModelScope.launch {
             themeRepo.getAllTheme()
                 .collect {
 
                     _listThemeLiveData.postValue(it)
                 }
+        }
+    }
+
+    fun themeDefine(theme : Theme, context: Context){
+        viewModelScope.launch {
+            themeRepo.themeDefine(theme).collect{
+                if(it){
+                    RouteManager.startActivity(context, ActivityName.UserSelectionActivity, true, true)
+                }
+            }
         }
     }
 }
