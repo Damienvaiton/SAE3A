@@ -4,19 +4,11 @@ import android.content.Context
 
 import android.content.SharedPreferences
 
-class MySharedPreferences {
+object MySharedPreferences {
 
     private val NAME = "MyPref"
     private var editor: SharedPreferences.Editor? = null
     private var sharedPreferences: SharedPreferences? = null
-    private var instance: MySharedPreferences? = null
-
-    fun getInstance(): MySharedPreferences? {
-        if (instance == null) {
-            instance = MySharedPreferences()
-        }
-        return instance
-    }
 
     fun sharedPreferences(context: Context) {
         if (sharedPreferences == null) sharedPreferences = context.getSharedPreferences(NAME, 0)
