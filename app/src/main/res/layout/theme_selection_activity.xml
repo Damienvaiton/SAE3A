@@ -7,7 +7,7 @@
     android:background="@android:color/transparent">
 
     <ScrollView
-        android:id="@+id/ScrollView"
+        android:id="@+id/ThemeScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alwaysDrawnWithCache="true"
