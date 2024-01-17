@@ -31,7 +31,7 @@ class ThemeViewModel: ViewModel(){
 
     fun themeDefine(theme : Theme, context: Context){
         viewModelScope.launch {
-            themeRepo.themeDefine(theme).collect{
+            themeRepo.setSelectedTheme(theme).collect{
                 if(it){
                     RouteManager.startActivity(context, ActivityName.UserSelectionActivity, true, true)
                 }
