@@ -10,21 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.app.Game
-import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
 import timber.log.Timber
 
 
-class GameSelectionAdapter(val listGame : List<Game>) : RecyclerView.Adapter<GameSelectionAdapter.GameSelectionViewHolder>() {
+class GameSelectionAdapter(val listGame : List<Game?>) : RecyclerView.Adapter<GameSelectionAdapter.GameSelectionViewHolder>() {
 
     inner class GameSelectionViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview) {
-        val gameName = itemview.findViewById<TextView>(R.id.gameName)
-        val gameImage = itemview.findViewById<ImageView>(R.id.gameImage)
-        val gameImageLock = itemview.findViewById<ImageView>(R.id.gameImageLock)
+        val gameName = itemview.findViewById<TextView>(R.id.tv_title)
+        val gameImage = itemview.findViewById<ImageView>(R.id.Iv_preview)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameSelectionViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val contactView = inflater.inflate(R.layout.item_game, parent, false)
+        val contactView = inflater.inflate(R.layout.theme_card_list_item, parent, false)
         return GameSelectionViewHolder(contactView)
     }
 
@@ -34,18 +32,13 @@ class GameSelectionAdapter(val listGame : List<Game>) : RecyclerView.Adapter<Gam
 
         val game = listGame[position]
 
-        holder.gameName.text = game.name
+        holder.gameName.text = game?.name
         Glide
             .with(holder.itemView.context)
-            .load(game.image)
+            .load(game?.image)
             .into(holder.gameImage)
 
-        Glide
-            .with(holder.itemView.context)
-            .load(game.image)
-            .into(holder.gameImageLock)
-
-        Timber.tag("GameSelectionAdapter").e("Game : ${game.name}")
+        Timber.tag("GameSelectionAdapter").e("Game : ${game?.name}")
     }
 
     override fun getItemCount(): Int {

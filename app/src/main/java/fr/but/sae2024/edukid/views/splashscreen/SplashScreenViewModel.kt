@@ -38,7 +38,7 @@ class SplashScreenViewModel : ViewModel() {
             if (user.IsUserEmpty()) {
                 RouteManager.startActivity(context, ActivityName.UserAddActivity, true, true)
             } else {
-                RouteManager.startActivity(context, ActivityName.UserSelectionActivity, true, true)
+                RouteManager.startActivity(context, ActivityName.ThemeSelectionActivity, true, true)
             }
         }
     }

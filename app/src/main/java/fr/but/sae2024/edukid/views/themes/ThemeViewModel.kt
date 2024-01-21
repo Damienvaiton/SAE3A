@@ -16,6 +16,7 @@ class ThemeViewModel: ViewModel(){
 
     private val _listThemeLiveData : MutableLiveData<List<Theme?>> = MutableLiveData<List<Theme?>>()
     val listThemeLiveData : MutableLiveData<List<Theme?>> = _listThemeLiveData
+    var selectedTheme : Theme? = null
 
     private val themeRepo = ThemeRepository
 
@@ -29,11 +30,21 @@ class ThemeViewModel: ViewModel(){
         }
     }
 
+    fun getSelectedTheme(context : Context){
+        viewModelScope.launch {
+            themeRepo.getSelectedTheme()
+                .collect {
+
+                    selectedTheme = it
+                }
+        }
+    }
+
     fun themeDefine(theme : Theme, context: Context){
         viewModelScope.launch {
             themeRepo.setSelectedTheme(theme).collect{
                 if(it){
-                    RouteManager.startActivity(context, ActivityName.UserSelectionActivity, true, true)
+                    RouteManager.startActivity(context, ActivityName.GameSelectionActivity, true, true)
                 }
             }
         }
