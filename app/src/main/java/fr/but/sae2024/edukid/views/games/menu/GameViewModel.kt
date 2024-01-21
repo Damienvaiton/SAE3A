@@ -41,11 +41,11 @@ class GameViewModel : ViewModel() {
         }
     }
 
-    fun themeDefine(game : Game, context: Context){
+    fun gameDefine(game : Game, context: Context){
         viewModelScope.launch {
             gameRepo.setSelectedGame(game).collect{
                 if(it){
-                    RouteManager.startActivity(context, ActivityName.UserSelectionActivity, true, true)
+                    RouteManager.startActivity(context, ActivityName.SubGameSelectionActivity, true, true)
                 }
             }
         }

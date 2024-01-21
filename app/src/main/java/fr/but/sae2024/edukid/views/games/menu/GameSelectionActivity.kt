@@ -28,6 +28,11 @@ class GameSelectionActivity : AppCompatActivity() {
             gameRV.adapter = adapter
             gameRV.layoutManager = LinearLayoutManager(this@GameSelectionActivity)
             gameRV.setHasFixedSize(true)
+
+            adapter.gameLD.observe(this) { game ->
+                gameViewModel.gameDefine(game, this)
+                Timber.tag("GameSelectionActivity").e("Game by the observe : ${game.name}")
+            }
         }
         val themeViewModel by viewModels<ThemeViewModel>()
         themeViewModel.getSelectedTheme(this)
@@ -44,7 +49,7 @@ class GameSelectionActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         Timber.e("onBackPressed called")
-        RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
+        RouteManager.startActivity(this, ActivityName.ThemeSelectionActivity, false, true)
     }
 
     override fun onDestroy() {
