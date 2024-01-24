@@ -34,10 +34,10 @@ class GameSelectionActivity : AppCompatActivity() {
                 Timber.tag("GameSelectionActivity").e("Game by the observe : ${game.name}")
             }
         }
+
         val themeViewModel by viewModels<ThemeViewModel>()
         themeViewModel.getSelectedTheme(this)
         gameViewModel.getAllGamesByTheme(themeViewModel.selectedTheme?.name.toString(), this)
-
     }
 
     override fun onStart() {

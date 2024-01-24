@@ -53,64 +53,54 @@ object TemplateDatabase {
     }
 
     private suspend fun createSubGames() {
-        if (db.subgameDao().tabSubGameIsEmpty()) {
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 1",
-                    db.gameDao().getGameId("Memory", themeLettres),
-                    R.drawable.memory_majuscule_majuscule
-                )
-            )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 2",
-                    db.gameDao().getGameId("Memory", themeLettres),
-                    R.drawable.memory_majuscule_majuscule_diff
-                )
-            )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 3",
-                    db.gameDao().getGameId("Memory", themeLettres),
-                    R.drawable.memory_majuscule_miniscule
-                )
-            )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 4",
-                    db.gameDao().getGameId("Memory", themeLettres),
-                    R.drawable.memory_majuscule_miniscule_diff
-                )
-            )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 1",
-                    db.gameDao().getGameId("Memory", themeChiffres),
-                    R.drawable.logo_memory_img_img
-                )
-            )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 2",
-                    db.gameDao().getGameId("Memory", themeChiffres),
-                    R.drawable.logo_memory_img_imgdiff
-                )
-            )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 3",
-                    db.gameDao().getGameId("Memory", themeChiffres),
-                    R.drawable.logo_memory_chiffre_chiffre
-                )
-            )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 4",
-                    db.gameDao().getGameId("Memory", themeChiffres),
-                    R.drawable.logo_memory_img_chiffre
-                )
-            )
-        }
+
+        insertSubgameIfNotExist(
+            "Niveau 1",
+            db.gameDao().getGameId("Memory", themeLettres),
+            R.drawable.memory_majuscule_majuscule
+        )
+
+        insertSubgameIfNotExist(
+            "Niveau 2",
+            db.gameDao().getGameId("Memory", themeLettres),
+            R.drawable.memory_majuscule_majuscule_diff
+        )
+
+        insertSubgameIfNotExist(
+            "Niveau 3",
+            db.gameDao().getGameId("Memory", themeLettres),
+            R.drawable.memory_majuscule_miniscule
+        )
+
+        insertSubgameIfNotExist(
+            "Niveau 4",
+            db.gameDao().getGameId("Memory", themeLettres),
+            R.drawable.memory_majuscule_miniscule_diff
+        )
+
+        insertSubgameIfNotExist(
+            "Niveau 1",
+            db.gameDao().getGameId("Memory", themeChiffres),
+            R.drawable.logo_memory_img_img
+        )
+
+        insertSubgameIfNotExist(
+            "Niveau 2",
+            db.gameDao().getGameId("Memory", themeChiffres),
+            R.drawable.logo_memory_img_imgdiff
+        )
+
+        insertSubgameIfNotExist(
+            "Niveau 3",
+            db.gameDao().getGameId("Memory", themeChiffres),
+            R.drawable.logo_memory_chiffre_chiffre
+        )
+
+        insertSubgameIfNotExist(
+            "Niveau 4",
+            db.gameDao().getGameId("Memory", themeChiffres),
+            R.drawable.logo_memory_img_chiffre
+        )
     }
 
     private suspend fun createWords() {
@@ -150,6 +140,12 @@ object TemplateDatabase {
         val alphabetList = context.resources.getStringArray(R.array.alphabet)
         for (i in alphabetList.indices) {
             db.cardDao().insertCard(Card(alphabetList[i], "Lettres", 0))
+        }
+    }
+
+    private suspend fun insertSubgameIfNotExist(name : String, gameId : Int, image : Int? = null) {
+        if (db.subgameDao().getSubGameByNameAndGame(gameId, name) == null) {
+            db.subgameDao().insertSubGame(Subgame(name, gameId, image))
         }
     }
 }
