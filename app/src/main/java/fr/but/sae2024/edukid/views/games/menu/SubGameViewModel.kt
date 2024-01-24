@@ -20,8 +20,11 @@ class SubGameViewModel : ViewModel(){
 
     private val _listSubGameLiveData : MutableLiveData<List<Subgame?>> = MutableLiveData<List<Subgame?>>()
     val listSubGameLiveData : MutableLiveData<List<Subgame?>> = _listSubGameLiveData
+
+    private val _selectedGame : MutableLiveData<Game> = MutableLiveData<Game>()
+    val selectedGame : MutableLiveData<Game> = _selectedGame
+
     var selectedSubGame : Subgame? = null
-    var selectedGame : Game? = null
 
     private val subGameRepo = SubgameRepository
     private val gameRepo = GameRepository
@@ -50,8 +53,8 @@ class SubGameViewModel : ViewModel(){
         viewModelScope.launch {
             gameRepo.getSelectedGame()
                 .collect {game ->
-                    selectedGame = game
-                    subGameRepo.getAllSubGamesByGame(selectedGame!!)
+                    selectedGame.postValue(game!!)
+                    subGameRepo.getAllSubGamesByGame(game)
                         .collect {listGame ->
                             _listSubGameLiveData.postValue(listGame)
                         }

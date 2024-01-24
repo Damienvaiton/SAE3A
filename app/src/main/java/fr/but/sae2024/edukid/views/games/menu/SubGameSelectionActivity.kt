@@ -1,6 +1,7 @@
 package fr.but.sae2024.edukid.views.games.menu
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ class SubGameSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sub_game_menu)
 
         val gameRV: RecyclerView = findViewById(R.id.recyclerview_sub_game)
+        val title: TextView = findViewById(R.id.title_subgameMenu)
 
         subGameViewModel.listSubGameLiveData.observe(this) { subGames ->
             val listSubGame = subGames
@@ -34,6 +36,11 @@ class SubGameSelectionActivity : AppCompatActivity() {
                 subGameViewModel.subGameDefine(subGame, this)
                 Timber.tag("SubGameSelectionActivity").e("SubGame by the observe : ${subGame.name}")
             }
+        }
+
+        subGameViewModel.selectedGame.observe(this) { game ->
+            title.text = game.name
+            Timber.tag("SubGameSelectionActivity").e("Game by the observe : ${game.name}")
         }
 
         subGameViewModel.getAllSubGamesByGame(this)
