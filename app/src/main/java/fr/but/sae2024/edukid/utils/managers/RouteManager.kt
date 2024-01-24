@@ -142,7 +142,6 @@ object RouteManager {
     }
 
     private fun stopAllSound() {
-        TextToSpeechManager.stop()
         MediaPlayerManager.stop()
     }
 }

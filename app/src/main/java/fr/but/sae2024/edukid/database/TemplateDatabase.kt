@@ -53,64 +53,62 @@ object TemplateDatabase {
     }
 
     private suspend fun createSubGames() {
-        if (db.subgameDao().tabSubGameIsEmpty()) {
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 1",
-                    db.gameDao().getGameId("Memory", themeLettres),
-                    R.drawable.memory_majuscule_majuscule
-                )
+        db.subgameDao().insertSubGame(
+            Subgame(
+                "Niveau 1",
+                db.gameDao().getGameId("Memory", themeLettres),
+                R.drawable.memory_majuscule_majuscule
             )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 2",
-                    db.gameDao().getGameId("Memory", themeLettres),
-                    R.drawable.memory_majuscule_majuscule_diff
-                )
+        )
+        db.subgameDao().insertSubGame(
+            Subgame(
+                "Niveau 2",
+                db.gameDao().getGameId("Memory", themeLettres),
+                R.drawable.memory_majuscule_majuscule_diff
             )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 3",
-                    db.gameDao().getGameId("Memory", themeLettres),
-                    R.drawable.memory_majuscule_miniscule
-                )
+        )
+        db.subgameDao().insertSubGame(
+            Subgame(
+                "Niveau 3",
+                db.gameDao().getGameId("Memory", themeLettres),
+                R.drawable.memory_majuscule_miniscule
             )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 4",
-                    db.gameDao().getGameId("Memory", themeLettres),
-                    R.drawable.memory_majuscule_miniscule_diff
-                )
+        )
+        db.subgameDao().insertSubGame(
+            Subgame(
+                "Niveau 4",
+                db.gameDao().getGameId("Memory", themeLettres),
+                R.drawable.memory_majuscule_miniscule_diff
             )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 1",
-                    db.gameDao().getGameId("Memory", themeChiffres),
-                    R.drawable.logo_memory_img_img
-                )
+        )
+        db.subgameDao().insertSubGame(
+            Subgame(
+                "Niveau 1",
+                db.gameDao().getGameId("Memory", themeChiffres),
+                R.drawable.logo_memory_img_img
             )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 2",
-                    db.gameDao().getGameId("Memory", themeChiffres),
-                    R.drawable.logo_memory_img_imgdiff
-                )
+        )
+        db.subgameDao().insertSubGame(
+            Subgame(
+                "Niveau 2",
+                db.gameDao().getGameId("Memory", themeChiffres),
+                R.drawable.logo_memory_img_imgdiff
             )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 3",
-                    db.gameDao().getGameId("Memory", themeChiffres),
-                    R.drawable.logo_memory_chiffre_chiffre
-                )
+        )
+        db.subgameDao().insertSubGame(
+            Subgame(
+                "Niveau 3",
+                db.gameDao().getGameId("Memory", themeChiffres),
+                R.drawable.logo_memory_chiffre_chiffre
             )
-            db.subgameDao().insertSubGame(
-                Subgame(
-                    "Niveau 4",
-                    db.gameDao().getGameId("Memory", themeChiffres),
-                    R.drawable.logo_memory_img_chiffre
-                )
+        )
+        db.subgameDao().insertSubGame(
+            Subgame(
+                "Niveau 4",
+                db.gameDao().getGameId("Memory", themeChiffres),
+                R.drawable.logo_memory_img_chiffre
             )
-        }
+        )
     }
 
     private suspend fun createWords() {
