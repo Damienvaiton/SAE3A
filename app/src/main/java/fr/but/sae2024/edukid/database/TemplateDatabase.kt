@@ -17,7 +17,6 @@ object TemplateDatabase {
     private val themeLettres = "Lettres"
     val themeChiffres = "Chiffres"
 
-
     suspend fun initDatabase(context: Context) : Flow<Boolean> = flow {
         db  = EdukidDatabase.getInstance()
         try{

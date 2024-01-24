@@ -17,7 +17,6 @@ class SplashScreenViewModel : ViewModel() {
     private val user = DatabaseDatasource
 
     fun initDatabase(context : Context) {
-        TextToSpeechManager.initialiser(context)
         viewModelScope.launch {
             template.initDatabase(context).collect {success ->
                 if (success) {

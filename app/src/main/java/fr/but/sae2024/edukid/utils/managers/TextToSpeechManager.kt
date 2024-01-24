@@ -8,53 +8,36 @@ import java.util.Locale
 
 
 object TextToSpeechManager {
+
     private var voice: Voice? = null
-    private var textToSpeech: TextToSpeech? = null
+    private lateinit var tts: TextToSpeech
+    private var isInitialized = false
 
-    /* A décommenter a la création de la classe PlayWithSound
-
-    fun speachText(context: Context, text: String) {
-        var text = text
-        if (text.contains("Y") || text.contains("y") && context.javaClass == PlayWithSound::class.java) text =
-            "Trouve la lettre igrec"
-        val finalText = text
-        textToSpeech = TextToSpeech(context) { status: Int ->
-            if (status != TextToSpeech.ERROR) {
-                textToSpeech!!.setLanguage(Locale.FRANCE)
-                if (voice != null) textToSpeech!!.setVoice(voice)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) textToSpeech!!.speak(
-                    finalText,
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    null
-                ) else textToSpeech!!.speak(finalText, TextToSpeech.QUEUE_FLUSH, null)
-            }
-        }
-    }*/
-
-    fun initialiser(context: Context?) {
-        textToSpeech = TextToSpeech(context) { status: Int ->
-            if (status != TextToSpeech.ERROR) {
-                textToSpeech!!.setLanguage(Locale.FRANCE)
-                for (tmpVoice in textToSpeech!!.voices) {
-                    if (tmpVoice.name == "fr-fr-x-fra-network") {
-                        voice = tmpVoice
-                        textToSpeech!!.setVoice(tmpVoice)
-                    }
-                }
+    fun init(context: Context) {
+        tts = TextToSpeech(context, TextToSpeech.OnInitListener {
+            if (it == TextToSpeech.SUCCESS) {
+                Timber.d("TextToSpeech initialized")
+                tts.language = Locale.FRENCH
+                tts.setSpeechRate(1.0f)
+                tts.setPitch(0.8f)
+                voice = tts.voices.find { voice -> voice.name == "fr-fr-x-afb#male_2-local" }
+                isInitialized = true
             } else {
-                textToSpeech = null
-                Timber.e("Error in initialiser %s", status)
+                Timber.e("TextToSpeech initialization failed")
             }
+        })
+    }
+
+    fun speak(text: String) {
+        if (isInitialized) {
+            tts.voice = voice
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+        } else {
+            Timber.e("TextToSpeech not initialized")
         }
     }
 
     fun stop() {
-        if (textToSpeech != null) {
-            textToSpeech!!.stop()
-            textToSpeech!!.shutdown()
-            textToSpeech = null
-        }
+        tts.stop()
     }
-
 }
