@@ -25,7 +25,7 @@ class ThemeSelectionAdapter(val listTheme : List<Theme?>): RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThemeSelectionViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val contactView = inflater.inflate(R.layout.theme_card_list_item, parent, false)
+        val contactView = inflater.inflate(R.layout.card_list_item_vertical, parent, false)
         return ThemeSelectionViewHolder(contactView)
     }
 

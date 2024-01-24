@@ -37,7 +37,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
                 android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/theme_card_list_item" />
+                tools:listitem="@layout/card_list_item_vertical" />
 
         </RelativeLayout>
     </ScrollView>

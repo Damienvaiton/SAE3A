@@ -25,7 +25,7 @@ class SubGameSelectionAdapter(val listSubGame : List<Subgame?>) : RecyclerView.A
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubGameSelectionViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val contactView = inflater.inflate(R.layout.theme_card_list_item, parent, false)
+        val contactView = inflater.inflate(R.layout.card_list_item_vertical, parent, false)
         return SubGameSelectionViewHolder(contactView)
     }
 

@@ -56,7 +56,7 @@ class SubGameSelectionActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         Timber.e("onBackPressed called")
-        RouteManager.startActivity(this, ActivityName.ThemeSelectionActivity, true, true)
+        RouteManager.startActivity(this, ActivityName.GameSelectionActivity, true, true)
     }
 
     override fun onDestroy() {
