@@ -1,6 +1,7 @@
 package fr.but.sae2024.edukid.views.users.menu
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
+import fr.but.sae2024.edukid.utils.enums.ActivityName
+import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.views.users.UserViewModel
 import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
 import timber.log.Timber
@@ -22,13 +25,12 @@ class UserSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.user_selection_activity)
 
         val userRv: RecyclerView = findViewById<RecyclerView>(R.id.recyclerview_users)
+        val addNewUserButton = findViewById<ImageView>(R.id.addUser)
 
 
 
 
         userViewModel.listUserLiveData.observe(this) {
-
-
             val listUser = it
             val adapter = UserSelectionAdapter(listUser)
             userRv.adapter = adapter
@@ -41,6 +43,11 @@ class UserSelectionActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
         userViewModel.getListUser(applicationContext)
+
+
+        addNewUserButton.setOnClickListener {
+            RouteManager.startActivity(this, ActivityName.UserAddActivity, false, true)
+        }
     }
 
 

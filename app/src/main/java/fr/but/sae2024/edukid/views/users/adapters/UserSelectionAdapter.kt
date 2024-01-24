@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.app.User
+import fr.but.sae2024.edukid.utils.enums.ActivityName
+import fr.but.sae2024.edukid.utils.managers.RouteManager
 import timber.log.Timber
 
 class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<UserSelectionAdapter.UserSelectionViewHolder>() {
+
 
     inner class UserSelectionViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview) {
         val username = itemview.findViewById<TextView>(R.id.userName)
@@ -52,6 +55,12 @@ class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<Use
 
 
         holder.paramPicture.setImageResource(R.drawable.settings_icon)
+
+        holder.itemView.setOnLongClickListener(View.OnLongClickListener {
+            RouteManager.startActivity(holder.itemView.context,
+                ActivityName.UserManagingActivity, false, true)
+            true
+        })
     }
 
     override fun getItemCount(): Int {
