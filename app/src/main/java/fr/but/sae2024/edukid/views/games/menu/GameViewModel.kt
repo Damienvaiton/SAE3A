@@ -51,15 +51,19 @@ class GameViewModel : ViewModel() {
                 gameRepo.setSelectedGame(game).collect {
                     if (it) {
                         vibrator.vibrate(context, 500)
-                        if (nbSubgame > 1)
+                        Timber.tag("GameViewModel").e("Nombre de Subgame : ${nbSubgame}")
+                        if (nbSubgame > 1) {
+                            Timber.tag("GameViewModel").e("Game by the observe : ${game.name}")
                             RouteManager.startActivity(
                                 context,
                                 ActivityName.SubGameSelectionActivity,
                                 true,
                                 true
                             )
-                        else
-                            Timber.tag("GameViewModel").e("Game by the observe : ${game.name}")
+                        }
+                        else {
+                            Timber.tag("GameViewModel").e("Pas de subgames pour : ${game.name}")
+                        }
                     }
                 }
             }
