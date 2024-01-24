@@ -17,7 +17,6 @@ class SplashScreenViewModel : ViewModel() {
     private val user = DatabaseDatasource
 
     fun initDatabase(context : Context) {
-        TextToSpeechManager.initialiser(context)
         viewModelScope.launch {
             template.initDatabase(context).collect {success ->
                 if (success) {
@@ -38,7 +37,7 @@ class SplashScreenViewModel : ViewModel() {
             if (user.IsUserEmpty()) {
                 RouteManager.startActivity(context, ActivityName.UserAddActivity, true, true)
             } else {
-                RouteManager.startActivity(context, ActivityName.UserSelectionActivity, true, true)
+                RouteManager.startActivity(context, ActivityName.ThemeSelectionActivity, true, true)
             }
         }
     }

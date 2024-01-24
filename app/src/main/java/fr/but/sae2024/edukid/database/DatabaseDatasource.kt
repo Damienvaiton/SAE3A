@@ -1,5 +1,6 @@
 package fr.but.sae2024.edukid.database
 
+import fr.but.sae2024.edukid.models.entities.app.Game
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.models.entities.app.User
 
@@ -26,6 +27,12 @@ object DatabaseDatasource {
         return EdukidDatabase.getInstance().themeDao().getAllThemes()
     }
 
+    suspend fun getAllGame(): List<Game?> {
+        return EdukidDatabase.getInstance().gameDao().getAllGames()
+    }
 
+    suspend fun getAllGamesByTheme(themeName: String): List<Game?> {
+        return EdukidDatabase.getInstance().gameDao().getAllGamesByTheme(themeName)
+    }
 
 }
