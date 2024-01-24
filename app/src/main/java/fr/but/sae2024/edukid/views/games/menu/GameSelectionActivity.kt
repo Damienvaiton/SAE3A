@@ -49,7 +49,7 @@ class GameSelectionActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         Timber.e("onBackPressed called")
-        RouteManager.startActivity(this, ActivityName.ThemeSelectionActivity, false, true)
+        RouteManager.startActivity(this, ActivityName.ThemeSelectionActivity, true, true)
     }
 
     override fun onDestroy() {
