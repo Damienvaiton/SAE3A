@@ -18,6 +18,7 @@ class GameViewModel : ViewModel() {
 
     private val _listGameLiveData : MutableLiveData<List<Game?>> = MutableLiveData<List<Game?>>()
     val listGameLiveData : MutableLiveData<List<Game?>> = _listGameLiveData
+    var selectedGame : Game? = null
 
     private val gameRepo = GameRepository
 
@@ -48,6 +49,17 @@ class GameViewModel : ViewModel() {
                     RouteManager.startActivity(context, ActivityName.SubGameSelectionActivity, true, true)
                 }
             }
+        }
+    }
+
+    fun getSelectedGame(context : Context){
+        viewModelScope.launch {
+            gameRepo.getSelectedGame()
+                .collect {
+
+                    selectedGame = it
+                }
+
         }
     }
 }
