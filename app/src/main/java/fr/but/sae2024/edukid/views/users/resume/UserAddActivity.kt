@@ -20,8 +20,7 @@ class UserAddActivity : AppCompatActivity()  {
 
     val userViewModel by viewModels<UserViewModel>()
 
-
-
+    var idPicture : Int = 1
 
 
 
@@ -55,9 +54,18 @@ class UserAddActivity : AppCompatActivity()  {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
+        picture.setOnClickListener(){
+            idPicture++
+            if (idPicture == 9) {
+                idPicture = 1
+            }
+            picture.setImageResource(resources.getIdentifier("profil$idPicture", "drawable", packageName))
+            Timber.tag("UserAddActivity").e("idPicture : $idPicture")
+        }
+
         validateButton.setOnClickListener {
             if (pictureURI == "") {
-                pictureURI = "android.resource://fr.but.sae2024.edukid/drawable/profil1"
+                pictureURI = "android.resource://fr.but.sae2024.edukid/drawable/profil$idPicture"
             }
             userViewModel.createUserChild(username.text.toString(), pictureURI , this)
             RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)

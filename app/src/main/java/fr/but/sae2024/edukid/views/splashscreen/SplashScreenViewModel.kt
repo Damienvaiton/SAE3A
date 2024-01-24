@@ -8,7 +8,6 @@ import fr.but.sae2024.edukid.database.DatabaseDatasource
 import fr.but.sae2024.edukid.database.TemplateDatabase
 import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
-import fr.but.sae2024.edukid.utils.managers.TextToSpeechManager
 import kotlinx.coroutines.launch
 
 class SplashScreenViewModel : ViewModel() {
@@ -37,7 +36,7 @@ class SplashScreenViewModel : ViewModel() {
             if (user.IsUserEmpty()) {
                 RouteManager.startActivity(context, ActivityName.UserAddActivity, true, true)
             } else {
-                RouteManager.startActivity(context, ActivityName.ThemeSelectionActivity, true, true)
+                RouteManager.startActivity(context, ActivityName.UserSelectionActivity, true, true)
             }
         }
     }

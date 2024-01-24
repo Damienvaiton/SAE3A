@@ -49,8 +49,6 @@ class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<Use
         Timber.tag("UserSelectionAdapter").e("Username : ${user.username}")
 
         Timber.tag("UserSelectionAdapter").e("J'entre dans la recherche de l'image")
-        val resourceId: Int = resources.getIdentifier("profil1", "drawable", holder.itemView.context.packageName)
-        holder.profilPicture.setImageDrawable(resources.getDrawable(resourceId,null))
         Timber.tag("UserSelectionAdapter").e("J'ai fini de chercher l'image")
 
 
