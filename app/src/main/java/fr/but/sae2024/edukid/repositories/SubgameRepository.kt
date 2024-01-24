@@ -25,7 +25,7 @@ object SubgameRepository {
         emit(cache.getSelectedSubGame())
     }
 
-    fun getAllSubGamesByGame(gameName: String): Flow<List<Subgame?>> = flow {
-        emit(database.getAllSubGamesByTheme(gameName))
+    fun getAllSubGamesByGame(game: Game): Flow<List<Subgame?>> = flow {
+        emit(database.getAllSubGamesByGame(game.id!!))
     }
 }

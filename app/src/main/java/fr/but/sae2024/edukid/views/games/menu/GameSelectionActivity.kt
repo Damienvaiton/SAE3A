@@ -35,9 +35,8 @@ class GameSelectionActivity : AppCompatActivity() {
             }
         }
 
-        val themeViewModel by viewModels<ThemeViewModel>()
-        themeViewModel.getSelectedTheme(this)
-        gameViewModel.getAllGamesByTheme(themeViewModel.selectedTheme?.name.toString(), this)
+
+        gameViewModel.getAllGamesByTheme(this)
     }
 
     override fun onStart() {

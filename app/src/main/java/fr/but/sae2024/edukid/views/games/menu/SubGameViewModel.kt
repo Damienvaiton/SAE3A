@@ -7,34 +7,30 @@ import androidx.lifecycle.viewModelScope
 import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.models.entities.app.Game
 import fr.but.sae2024.edukid.models.entities.app.Subgame
+import fr.but.sae2024.edukid.repositories.GameRepository
 import fr.but.sae2024.edukid.repositories.SubgameRepository
 import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
+import fr.but.sae2024.edukid.utils.managers.VibrateManager
 import kotlinx.coroutines.launch
 
 class SubGameViewModel : ViewModel(){
     val db = EdukidDatabase.getInstance()
+    val vibrator = VibrateManager
 
     private val _listSubGameLiveData : MutableLiveData<List<Subgame?>> = MutableLiveData<List<Subgame?>>()
     val listSubGameLiveData : MutableLiveData<List<Subgame?>> = _listSubGameLiveData
-    var selectedGame : Subgame? = null
+    var selectedSubGame : Subgame? = null
+    var selectedGame : Game? = null
 
     private val subGameRepo = SubgameRepository
-
-    fun getAllSubGame(SubGameName: String, context : Context){
-        viewModelScope.launch {
-            subGameRepo.getAllSubGamesByGame(SubGameName)
-                .collect {
-
-                    _listSubGameLiveData.postValue(it)
-                }
-        }
-    }
+    private val gameRepo = GameRepository
 
     fun subGameDefine(subGame : Subgame, context: Context){
         viewModelScope.launch {
             subGameRepo.setSelectedSubGame(subGame).collect{
                 if(it){
+                    vibrator.vibrate(context, 500)
                     RouteManager.startActivity(context, ActivityName.ThemeSelectionActivity, true, true)
                 }
             }
@@ -45,19 +41,20 @@ class SubGameViewModel : ViewModel(){
         viewModelScope.launch {
             subGameRepo.getSelectedSubGame()
                 .collect {
-
-                    selectedGame = it
+                    selectedSubGame = it
                 }
-
         }
     }
 
-    fun getAllSubGamesByGame(themeName: String, context : Context){
+    fun getAllSubGamesByGame(context : Context){
         viewModelScope.launch {
-            subGameRepo.getAllSubGamesByGame(themeName)
-                .collect {
-
-                    _listSubGameLiveData.postValue(it)
+            gameRepo.getSelectedGame()
+                .collect {game ->
+                    selectedGame = game
+                    subGameRepo.getAllSubGamesByGame(selectedGame!!)
+                        .collect {listGame ->
+                            _listSubGameLiveData.postValue(listGame)
+                        }
                 }
         }
     }

@@ -35,9 +35,8 @@ class SubGameSelectionActivity : AppCompatActivity() {
                 Timber.tag("SubGameSelectionActivity").e("SubGame by the observe : ${subGame.name}")
             }
         }
-        val gameViewModel by viewModels<GameViewModel>()
-        gameViewModel.getSelectedGame(this) // definie la variable selectedGame
-        subGameViewModel.getAllSubGamesByGame(gameViewModel.selectedGame?.name.toString(), this)
+
+        subGameViewModel.getAllSubGamesByGame(this)
 
     }
 

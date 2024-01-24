@@ -22,9 +22,10 @@ class GameViewModel : ViewModel() {
 
     private val _listGameLiveData : MutableLiveData<List<Game?>> = MutableLiveData<List<Game?>>()
     val listGameLiveData : MutableLiveData<List<Game?>> = _listGameLiveData
-    var selectedGame : Game? = null
+    var selectedTheme : Theme? = null
 
     private val gameRepo = GameRepository
+    private val themeRepo = ThemeRepository
 
     fun getAllGame(context : Context){
         viewModelScope.launch {
@@ -36,12 +37,17 @@ class GameViewModel : ViewModel() {
         }
     }
 
-    fun getAllGamesByTheme(themeName: String, context : Context){
+    fun getAllGamesByTheme(context : Context){
         viewModelScope.launch {
-            gameRepo.getAllGamesByTheme(themeName)
-                .collect {
+            themeRepo.getSelectedTheme()
+                .collect {  theme ->
 
-                    _listGameLiveData.postValue(it)
+                    selectedTheme = theme
+                    gameRepo.getAllGamesByTheme(selectedTheme!!.name)
+                        .collect {listGame ->
+
+                            _listGameLiveData.postValue(listGame)
+                        }
                 }
         }
     }
@@ -68,17 +74,6 @@ class GameViewModel : ViewModel() {
                     }
                 }
             }
-        }
-    }
-
-    fun getSelectedGame(context : Context){
-        viewModelScope.launch {
-            gameRepo.getSelectedGame()
-                .collect {
-
-                    selectedGame = it
-                }
-
         }
     }
 }

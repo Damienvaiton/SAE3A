@@ -18,7 +18,7 @@ class ThemeViewModel: ViewModel(){
 
     private val _listThemeLiveData : MutableLiveData<List<Theme?>> = MutableLiveData<List<Theme?>>()
     val listThemeLiveData : MutableLiveData<List<Theme?>> = _listThemeLiveData
-    var selectedTheme : Theme? = null
+
 
     private val themeRepo = ThemeRepository
 
@@ -28,16 +28,6 @@ class ThemeViewModel: ViewModel(){
                 .collect {
 
                     _listThemeLiveData.postValue(it)
-                }
-        }
-    }
-
-    fun getSelectedTheme(context : Context){
-        viewModelScope.launch {
-            themeRepo.getSelectedTheme()
-                .collect {
-
-                    selectedTheme = it
                 }
         }
     }
