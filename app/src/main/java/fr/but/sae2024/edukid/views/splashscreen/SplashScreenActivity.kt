@@ -1,7 +1,10 @@
 package fr.but.sae2024.edukid.views.splashscreen
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import androidx.activity.viewModels
 import com.daimajia.androidanimations.library.Techniques
@@ -17,7 +20,10 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+    }
 
+    override fun onStart() {
+        super.onStart()
         val applicationNameView = findViewById<View>(R.id.applicationName)
 
         // Créer une animation YoYo avec un listener
@@ -26,7 +32,9 @@ class SplashScreenActivity : AppCompatActivity() {
                 splashScreenViewModel.initDatabase(this@SplashScreenActivity)
             }
 
-        // Jouer l'animation
-        yoYoAnimator.playOn(applicationNameView)
+        // Commencer l'animation que quand le titre est affiché
+        applicationNameView.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            yoYoAnimator.playOn(applicationNameView)
+        }
     }
 }

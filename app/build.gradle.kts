@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "fr.but.sae2024.edukid"
     compileSdk = 34
-    buildToolsVersion = "30.0.3"
+    buildToolsVersion = "34.0.0"
 
     defaultConfig {
         applicationId = "fr.but.sae2024.edukid"
@@ -60,8 +60,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.12.0")
 
-
-
     //SplashScreen
     implementation("androidx.core:core-splashscreen:1.0.1")
 
@@ -93,9 +91,9 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // Graphique
-/*
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("com.kofigyan.stateprogressbar:stateprogressbar:1.0.0")*/
+
+    //implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.kofigyan.stateprogressbar:stateprogressbar:1.0.0")
     implementation("com.makeramen:roundedimageview:2.3.0")
 
     // Co Routine

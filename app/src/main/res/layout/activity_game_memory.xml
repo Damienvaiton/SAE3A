@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.games.play.MemoryGame">
+
+    <TextView
+        android:id="@+id/titleMemory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/magimt"
+        android:text="MEMORY"
+        android:textAlignment="center"
+        android:textColor="#00BCD4"
+        android:textSize="48sp" />
+
+    <TextView
+        android:id="@+id/labelDifficulty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:fontFamily="@font/magimt"
+        android:text="Difficulté :"
+        android:layout_below="@+id/titleMemory"
+        android:textColor="#708090"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="2dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarMemoryLock"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labelDifficulty"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:max="5"
+        android:progressBackgroundTint="#323232"
+        android:progressTint="#dddddd"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarMemory"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labelDifficulty"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:max="5"
+        android:progressBackgroundTint="#00FFFFFF"
+        android:progressTint="#00BCD4" />
+
+    <GridView
+        android:id="@+id/gridview_memory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/progressBarMemory"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="0dp"
+        android:listSelector="@android:color/transparent"
+        android:layout_marginBottom="0dp"
+        android:focusable="false"
+        android:clickable="false"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:stretchMode="columnWidth"/>
+</RelativeLayout>

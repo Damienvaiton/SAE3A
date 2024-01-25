@@ -6,8 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "subgames")
 data class Subgame(
+
+    @ColumnInfo(name = "num")
+    val num: Int,
+
     @ColumnInfo(name = "name")
-    val name: String,
+    val name: String = "Niveau $num",
 
     @ColumnInfo(name = "game_id")
     val gameId: Int,

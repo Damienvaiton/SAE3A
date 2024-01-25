@@ -1,6 +1,7 @@
 package fr.but.sae2024.edukid.database
 
 import fr.but.sae2024.edukid.models.entities.app.Game
+import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.models.entities.app.User
 
@@ -35,6 +36,8 @@ object DatabaseDatasource {
         return EdukidDatabase.getInstance().gameDao().getAllGamesByTheme(themeName)
     }
 
+    suspend fun getAllSubGamesByGame(gameId: Int): List<Subgame?> {
+        return EdukidDatabase.getInstance().subgameDao().getAllSubGamesByGame(gameId)
     suspend fun editUser(user: User) {
         return EdukidDatabase.getInstance().userDao().updateUser(user)
     }

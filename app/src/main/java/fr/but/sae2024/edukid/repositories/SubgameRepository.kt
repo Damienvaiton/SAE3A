@@ -12,7 +12,7 @@ object SubgameRepository {
     private val database = DatabaseDatasource
     private val cache = CacheDatasource
 
-    fun setSelectedSubgame(subgame : Subgame) : Flow<Boolean> = flow {
+    fun setSelectedSubGame(subgame : Subgame) : Flow<Boolean> = flow {
         try {
             cache.setSelectedSubGame(subgame)
             emit(true)
@@ -21,7 +21,11 @@ object SubgameRepository {
         }
     }
 
-    fun getSelectedSubgame(): Flow<Subgame?> = flow {
+    fun getSelectedSubGame(): Flow<Subgame?> = flow {
         emit(cache.getSelectedSubGame())
+    }
+
+    fun getAllSubGamesByGame(game: Game): Flow<List<Subgame?>> = flow {
+        emit(database.getAllSubGamesByGame(game.id!!))
     }
 }

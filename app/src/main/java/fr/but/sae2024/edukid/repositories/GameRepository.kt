@@ -3,6 +3,7 @@ package fr.but.sae2024.edukid.repositories
 import fr.but.sae2024.edukid.cache.CacheDatasource
 import fr.but.sae2024.edukid.database.DatabaseDatasource
 import fr.but.sae2024.edukid.models.entities.app.Game
+import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -31,5 +32,12 @@ object GameRepository {
 
     fun getSelectedGame(): Flow<Game?> = flow {
         emit(cache.getSelectedGame())
+    }
+
+    fun getNbSubGameByGame(gameId: Int): Flow<Int> = flow {
+        // Recuperer la liste de subgame pour ce gameid
+        val listSubGame = database.getAllSubGamesByGame(gameId)
+        // Retourner le nombre de subgame
+        emit(listSubGame.size)
     }
 }

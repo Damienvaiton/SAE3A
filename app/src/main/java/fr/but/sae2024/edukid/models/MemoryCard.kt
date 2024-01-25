@@ -1,7 +1,7 @@
 package fr.but.sae2024.edukid.models
 
 abstract class MemoryCard {
-    private var value: String? = null
+    var value: String? = null
 
     private var hidden = true
     private var nbReturn = 0

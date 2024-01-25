@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.app.Game
-import fr.but.sae2024.edukid.models.entities.app.Theme
 import timber.log.Timber
 
 
@@ -28,7 +27,7 @@ class GameSelectionAdapter(val listGame : List<Game?>) : RecyclerView.Adapter<Ga
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameSelectionViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val contactView = inflater.inflate(R.layout.theme_card_list_item, parent, false)
+        val contactView = inflater.inflate(R.layout.card_list_item_vertical, parent, false)
         return GameSelectionViewHolder(contactView)
     }
 

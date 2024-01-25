@@ -141,7 +141,7 @@ object RouteManager {
         this.stopAllSound();
     }
 
-    private fun stopAllSound() {
+    fun stopAllSound() {
         MediaPlayerManager.stop()
     }
 }
