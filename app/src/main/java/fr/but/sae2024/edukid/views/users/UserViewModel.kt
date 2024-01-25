@@ -10,19 +10,29 @@ import fr.but.sae2024.edukid.repositories.UserRepository
 import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class UserViewModel : ViewModel() {
 
     val db = EdukidDatabase.getInstance()
 
     private val _listUserLiveData : MutableLiveData<List<User>> = MutableLiveData<List<User>>()
+    private val _selectedUserLiveData : MutableLiveData<User?> = MutableLiveData<User?>()
     val listUserLiveData : MutableLiveData<List<User>> = _listUserLiveData
+    val selectedUserLiveData : MutableLiveData<User?> = _selectedUserLiveData
 
     private val userRepo = UserRepository
 
     fun createUserChild(username : String, picture : String, context : Context){
         val user = User(username , "", "", picture, 0)
         insertUser(user)
+    }
+
+    fun updateUserChild(id : Int, username : String, picture : String, context : Context){
+        val user = User(username , "", "", picture, 0)
+        Timber.tag("UserViewModel").e("User : ${user}")
+        user.id = id
+        updateUser(user, context)
     }
 
 
@@ -64,6 +74,24 @@ class UserViewModel : ViewModel() {
                 if(it){
                     RouteManager.startActivity(context, ActivityName.UserManagingActivity, true, true)
                 }
+            }
+        }
+    }
+
+    fun updateUser(user : User, context: Context){
+        viewModelScope.launch {
+            userRepo.editUser(user).collect{
+                if(it){
+                    RouteManager.startActivity(context, ActivityName.UserSelectionActivity, true, true)
+                }
+            }
+        }
+    }
+
+    fun getSelectedUser() {
+        viewModelScope.launch {
+            userRepo.getSelectedUser().collect {
+                _selectedUserLiveData.postValue(it)
             }
         }
     }

@@ -15,6 +15,15 @@ object UserRepository {
         database.insertUser(user)
     }
 
+    suspend fun editUser(user: User): Flow<Boolean> = flow {
+       try {
+              database.editUser(user)
+              emit(true)
+         } catch (e: Exception) {
+              emit(false)
+       }
+    }
+
     suspend fun deleteUser(user: User) {
         database.deleteUser(user)
     }

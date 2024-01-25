@@ -49,7 +49,16 @@ class UserSelectionActivity : AppCompatActivity() {
                         userViewModel.saveSelectedUser(user, this)
                     }
                     .setNegativeButton("Supprimer le user") { _, _ ->
-                        userViewModel.deleteUser(user)
+                        AlertDialog.Builder(this@UserSelectionActivity)
+                            .setTitle("Suppression d'utilisateur")
+                            .setMessage("Voulez-vous vraiment supprimer l'utilisateur "+user.username)
+                            .setPositiveButton("Oui") { _, _ ->
+                                userViewModel.deleteUser(user)
+                            }
+                            .setNegativeButton("Non") { _, _ ->
+
+                            }
+                            .show()
                     }
                     .show()
             }
