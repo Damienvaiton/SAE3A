@@ -54,6 +54,9 @@
             android:name=".views.themes.menu.ThemeSelectionActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity android:name=".views.users.edit.UserManagingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".views.statistics.StatisticActivity"
             android:exported="false"

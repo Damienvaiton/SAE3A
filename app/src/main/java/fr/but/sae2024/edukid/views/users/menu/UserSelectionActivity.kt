@@ -1,7 +1,10 @@
 package fr.but.sae2024.edukid.views.users.menu
 
 import android.os.Bundle
+import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,21 +25,47 @@ class UserSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.user_selection_activity)
 
         val userRv: RecyclerView = findViewById<RecyclerView>(R.id.recyclerview_users)
+        val addNewUserButton = findViewById<ImageView>(R.id.addUser)
 
 
 
 
         userViewModel.listUserLiveData.observe(this) {
-
-
             val listUser = it
             val adapter = UserSelectionAdapter(listUser)
             userRv.adapter = adapter
             userRv.layoutManager = LinearLayoutManager(this@UserSelectionActivity)
             userRv.setHasFixedSize(true)
 
+            adapter.userLD.observe(this) { user ->
+                userViewModel.saveAuthUser(user, this)
+            }
+
+            adapter.userLongClickLD.observe(this) { user ->
+                AlertDialog.Builder(this@UserSelectionActivity)
+                    .setTitle("Modification d'utilisateur")
+                    .setMessage("Que voulez-vous faire ?")
+                    .setPositiveButton("Modifier le user") { _, _ ->
+                        userViewModel.saveSelectedUser(user, this)
+                    }
+                    .setNegativeButton("Supprimer le user") { _, _ ->
+                        userViewModel.deleteUser(user)
+                    }
+                    .show()
+            }
         }
+
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
         userViewModel.getListUser(applicationContext)
+
+
+        addNewUserButton.setOnClickListener {
+            RouteManager.startActivity(this, ActivityName.UserAddActivity, false, true)
+        }
+
+
     }
 
 
@@ -46,10 +75,19 @@ class UserSelectionActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Timber.e("onBackPressed called")
-        RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val builder = AlertDialog.Builder(this@UserSelectionActivity)
+            builder.setTitle("Quitter l'application")
+            builder.setMessage("Voulez-vous vraiment quitter l'application ?")
+            builder.setPositiveButton("Oui") { _, _ ->
+                finishAffinity()
+            }
+            builder.setNegativeButton("Non") { _, _ ->
+
+            }
+            builder.show()
+        }
     }
 
     override fun onDestroy() {

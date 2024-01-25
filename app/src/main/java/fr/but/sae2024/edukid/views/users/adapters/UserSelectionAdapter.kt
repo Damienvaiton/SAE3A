@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.but.sae2024.edukid.R
@@ -13,6 +15,12 @@ import fr.but.sae2024.edukid.models.entities.app.User
 import timber.log.Timber
 
 class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<UserSelectionAdapter.UserSelectionViewHolder>() {
+
+
+    private val _userLD : MutableLiveData<User> = MutableLiveData()
+    private val _userLongClickLD : MutableLiveData<User> = MutableLiveData()
+    val userLongClickLD : LiveData<User> = _userLongClickLD
+    val userLD : LiveData<User> = _userLD
 
     inner class UserSelectionViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview) {
         val username = itemview.findViewById<TextView>(R.id.userName)
@@ -46,12 +54,20 @@ class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<Use
         Timber.tag("UserSelectionAdapter").e("Username : ${user.username}")
 
         Timber.tag("UserSelectionAdapter").e("J'entre dans la recherche de l'image")
-        val resourceId: Int = resources.getIdentifier("profil1", "drawable", holder.itemView.context.packageName)
-        holder.profilPicture.setImageDrawable(resources.getDrawable(resourceId,null))
         Timber.tag("UserSelectionAdapter").e("J'ai fini de chercher l'image")
 
 
         holder.paramPicture.setImageResource(R.drawable.settings_icon)
+
+        holder.itemView.setOnClickListener {
+            Timber.tag("UserSelectionAdapter").e("Username : ${user.username}")
+            _userLD.postValue(user)
+        }
+
+        holder.itemView.setOnLongClickListener(View.OnLongClickListener {
+            _userLongClickLD.postValue(user)
+            true
+        })
     }
 
     override fun getItemCount(): Int {
