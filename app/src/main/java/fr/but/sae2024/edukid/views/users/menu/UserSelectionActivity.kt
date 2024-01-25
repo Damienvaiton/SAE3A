@@ -37,6 +37,22 @@ class UserSelectionActivity : AppCompatActivity() {
             userRv.layoutManager = LinearLayoutManager(this@UserSelectionActivity)
             userRv.setHasFixedSize(true)
 
+            adapter.userLD.observe(this) { user ->
+                userViewModel.saveAuthUser(user, this)
+            }
+
+            adapter.userLongClickLD.observe(this) { user ->
+                AlertDialog.Builder(this@UserSelectionActivity)
+                    .setTitle("Modification d'utilisateur")
+                    .setMessage("Que voulez-vous faire ?")
+                    .setPositiveButton("Modifier le user") { _, _ ->
+                        userViewModel.saveSelectedUser(user, this)
+                    }
+                    .setNegativeButton("Supprimer le user") { _, _ ->
+                        userViewModel.deleteUser(user)
+                    }
+                    .show()
+            }
         }
 
 
@@ -48,6 +64,8 @@ class UserSelectionActivity : AppCompatActivity() {
         addNewUserButton.setOnClickListener {
             RouteManager.startActivity(this, ActivityName.UserAddActivity, false, true)
         }
+
+
     }
 
 

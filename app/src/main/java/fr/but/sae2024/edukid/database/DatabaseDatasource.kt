@@ -35,4 +35,8 @@ object DatabaseDatasource {
         return EdukidDatabase.getInstance().gameDao().getAllGamesByTheme(themeName)
     }
 
+    suspend fun editUser(user: User) {
+        return EdukidDatabase.getInstance().userDao().updateUser(user)
+    }
+
 }

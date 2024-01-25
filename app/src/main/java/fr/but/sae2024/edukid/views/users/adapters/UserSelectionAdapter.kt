@@ -6,16 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.app.User
-import fr.but.sae2024.edukid.utils.enums.ActivityName
-import fr.but.sae2024.edukid.utils.managers.RouteManager
 import timber.log.Timber
 
 class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<UserSelectionAdapter.UserSelectionViewHolder>() {
 
+
+    private val _userLD : MutableLiveData<User> = MutableLiveData()
+    private val _userLongClickLD : MutableLiveData<User> = MutableLiveData()
+    val userLongClickLD : LiveData<User> = _userLongClickLD
+    val userLD : LiveData<User> = _userLD
 
     inner class UserSelectionViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview) {
         val username = itemview.findViewById<TextView>(R.id.userName)
@@ -54,9 +59,13 @@ class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<Use
 
         holder.paramPicture.setImageResource(R.drawable.settings_icon)
 
+        holder.itemView.setOnClickListener {
+            Timber.tag("UserSelectionAdapter").e("Username : ${user.username}")
+            _userLD.postValue(user)
+        }
+
         holder.itemView.setOnLongClickListener(View.OnLongClickListener {
-            RouteManager.startActivity(holder.itemView.context,
-                ActivityName.UserManagingActivity, false, true)
+            _userLongClickLD.postValue(user)
             true
         })
     }

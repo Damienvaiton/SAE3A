@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.models.entities.app.User
 import fr.but.sae2024.edukid.repositories.UserRepository
+import fr.but.sae2024.edukid.utils.enums.ActivityName
+import fr.but.sae2024.edukid.utils.managers.RouteManager
 import kotlinx.coroutines.launch
 
 class UserViewModel : ViewModel() {
@@ -43,6 +45,26 @@ class UserViewModel : ViewModel() {
     fun deleteUser(user: User) {
         viewModelScope.launch {
             userRepo.deleteUser(user)
+        }
+    }
+
+    fun saveAuthUser(user : User, context: Context){
+        viewModelScope.launch {
+            userRepo.setAuthenticatedUser(user).collect{
+                if(it){
+                    RouteManager.startActivity(context, ActivityName.ThemeSelectionActivity, true, true)
+                }
+            }
+        }
+    }
+
+    fun saveSelectedUser(user : User, context: Context){
+        viewModelScope.launch {
+            userRepo.setSelectedUser(user).collect{
+                if(it){
+                    RouteManager.startActivity(context, ActivityName.UserManagingActivity, true, true)
+                }
+            }
         }
     }
 }
