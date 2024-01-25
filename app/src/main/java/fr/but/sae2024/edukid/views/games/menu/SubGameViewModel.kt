@@ -15,7 +15,6 @@ import fr.but.sae2024.edukid.utils.managers.VibrateManager
 import kotlinx.coroutines.launch
 
 class SubGameViewModel : ViewModel(){
-    val db = EdukidDatabase.getInstance()
     val vibrator = VibrateManager
 
     private val _listSubGameLiveData : MutableLiveData<List<Subgame?>> = MutableLiveData<List<Subgame?>>()

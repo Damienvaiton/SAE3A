@@ -55,49 +55,49 @@ object TemplateDatabase {
     private suspend fun createSubGames() {
 
         insertSubgameIfNotExist(
-            "Niveau 1",
+            1,
             db.gameDao().getGameId("Memory", themeLettres),
             R.drawable.memory_majuscule_majuscule
         )
 
         insertSubgameIfNotExist(
-            "Niveau 2",
+            2,
             db.gameDao().getGameId("Memory", themeLettres),
             R.drawable.memory_majuscule_majuscule_diff
         )
 
         insertSubgameIfNotExist(
-            "Niveau 3",
+            3,
             db.gameDao().getGameId("Memory", themeLettres),
             R.drawable.memory_majuscule_miniscule
         )
 
         insertSubgameIfNotExist(
-            "Niveau 4",
+            4,
             db.gameDao().getGameId("Memory", themeLettres),
             R.drawable.memory_majuscule_miniscule_diff
         )
 
         insertSubgameIfNotExist(
-            "Niveau 1",
+            1,
             db.gameDao().getGameId("Memory", themeChiffres),
             R.drawable.logo_memory_img_img
         )
 
         insertSubgameIfNotExist(
-            "Niveau 2",
+            2,
             db.gameDao().getGameId("Memory", themeChiffres),
             R.drawable.logo_memory_img_imgdiff
         )
 
         insertSubgameIfNotExist(
-            "Niveau 3",
+            3,
             db.gameDao().getGameId("Memory", themeChiffres),
             R.drawable.logo_memory_chiffre_chiffre
         )
 
         insertSubgameIfNotExist(
-            "Niveau 4",
+            4,
             db.gameDao().getGameId("Memory", themeChiffres),
             R.drawable.logo_memory_img_chiffre
         )
@@ -143,9 +143,17 @@ object TemplateDatabase {
         }
     }
 
-    private suspend fun insertSubgameIfNotExist(name : String, gameId : Int, image : Int? = null) {
+    private suspend fun insertSubgameIfNotExist(num : Int, gameId : Int, image : Int? = null) {
+        val name = "Niveau $num"
         if (db.subgameDao().getSubGameByNameAndGame(gameId, name) == null) {
-            db.subgameDao().insertSubGame(Subgame(name, gameId, image))
+            db.subgameDao().insertSubGame(
+                Subgame(
+                    num,
+                    name,
+                    gameId,
+                    image
+                )
+            )
         }
     }
 }

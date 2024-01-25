@@ -13,7 +13,6 @@ import fr.but.sae2024.edukid.utils.managers.VibrateManager
 import kotlinx.coroutines.launch
 
 class ThemeViewModel: ViewModel(){
-    val db = EdukidDatabase.getInstance()
     val vibrator = VibrateManager
 
     private val _listThemeLiveData : MutableLiveData<List<Theme?>> = MutableLiveData<List<Theme?>>()

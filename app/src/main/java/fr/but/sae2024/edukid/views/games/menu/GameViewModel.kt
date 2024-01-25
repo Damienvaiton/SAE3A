@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class GameViewModel : ViewModel() {
-    val db = EdukidDatabase.getInstance()
     val vibrator = VibrateManager
 
     private val _listGameLiveData : MutableLiveData<List<Game?>> = MutableLiveData<List<Game?>>()
