@@ -11,7 +11,7 @@ abstract class MemoryCard {
     }
 
     constructor(memoryCard: MemoryCard) {
-        value = memoryCard.getValue()
+        value = memoryCard.getValueCard()
     }
 
     //getter
@@ -22,7 +22,7 @@ abstract class MemoryCard {
     abstract fun getDrawableImage(): Int
     abstract fun getFont(): Int
 
-    fun getValue(): String? {
+    fun getValueCard(): String? {
         return value
     }
 
@@ -37,7 +37,7 @@ abstract class MemoryCard {
     abstract fun setDrawableImage(drawableImage: Int)
     abstract fun setFont(font: Int)
 
-    fun setValue(value: String?) {
+    fun setValueCard(value: String?) {
         this.value = value
     }
 

@@ -38,6 +38,8 @@ object DatabaseDatasource {
 
     suspend fun getAllSubGamesByGame(gameId: Int): List<Subgame?> {
         return EdukidDatabase.getInstance().subgameDao().getAllSubGamesByGame(gameId)
+    }
+
     suspend fun editUser(user: User) {
         return EdukidDatabase.getInstance().userDao().updateUser(user)
     }

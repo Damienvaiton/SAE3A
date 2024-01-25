@@ -2,7 +2,7 @@ package fr.but.sae2024.edukid.models
 
 class MemoryCardNumber(value: String?, private var drawableImage: Int) : MemoryCard(value) {
 
-    constructor(memoryCardNumber: MemoryCardNumber) : this(memoryCardNumber.getValue(), memoryCardNumber.getDrawableImage())
+    constructor(memoryCardNumber: MemoryCardNumber) : this(memoryCardNumber.getValueCard(), memoryCardNumber.getDrawableImage())
 
     override fun getDrawableImage(): Int {
         return drawableImage
