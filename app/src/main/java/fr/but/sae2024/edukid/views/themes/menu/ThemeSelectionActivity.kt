@@ -1,6 +1,7 @@
 package fr.but.sae2024.edukid.views.themes.menu
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,8 @@ class ThemeSelectionActivity() : AppCompatActivity() {
         setContentView(R.layout.theme_selection_activity)
 
         val themeRv: RecyclerView = findViewById(R.id.rv_theme_selection_activity)
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
         themeViewModel.listThemeLiveData.observe(this) { themes ->
 
@@ -44,10 +47,15 @@ class ThemeSelectionActivity() : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Timber.e("onBackPressed called")
-        RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            RouteManager.startActivity(
+                this@ThemeSelectionActivity,
+                ActivityName.UserSelectionActivity,
+                false,
+                true
+            )
+        }
     }
 
     override fun onDestroy() {
