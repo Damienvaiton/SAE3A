@@ -1,6 +1,7 @@
 package fr.but.sae2024.edukid.views.games.menu
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,7 +10,6 @@ import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.views.games.adapters.GameSelectionAdapter
-import fr.but.sae2024.edukid.views.themes.ThemeViewModel
 import timber.log.Timber
 
 class GameSelectionActivity : AppCompatActivity() {
@@ -21,6 +21,8 @@ class GameSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game_menu)
 
         val gameRV: RecyclerView = findViewById(R.id.recyclerview_game)
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
         gameViewModel.listGameLiveData.observe(this) { games ->
             val listGame = games
@@ -45,10 +47,15 @@ class GameSelectionActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Timber.e("onBackPressed called")
-        RouteManager.startActivity(this, ActivityName.ThemeSelectionActivity, true, true)
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            RouteManager.startActivity(
+                this@GameSelectionActivity,
+                ActivityName.ThemeSelectionActivity,
+                false,
+                true
+            )
+        }
     }
 
     override fun onDestroy() {
