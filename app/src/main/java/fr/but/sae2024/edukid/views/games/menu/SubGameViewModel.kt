@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.models.entities.app.Game
 import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.repositories.GameRepository

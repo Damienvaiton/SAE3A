@@ -44,4 +44,12 @@ object DatabaseDatasource {
         return EdukidDatabase.getInstance().userDao().updateUser(user)
     }
 
+    suspend fun getTotalNumberCard(): Int? {
+        return EdukidDatabase.getInstance().cardDao().getTotalNumberCard()
+    }
+
+    suspend fun getCardByValue(value: Int): Int? {
+        return EdukidDatabase.getInstance().cardDao().getCardByValue(value.toString())
+    }
+
 }

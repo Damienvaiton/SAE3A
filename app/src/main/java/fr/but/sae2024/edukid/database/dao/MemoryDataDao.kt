@@ -5,18 +5,18 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import fr.but.sae2024.edukid.models.entities.games.MemoryData
+import fr.but.sae2024.edukid.models.entities.games.GameData
 
 @Dao
 interface MemoryDataDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertMemoryData(memoryData: MemoryData)
+    suspend fun insertMemoryData(memoryData: GameData)
 
     @Update
-    suspend fun updateMemoryData(memoryData: MemoryData)
+    suspend fun updateMemoryData(memoryData: GameData)
 
     @Query("SELECT * FROM memory_data WHERE user_id = :userId AND category LIKE :category AND subcategory = :subCategory")
-    suspend fun getMemoryData(userId: Int, category: String?, subCategory: Int): MemoryData?
+    suspend fun getMemoryData(userId: Int, category: String?, subCategory: Int): GameData?
 
     @Query("SELECT difficulty FROM memory_data WHERE user_id = :userId AND category LIKE :category AND subcategory = :subCategory")
     suspend fun getMemoryDataDifficulty(userId: Int, category: String?, subCategory: Int): Int
@@ -25,7 +25,7 @@ interface MemoryDataDao {
     suspend fun getMemoryDataMaxDifficulty(userId: Int, category: String?, subCategory: Int): Int
 
     @Query("SELECT * FROM memory_data")
-    suspend fun getAllMemoryData(): List<MemoryData?>?
+    suspend fun getAllMemoryData(): List<GameData?>?
 
     @Query("UPDATE memory_data SET difficulty = (difficulty +1) WHERE user_id = :userId AND category LIKE :category AND subcategory = :subCategory")
     suspend fun increaseMemoryDataDifficulty(userId: Int, category: String?, subCategory: Int)

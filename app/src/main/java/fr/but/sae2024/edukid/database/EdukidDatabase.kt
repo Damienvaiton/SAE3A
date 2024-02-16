@@ -24,7 +24,7 @@ import fr.but.sae2024.edukid.models.entities.app.User
 import fr.but.sae2024.edukid.models.entities.app.Word
 import fr.but.sae2024.edukid.models.entities.games.Card
 import fr.but.sae2024.edukid.models.entities.games.DrawOnItData
-import fr.but.sae2024.edukid.models.entities.games.MemoryData
+import fr.but.sae2024.edukid.models.entities.games.GameData
 import fr.but.sae2024.edukid.models.entities.games.MemoryDataCardCrossRef
 import fr.but.sae2024.edukid.models.entities.games.PlayWithSoundData
 import fr.but.sae2024.edukid.models.entities.games.WordWithHoleData
@@ -39,7 +39,7 @@ import fr.but.sae2024.edukid.utils.managers.ConverterManager
     Word::class,
     Card::class,
     DrawOnItData::class,
-    MemoryData::class,
+    GameData::class,
     MemoryDataCardCrossRef::class,
     PlayWithSoundData::class,
     WordWithHoleData::class,
