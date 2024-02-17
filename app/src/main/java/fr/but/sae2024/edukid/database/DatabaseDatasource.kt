@@ -4,6 +4,7 @@ import fr.but.sae2024.edukid.models.entities.app.Game
 import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.models.entities.app.User
+import fr.but.sae2024.edukid.models.entities.games.Card
 
 object DatabaseDatasource {
 
@@ -48,8 +49,8 @@ object DatabaseDatasource {
         return EdukidDatabase.getInstance().cardDao().getTotalNumberCard()
     }
 
-    suspend fun getCardByValue(value: Int): Int? {
-        return EdukidDatabase.getInstance().cardDao().getCardByValue(value.toString())
+    suspend fun getAllCard(): List<Card?>? {
+        return EdukidDatabase.getInstance().cardDao().getAllCard()
     }
 
 }

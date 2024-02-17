@@ -29,7 +29,4 @@ interface CardDao {
 
     @Query("SELECT COUNT(*) FROM cards")
     suspend fun getTotalNumberCard(): Int?
-
-    @Query("SELECT * FROM cards WHERE value LIKE :value")
-    suspend fun getCardByValue(value: String): Card?
 }

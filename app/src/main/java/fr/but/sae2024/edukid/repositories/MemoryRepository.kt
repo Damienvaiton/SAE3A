@@ -1,6 +1,7 @@
 package fr.but.sae2024.edukid.repositories
 
 import fr.but.sae2024.edukid.database.DatabaseDatasource
+import fr.but.sae2024.edukid.models.entities.games.Card
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -12,7 +13,7 @@ object MemoryRepository {
         emit(database.getTotalNumberCard())
     }
 
-    fun getCardByValue(value: Int): Flow<Int?> = flow {
-        emit(database.getCardByValue(value))
+    fun getAllCard(): Flow<List<Card?>?> = flow {
+        emit(database.getAllCard())
     }
 }
