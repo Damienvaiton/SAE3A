@@ -1,8 +1,11 @@
 package fr.but.sae2024.edukid.views.users.edit
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -13,10 +16,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.app.User
+import fr.but.sae2024.edukid.utils.enums.ActivityName
+import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.views.users.UserViewModel
 import timber.log.Timber
 import java.io.File
@@ -44,34 +50,55 @@ class UserManagingActivity : AppCompatActivity() {
         val picture = findViewById<ImageView>(R.id.userAvatar_editPage)
         val cancelButton = findViewById<Button>(R.id.buttonCancel_userEditPage)
 
+        cancelButton.setOnClickListener {
+            RouteManager.startActivity(this, ActivityName.UserSelectionActivity, true, false)
+        }
+
+        var personne: User = User()
+
+
         val pickMedia =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { media ->
                 if (media != null) {
                     picture.setImageURI(media)
+                    hasCustomPhoto = true
+                    Timber.tag("UserManagingActivity")
+                        .e("pickMedia called  and pictureURI : $pictureURI and media : $media")
                     pictureURI = media.toString()
+                    Timber.tag("UserManagingActivity")
+                        .e("pickMedia2 called  and pictureURI : $pictureURI and media : $media")
                 }
             }
         Timber.tag("UserManagingActivity").e("onCreate 2  called  and pictureURI : ${pictureURI}")
 
 
-
         userViewModel.selectedUserLiveData.observe(this) {
             if (it != null) {
                 tempUser = it
+                personne = it
                 Timber.tag("UserManagingActivity").e("IT : ${it}")
                 username.setText(it.username)
-                pictureURI = it.picture.toString()
-                Glide
-                    .with(this)
-                    .load(it.picture)
-                    .into(picture)
+                pictureURI = it.picture ?: ""
             }
-
         }
 
-        userViewModel.getSelectedUser()
 
-        Timber.tag("UserManagingActivity").e("onCreate called pictureURI : ${pictureURI}")
+        val readImagePermission =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) Manifest.permission.READ_MEDIA_IMAGES
+            else Manifest.permission.READ_EXTERNAL_STORAGE
+
+
+        if (ContextCompat.checkSelfPermission(
+                this, readImagePermission
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, arrayOf(readImagePermission), 2008)
+        } else {
+            userViewModel.getSelectedUser()
+        }
+
+
+
 
 
 
@@ -95,7 +122,7 @@ class UserManagingActivity : AppCompatActivity() {
 
         }
 
-        picture.setOnClickListener() {
+        picture.setOnClickListener {
             pictureURI = ""
             idPicture++
             if (idPicture == 9) {
@@ -103,9 +130,7 @@ class UserManagingActivity : AppCompatActivity() {
             }
             picture.setImageResource(
                 resources.getIdentifier(
-                    "profil$idPicture",
-                    "drawable",
-                    packageName
+                    "profil$idPicture", "drawable", packageName
                 )
             )
             Timber.tag("UserAddActivity").e("idPicture : $idPicture")
@@ -115,13 +140,30 @@ class UserManagingActivity : AppCompatActivity() {
             if (pictureURI == "" || !hasCustomPhoto) {
                 pictureURI = "android.resource://fr.but.sae2024.edukid/drawable/profil$idPicture"
             }
-            tempUser.id?.let { it1 -> userViewModel.updateUserChild(it1, username.text.toString(), pictureURI, this) }
+            tempUser.id?.let { it1 ->
+                userViewModel.updateUserChild(
+                    it1, username.text.toString(), pictureURI, this
+                )
+            }
 
         }
 
 
+    }
 
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 2008) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                userViewModel.getSelectedUser()
+            } else {
+                Timber.tag("UserManagingActivity").e("Permission denied")
+                RouteManager.startActivity(this, ActivityName.UserSelectionActivity, true, false)
+            }
+        }
     }
 
 
@@ -155,10 +197,7 @@ class UserManagingActivity : AppCompatActivity() {
 
             // Ajout de l'image à la galerie
             MediaStore.Images.Media.insertImage(
-                context.contentResolver,
-                imageFile.absolutePath,
-                imageFile.name,
-                imageFile.name
+                context.contentResolver, imageFile.absolutePath, imageFile.name, imageFile.name
             )
 
             // Obtention de l'URI de l'image
