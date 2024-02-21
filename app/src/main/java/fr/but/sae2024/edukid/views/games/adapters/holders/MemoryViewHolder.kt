@@ -11,7 +11,7 @@ import fr.but.sae2024.edukid.R
 
 
 class MemoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+/*
     var hidden = false
     var viewCard: View? = null
     var interieurCardChiffre: View? = null
@@ -85,4 +85,6 @@ class MemoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         returnCard!!.visibility = View.INVISIBLE
         viewCard!!.visibility = View.VISIBLE
     }
+
+ */
 }

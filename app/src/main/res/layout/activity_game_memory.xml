@@ -65,6 +65,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/progressBarMemory"
+        android:horizontalSpacing="6dp"
+        android:numColumns="2"
+        android:verticalSpacing="6dp" />
+    <!--<GridView
+        android:id="@+id/gridview_memory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/progressBarMemory"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="0dp"
@@ -74,5 +82,5 @@
         android:gravity="center"
         android:listSelector="@android:color/transparent"
         android:stretchMode="columnWidth"
-        android:textAlignment="center" />
+        android:textAlignment="center" /> -->
 </RelativeLayout>
