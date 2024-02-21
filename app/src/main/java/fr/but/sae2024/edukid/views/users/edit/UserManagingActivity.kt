@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.app.User
@@ -79,6 +80,7 @@ class UserManagingActivity : AppCompatActivity() {
                 Timber.tag("UserManagingActivity").e("IT : ${it}")
                 username.setText(it.username)
                 pictureURI = it.picture ?: ""
+                Glide.with(this).load(pictureURI).into(picture)
             }
         }
 
