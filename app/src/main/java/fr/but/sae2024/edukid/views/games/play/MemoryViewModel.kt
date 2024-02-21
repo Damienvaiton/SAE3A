@@ -1,13 +1,16 @@
 package fr.but.sae2024.edukid.views.games.play
 
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import fr.but.sae2024.edukid.models.MemoryData
 import fr.but.sae2024.edukid.models.entities.app.Game
 import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.models.entities.app.User
 import fr.but.sae2024.edukid.models.entities.games.Card
+import fr.but.sae2024.edukid.models.responses.Response
 import fr.but.sae2024.edukid.repositories.GameRepository
 import fr.but.sae2024.edukid.repositories.MemoryRepository
 import fr.but.sae2024.edukid.repositories.SubgameRepository
@@ -32,13 +35,12 @@ class MemoryViewModel : ViewModel() {
     private var selectedSubGame : Subgame? = null
     private var totalNumberCard : Int = 0
 
+    private val _listCardMemory : MutableLiveData<Response<MemoryData>> = MutableLiveData<Response<MemoryData>>()
+    val listCardMemory : MutableLiveData<Response<MemoryData>> = _listCardMemory
+
     fun getData(){
         viewModelScope.launch {
-            getCurrentUser()
-            getCurrentTheme()
-            getCurrentGame()
-            getCurrentSubGame()
-            getListCard()
+            getCurrentUser() // recupérations des infos en cascade afin d'etre sur d'avoir toutes les données
         }
     }
 
@@ -46,6 +48,7 @@ class MemoryViewModel : ViewModel() {
 
             UserRepo.getAuthenticatedUser().collect{ user ->
                 currentUser = user
+                getCurrentTheme()
             }
 
     }
@@ -54,6 +57,7 @@ class MemoryViewModel : ViewModel() {
         viewModelScope.launch {
             ThemRepo.getSelectedTheme().collect{ theme ->
                 selectedTheme = theme
+                getCurrentGame()
             }
         }
     }
@@ -62,6 +66,7 @@ class MemoryViewModel : ViewModel() {
         viewModelScope.launch {
             GameRepo.getSelectedGame().collect{ game ->
                 selectedGame = game
+                getCurrentSubGame()
             }
         }
     }
@@ -70,24 +75,39 @@ class MemoryViewModel : ViewModel() {
         viewModelScope.launch {
             SubGameRepo.getSelectedSubGame().collect{ subgame ->
                 selectedSubGame = subgame
+                getListCard()
             }
         }
     }
 
-        suspend fun getListCard(){
+    suspend fun getListCard(){
 
-        MemoryRepo.getAllCard(/*theme*/).collect { listAllCards ->
+        MemoryRepo.getAllCard(selectedTheme!!.name).collect { listAllCards ->
 
             totalNumberCard = listAllCards?.size!!
 
-            var listPrintedCard = getPrintedCard(listAllCards)
+            val listPrintedCard = getPrintedCard(listAllCards)
+
+            val response : Response<MemoryData> = Response()
+
+            val data = MemoryData(
+                user = currentUser!!,
+                theme = selectedTheme!!,
+                game = selectedGame!!,
+                subgame = selectedSubGame!!,
+                listCards = listPrintedCard
+            )
+
+            response.addData(data)
+
+            _listCardMemory.postValue(response)
 
         }
     }
 
-    fun getPrintedCard(listAllCards : List<Card?>?) : List<Card?>?{
+    fun getPrintedCard(listAllCards : List<Card?>?) : List<Card>{
 
-        var listPrintedCard = mutableListOf<Card?>()
+        var listPrintedCard = mutableListOf<Card>()
         var numberOfCardBySubGame = getNumberOfCardBySubGame()
 
         //récupérer les cartes aléatoirement dans les la liste de cartes possible (selon le theme)
@@ -100,7 +120,7 @@ class MemoryViewModel : ViewModel() {
             val containFilter = listPrintedCard.filter { it?.value == listAllCards?.get(nombreAleatoire)?.value }
             //si la carte n'est pas dans la liste, on l'ajoute
             if (containFilter.isEmpty()){
-                listPrintedCard.add(listAllCards?.get(nombreAleatoire))
+                listPrintedCard.add(listAllCards?.get(nombreAleatoire)!!)
                 currentNumberCard++
             }
         }

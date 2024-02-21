@@ -5,7 +5,7 @@ import androidx.room.Entity
 
 @Entity(
     tableName = "memory_data",
-    primaryKeys = ["user_id", "category", "subcategory"]
+    primaryKeys = ["user_id", "theme", "game", "subgame", "date"]
 )
 data class GameData(
 
@@ -19,7 +19,7 @@ data class GameData(
     var game : Int,
 
     @ColumnInfo(name = "subgame")
-    var subgame : Int? = null,
+    var subgame : Int= -1,
 
     @ColumnInfo(name = "win")
     var win : Boolean = true, //true de base car memory est toujours gagnant

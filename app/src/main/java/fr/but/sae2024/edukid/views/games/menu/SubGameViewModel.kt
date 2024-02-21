@@ -9,6 +9,7 @@ import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.repositories.GameRepository
 import fr.but.sae2024.edukid.repositories.SubgameRepository
 import fr.but.sae2024.edukid.utils.enums.ActivityName
+import fr.but.sae2024.edukid.utils.enums.GameName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.utils.managers.VibrateManager
 import kotlinx.coroutines.launch
@@ -32,7 +33,7 @@ class SubGameViewModel : ViewModel(){
             subGameRepo.setSelectedSubGame(subGame).collect{
                 if(it){
                     vibrator.vibrate(context, 500)
-                    RouteManager.startActivity(context, ActivityName.ThemeSelectionActivity, true, true)
+                    RouteManager.startGame(context, GameName.Memory, true, true)
                 }
             }
         }

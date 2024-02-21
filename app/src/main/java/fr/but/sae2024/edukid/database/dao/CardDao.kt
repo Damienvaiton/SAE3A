@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.models.entities.games.Card
 
 @Dao
@@ -24,8 +25,8 @@ interface CardDao {
     @Query("SELECT * FROM cards WHERE type LIKE :type")
     suspend fun getAllCardByType(type: String?): List<Card?>?
 
-    @Query("SELECT * FROM cards")
-    suspend fun getAllCard(): List<Card?>?
+    @Query("SELECT * FROM cards WHERE type LIKE :theme")
+    suspend fun getAllCard(theme : String?): List<Card?>?
 
     @Query("SELECT COUNT(*) FROM cards")
     suspend fun getTotalNumberCard(): Int?

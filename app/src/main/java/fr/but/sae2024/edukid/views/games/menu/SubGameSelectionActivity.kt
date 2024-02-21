@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
-import fr.but.sae2024.edukid.views.games.adapters.GameSelectionAdapter
 import fr.but.sae2024.edukid.views.games.adapters.SubGameSelectionAdapter
-import fr.but.sae2024.edukid.views.themes.ThemeViewModel
 import timber.log.Timber
 
 class SubGameSelectionActivity : AppCompatActivity() {

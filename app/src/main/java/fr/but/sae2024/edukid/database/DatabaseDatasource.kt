@@ -49,8 +49,8 @@ object DatabaseDatasource {
         return EdukidDatabase.getInstance().cardDao().getTotalNumberCard()
     }
 
-    suspend fun getAllCard(): List<Card?>? {
-        return EdukidDatabase.getInstance().cardDao().getAllCard()
+    suspend fun getAllCard(theme : String): List<Card?>? {
+        return EdukidDatabase.getInstance().cardDao().getAllCard(theme)
     }
 
 }
