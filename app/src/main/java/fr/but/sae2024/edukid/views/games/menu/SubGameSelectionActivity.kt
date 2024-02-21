@@ -2,6 +2,7 @@ package fr.but.sae2024.edukid.views.games.menu
 
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,8 @@ class SubGameSelectionActivity : AppCompatActivity() {
 
         val gameRV: RecyclerView = findViewById(R.id.recyclerview_sub_game)
         val title: TextView = findViewById(R.id.title_subgameMenu)
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
         subGameViewModel.listSubGameLiveData.observe(this) { subGames ->
             val listSubGame = subGames
@@ -51,10 +54,15 @@ class SubGameSelectionActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Timber.e("onBackPressed called")
-        RouteManager.startActivity(this, ActivityName.GameSelectionActivity, true, true)
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            RouteManager.startActivity(
+                this@SubGameSelectionActivity,
+                ActivityName.GameSelectionActivity,
+                false,
+                true
+            )
+        }
     }
 
     override fun onDestroy() {

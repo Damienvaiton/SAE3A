@@ -52,6 +52,7 @@ class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<Use
             .into(holder.profilPicture)
 
         Timber.tag("UserSelectionAdapter").e("Username : ${user.username}")
+        Timber.tag("UserSelectionAdapter").e("Picture url : ${user.picture}")
 
         Timber.tag("UserSelectionAdapter").e("J'entre dans la recherche de l'image")
         Timber.tag("UserSelectionAdapter").e("J'ai fini de chercher l'image")
