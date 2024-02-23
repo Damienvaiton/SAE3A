@@ -50,12 +50,16 @@ class MemoryAdapter(private val context: Context, private val listCards: List<Ca
             convertView = layoutInflater!!.inflate(R.layout.item_card, null)
         }
 
-        courseIV = convertView!!.findViewById(R.id.idIVCourse)
-        courseTV = convertView!!.findViewById(R.id.interieurCardLettre)
+        courseIV = convertView!!.findViewById(R.id.image_memoryCard)
+        courseTV = convertView!!.findViewById(R.id.text_memoryCard)
 
-        Glide.with(context).load(listCards.get(position).image).into(courseIV)
-
-        courseTV.setText(listCards.get(position).value)
+        if (theme.name == "Chiffres") {
+            Glide.with(context).load(listCards.get(position).image).into(courseIV)
+            courseTV.visibility = View.INVISIBLE
+        }else if (theme.name == "Lettres") {
+            courseTV.setText(listCards.get(position).value)
+            courseIV.visibility = View.INVISIBLE
+        }
 
         return convertView
     }
