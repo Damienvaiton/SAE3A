@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,64 +11,32 @@
         android:id="@+id/titleMemory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
         android:fontFamily="@font/magimt"
         android:text="MEMORY"
         android:textAlignment="center"
         android:textColor="#00BCD4"
-        android:textSize="48sp" />
-
-    <TextView
-        android:id="@+id/labelDifficulty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:fontFamily="@font/magimt"
-        android:text="Difficulté :"
-        android:layout_below="@+id/titleMemory"
-        android:textColor="#708090"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="2dp"/>
-
-    <ProgressBar
-        android:id="@+id/progressBarMemoryLock"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/labelDifficulty"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="20dp"
-        android:max="5"
-        android:progressBackgroundTint="#323232"
-        android:progressTint="#dddddd"/>
-
-    <ProgressBar
-        android:id="@+id/progressBarMemory"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/labelDifficulty"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="20dp"
-        android:max="5"
-        android:progressBackgroundTint="#00FFFFFF"
-        android:progressTint="#00BCD4" />
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <GridView
         android:id="@+id/gridview_memory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/progressBarMemory"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:horizontalSpacing="6dp"
+        android:listSelector="@android:color/transparent"
         android:numColumns="2"
-        android:verticalSpacing="6dp" />
+        android:stretchMode="columnWidth"
+        android:textAlignment="center"
+        android:verticalSpacing="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleMemory"
+        app:layout_constraintVertical_bias="0.0" />
     <!--<GridView
         android:id="@+id/gridview_memory"
         android:layout_width="match_parent"
@@ -83,4 +52,4 @@
         android:listSelector="@android:color/transparent"
         android:stretchMode="columnWidth"
         android:textAlignment="center" /> -->
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

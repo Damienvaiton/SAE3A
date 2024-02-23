@@ -10,14 +10,16 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import com.bumptech.glide.Glide
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.MemoryCard
+import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.models.entities.games.Card
 import fr.but.sae2024.edukid.views.games.adapters.holders.MemoryViewHolder
 import timber.log.Timber
 
 
-class MemoryAdapter(private val context: Context, private val listCards: List<Card>) : BaseAdapter() {
+class MemoryAdapter(private val context: Context, private val listCards: List<Card>, private val theme : Theme) : BaseAdapter() {
 
     private var layoutInflater: LayoutInflater? = null
     private lateinit var courseTV: TextView
@@ -49,9 +51,9 @@ class MemoryAdapter(private val context: Context, private val listCards: List<Ca
         }
 
         courseIV = convertView!!.findViewById(R.id.idIVCourse)
-        courseTV = convertView!!.findViewById(R.id.idTVCourse)
+        courseTV = convertView!!.findViewById(R.id.interieurCardLettre)
 
-        courseIV.setImageResource(listCards.get(position).image!!)
+        Glide.with(context).load(listCards.get(position).image).into(courseIV)
 
         courseTV.setText(listCards.get(position).value)
 

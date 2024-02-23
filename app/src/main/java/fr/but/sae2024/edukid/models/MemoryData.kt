@@ -12,5 +12,6 @@ data class MemoryData(
     var theme : Theme,
     var game : Game,
     var subgame : Subgame,
-    var listCards : List<Card> = listOf()
+    var listCards : List<Card> = listOf(),
+    var numberColumn : Int
 )

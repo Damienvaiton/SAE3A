@@ -23,19 +23,17 @@ class MemoryGame : AppCompatActivity() {
 
         memoryViewModel.listCardMemory.observe(this){
 
-            /*gameMemoryGrid.numColumns= it.data()./*num*/*/
+            gameMemoryGrid.numColumns= it.data()!!.numberColumn
 
             Timber.tag("MemoryGame").e("ListCardMemory : $it")
 
             val cards = it.data()?.listCards
 
 
-            val adapter = MemoryAdapter(this, cards!!)
+            val adapter = MemoryAdapter(this, cards!!, it.data()!!.theme)
             gameMemoryGrid.adapter = adapter
 
         }
-
-
 
     }
 

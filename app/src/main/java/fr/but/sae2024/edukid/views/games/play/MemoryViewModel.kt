@@ -95,7 +95,8 @@ class MemoryViewModel : ViewModel() {
                 theme = selectedTheme!!,
                 game = selectedGame!!,
                 subgame = selectedSubGame!!,
-                listCards = listPrintedCard
+                listCards = listPrintedCard,
+                numberColumn = getNumberOfColumn(listPrintedCard.size)
             )
 
             response.addData(data)
@@ -136,16 +137,25 @@ class MemoryViewModel : ViewModel() {
         return listPrintedCard
     }
 
+    fun getNumberOfColumn(nbCards: Int) : Int{
+
+        return when (nbCards) {
+            4 -> 2
+            6,8 -> 3
+            else -> 4
+        }
+    }
+
     fun getNumberOfCardBySubGame() : Int{
 
         val numSubGame = selectedSubGame?.num
 
-        when (numSubGame) {
-            1 -> return 2
-            2 -> return 3
-            3 -> return 4
-            4 -> return 5
-            else -> return 6
+        return when (numSubGame) {
+            1 -> 2
+            2 -> 3
+            3 -> 4
+            4 -> 5
+            else -> 6
         }
     }
 

@@ -16,5 +16,11 @@ data class Card(
 
     @ColumnInfo(name = "image")
     val image: Int? = null,
+
+    @ColumnInfo(name = "isHidden")
+    val isHidden: Boolean = true,
+
+    @ColumnInfo(name = "showType") //image or text
+    val showType: String? = null
 )
 

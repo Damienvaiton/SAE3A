@@ -44,7 +44,6 @@ abstract class EdukidDatabase : RoomDatabase() {
     abstract fun cardDao(): CardDao
     abstract fun gameDataDao(): GameDataDao
 
-
     companion object {
         private lateinit var instance: EdukidDatabase
         fun initDatabase(context: Context) {
