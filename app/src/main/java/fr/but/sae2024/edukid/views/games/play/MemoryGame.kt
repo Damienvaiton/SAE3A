@@ -2,9 +2,12 @@ package fr.but.sae2024.edukid.views.games.play
 
 import android.os.Bundle
 import android.widget.GridView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import fr.but.sae2024.edukid.R
+import fr.but.sae2024.edukid.utils.enums.ActivityName
+import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.views.games.adapters.MemoryAdapter
 import timber.log.Timber
 
@@ -29,12 +32,26 @@ class MemoryGame : AppCompatActivity() {
 
             val cards = it.data()?.listCards
 
+            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
+
 
             val adapter = MemoryAdapter(this, cards!!, it.data()!!.theme)
             gameMemoryGrid.adapter = adapter
 
         }
 
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            RouteManager.startActivity(
+                this@MemoryGame,
+                ActivityName.SubGameSelectionActivity,
+                false,
+                true
+            )
+        }
     }
 
 }
