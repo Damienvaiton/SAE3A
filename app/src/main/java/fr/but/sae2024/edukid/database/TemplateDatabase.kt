@@ -15,7 +15,8 @@ import timber.log.Timber
 object TemplateDatabase {
     private var db = EdukidDatabase.getInstance()
     private val themeLettres = "Lettres"
-    val themeChiffres = "Chiffres"
+    private val themeChiffres = "Chiffres"
+    private val themeCouleurs = "Couleurs"
 
     suspend fun initDatabase(context: Context) : Flow<Boolean> = flow {
         db  = EdukidDatabase.getInstance()
@@ -38,6 +39,7 @@ object TemplateDatabase {
         if (db.themeDao().tabThemeIsEmpty()) {
             db.themeDao().insertTheme(Theme(themeLettres, R.drawable.logo_theme_lettres))
             db.themeDao().insertTheme(Theme(themeChiffres, R.drawable.logo_theme_chiffres))
+            db.themeDao().insertTheme(Theme(themeCouleurs, R.drawable.logo_theme_couleurs))
         }
     }
 
@@ -46,9 +48,12 @@ object TemplateDatabase {
             db.gameDao().insertGame(Game("Memory", themeLettres, R.drawable.logo_memory_lettre))
             db.gameDao().insertGame(Game("Mot à trou", themeLettres, R.drawable.logo_wordwithhole_lettre))
             db.gameDao().insertGame(Game("Ecoute", themeLettres, R.drawable.logo_playwithsound_lettre))
+
             db.gameDao().insertGame(Game("Memory", themeChiffres, R.drawable.logo_memory))
             db.gameDao().insertGame(Game("Dessine", themeChiffres, R.drawable.logo_drawonit))
             db.gameDao().insertGame(Game("Ecoute", themeChiffres, R.drawable.logo_playwithsound))
+
+            db.gameDao().insertGame(Game("Memory", themeCouleurs, R.drawable.logo_memory))
         }
     }
 
@@ -101,6 +106,30 @@ object TemplateDatabase {
             db.gameDao().getGameId("Memory", themeChiffres),
             R.drawable.logo_memory_img_chiffre
         )
+
+        insertSubgameIfNotExist(
+            1,
+            db.gameDao().getGameId("Memory", themeCouleurs),
+            R.drawable.logo_memory_img_img
+        )
+
+        insertSubgameIfNotExist(
+            2,
+            db.gameDao().getGameId("Memory", themeCouleurs),
+            R.drawable.logo_memory_img_imgdiff
+        )
+
+        insertSubgameIfNotExist(
+            3,
+            db.gameDao().getGameId("Memory", themeCouleurs),
+            R.drawable.logo_memory_chiffre_chiffre
+        )
+
+        insertSubgameIfNotExist(
+            4,
+            db.gameDao().getGameId("Memory", themeCouleurs),
+            R.drawable.logo_memory_img_chiffre
+        )
     }
 
     private suspend fun createWords() {
@@ -128,21 +157,33 @@ object TemplateDatabase {
     }
 
     private suspend fun createCards(context: Context) {
-        db.cardDao().insertCard(Card("0", "Chiffres", R.drawable.number_zero,true, "Image"))
-        db.cardDao().insertCard(Card("1", "Chiffres", R.drawable.number_one,true, "Image"))
-        db.cardDao().insertCard(Card("2", "Chiffres", R.drawable.number_two,true, "Image"))
-        db.cardDao().insertCard(Card("3", "Chiffres", R.drawable.number_three,true, "Image"))
-        db.cardDao().insertCard(Card("4", "Chiffres", R.drawable.number_four,true, "Image"))
-        db.cardDao().insertCard(Card("5", "Chiffres", R.drawable.number_five,true, "Image"))
-        db.cardDao().insertCard(Card("6", "Chiffres", R.drawable.number_six,true, "Image"))
-        db.cardDao().insertCard(Card("7", "Chiffres", R.drawable.number_seven,true, "Image"))
-        db.cardDao().insertCard(Card("8", "Chiffres", R.drawable.number_eight,true, "Image"))
-        db.cardDao().insertCard(Card("9", "Chiffres", R.drawable.number_nine,true, "Image"))
+        db.cardDao().insertCard(Card("0", themeChiffres, R.drawable.number_zero,true, "Image"))
+        db.cardDao().insertCard(Card("1", themeChiffres, R.drawable.number_one,true, "Image"))
+        db.cardDao().insertCard(Card("2", themeChiffres, R.drawable.number_two,true, "Image"))
+        db.cardDao().insertCard(Card("3", themeChiffres, R.drawable.number_three,true, "Image"))
+        db.cardDao().insertCard(Card("4", themeChiffres, R.drawable.number_four,true, "Image"))
+        db.cardDao().insertCard(Card("5", themeChiffres, R.drawable.number_five,true, "Image"))
+        db.cardDao().insertCard(Card("6", themeChiffres, R.drawable.number_six,true, "Image"))
+        db.cardDao().insertCard(Card("7", themeChiffres, R.drawable.number_seven,true, "Image"))
+        db.cardDao().insertCard(Card("8", themeChiffres, R.drawable.number_eight,true, "Image"))
+        db.cardDao().insertCard(Card("9", themeChiffres, R.drawable.number_nine,true, "Image"))
 
         val alphabetList = context.resources.getStringArray(R.array.alphabet)
         for (i in alphabetList.indices) {
-            db.cardDao().insertCard(Card(alphabetList[i], "Lettres", 0,true, "Texte"))
+            db.cardDao().insertCard(Card(alphabetList[i], themeLettres, 0,true, "Texte"))
         }
+
+        db.cardDao().insertCard(Card("ROUGE", themeCouleurs, R.drawable.color_red,true, "Image"))
+        db.cardDao().insertCard(Card("BLEU", themeCouleurs, R.drawable.color_blue,true, "Image"))
+        db.cardDao().insertCard(Card("VERT", themeCouleurs, R.drawable.color_green,true, "Image"))
+        db.cardDao().insertCard(Card("JAUNE", themeCouleurs, R.drawable.color_yellow,true, "Image"))
+        db.cardDao().insertCard(Card("ORANGE", themeCouleurs, R.drawable.color_orange,true, "Image"))
+        db.cardDao().insertCard(Card("VIOLET", themeCouleurs, R.drawable.color_purple,true, "Image"))
+        db.cardDao().insertCard(Card("NOIR", themeCouleurs, R.drawable.color_black,true, "Image"))
+        db.cardDao().insertCard(Card("BLANC", themeCouleurs, R.drawable.color_white,true, "Image"))
+        db.cardDao().insertCard(Card("MARRON", themeCouleurs, R.drawable.color_brown,true, "Image"))
+        db.cardDao().insertCard(Card("GRIS", themeCouleurs, R.drawable.color_gray,true, "Image"))
+        db.cardDao().insertCard(Card("ROSE", themeCouleurs, R.drawable.color_pink,true, "Image"))
     }
 
     private suspend fun insertSubgameIfNotExist(num : Int, gameId : Int, image : Int? = null) {

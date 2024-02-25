@@ -13,8 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.games.Card
-import fr.but.sae2024.edukid.views.users.adapters.UserSelectionAdapter
-import timber.log.Timber
 
 class MemoryAdapter(private val context: Context, private val listCards: List<Card>, private val numberColumn : Int) : BaseAdapter() {
 

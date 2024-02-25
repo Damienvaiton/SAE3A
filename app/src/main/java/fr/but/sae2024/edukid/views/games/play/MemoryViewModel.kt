@@ -1,6 +1,7 @@
 package fr.but.sae2024.edukid.views.games.play
 
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,6 +18,7 @@ import fr.but.sae2024.edukid.repositories.SubgameRepository
 import fr.but.sae2024.edukid.repositories.ThemeRepository
 import fr.but.sae2024.edukid.repositories.UserRepository
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import kotlin.random.Random
 
 class MemoryViewModel : ViewModel() {
@@ -163,6 +165,11 @@ class MemoryViewModel : ViewModel() {
             4 -> 5
             else -> 6
         }
+    }
+
+    fun onReturnedCard(card: Card){
+        // Traitement
+        Timber.e("Card returned : $card")
     }
 
 }
