@@ -128,18 +128,20 @@ object TemplateDatabase {
     }
 
     private suspend fun createCards(context: Context) {
-        db.cardDao().insertCard(Card("1", "Chiffres", R.drawable.number_one))
-        db.cardDao().insertCard(Card("2", "Chiffres", R.drawable.number_two))
-        db.cardDao().insertCard(Card("3", "Chiffres", R.drawable.number_three))
-        db.cardDao().insertCard(Card("4", "Chiffres", R.drawable.number_four))
-        db.cardDao().insertCard(Card("5", "Chiffres", R.drawable.number_five))
-        db.cardDao().insertCard(Card("6", "Chiffres", R.drawable.number_six))
-        db.cardDao().insertCard(Card("7", "Chiffres", R.drawable.number_seven))
-        db.cardDao().insertCard(Card("8", "Chiffres", R.drawable.number_eight))
-        db.cardDao().insertCard(Card("9", "Chiffres", R.drawable.number_nine))
+        db.cardDao().insertCard(Card("0", "Chiffres", R.drawable.number_zero,true, "Image"))
+        db.cardDao().insertCard(Card("1", "Chiffres", R.drawable.number_one,true, "Image"))
+        db.cardDao().insertCard(Card("2", "Chiffres", R.drawable.number_two,true, "Image"))
+        db.cardDao().insertCard(Card("3", "Chiffres", R.drawable.number_three,true, "Image"))
+        db.cardDao().insertCard(Card("4", "Chiffres", R.drawable.number_four,true, "Image"))
+        db.cardDao().insertCard(Card("5", "Chiffres", R.drawable.number_five,true, "Image"))
+        db.cardDao().insertCard(Card("6", "Chiffres", R.drawable.number_six,true, "Image"))
+        db.cardDao().insertCard(Card("7", "Chiffres", R.drawable.number_seven,true, "Image"))
+        db.cardDao().insertCard(Card("8", "Chiffres", R.drawable.number_eight,true, "Image"))
+        db.cardDao().insertCard(Card("9", "Chiffres", R.drawable.number_nine,true, "Image"))
+
         val alphabetList = context.resources.getStringArray(R.array.alphabet)
         for (i in alphabetList.indices) {
-            db.cardDao().insertCard(Card(alphabetList[i], "Lettres", 0))
+            db.cardDao().insertCard(Card(alphabetList[i], "Lettres", 0,true, "Texte"))
         }
     }
 

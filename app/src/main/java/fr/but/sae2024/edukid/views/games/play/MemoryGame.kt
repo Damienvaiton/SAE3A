@@ -6,6 +6,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import fr.but.sae2024.edukid.R
+import fr.but.sae2024.edukid.models.entities.games.Card
 import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.views.games.adapters.MemoryAdapter
@@ -26,21 +27,31 @@ class MemoryGame : AppCompatActivity() {
 
         memoryViewModel.listCardMemory.observe(this){
 
-            gameMemoryGrid.numColumns= it.data()!!.numberColumn
+            if (it?.data() != null) {
+                gameMemoryGrid.numColumns = it.data()!!.numberColumn
+                Timber.tag("MemoryGame").e("ListCardMemory : $it")
 
-            Timber.tag("MemoryGame").e("ListCardMemory : $it")
+                val cards = it.data()?.listCards
+                onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
-            val cards = it.data()?.listCards
+                val adapter = MemoryAdapter(this, cards!!, it.data()!!.numberColumn)
+                gameMemoryGrid.adapter = adapter
 
-            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+                gameMemoryGrid.setOnItemClickListener { _, _, position, _ ->
+                    val card = adapter.getItem(position) as Card
+                    Timber.tag("MemoryGame").e("Card : $card")
+
+                    if (!card.isHidden) {
+                        return@setOnItemClickListener
+                    }
+
+                    card.isHidden = false
+                    adapter.notifyDataSetChanged()
 
 
-
-            val adapter = MemoryAdapter(this, cards!!, it.data()!!.theme)
-            gameMemoryGrid.adapter = adapter
-
+                }
+            }
         }
-
     }
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {

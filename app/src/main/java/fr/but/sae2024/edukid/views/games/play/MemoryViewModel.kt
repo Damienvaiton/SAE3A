@@ -21,7 +21,7 @@ import kotlin.random.Random
 
 class MemoryViewModel : ViewModel() {
 
-    private val NUMBER_SHUFFLE = 100
+    private val NUMBER_SHUFFLE = 50
 
     private val UserRepo = UserRepository
     private val ThemRepo = ThemeRepository
@@ -81,28 +81,27 @@ class MemoryViewModel : ViewModel() {
     }
 
     suspend fun getListCard(){
+        if (selectedTheme != null) {
+            MemoryRepo.getAllCard(selectedTheme!!.name).collect { listAllCards ->
 
-        MemoryRepo.getAllCard(selectedTheme!!.name).collect { listAllCards ->
+                totalNumberCard = listAllCards?.size!!
 
-            totalNumberCard = listAllCards?.size!!
+                val listPrintedCard = getPrintedCard(listAllCards)
 
-            val listPrintedCard = getPrintedCard(listAllCards)
+                val response : Response<MemoryData> = Response()
 
-            val response : Response<MemoryData> = Response()
+                val data = MemoryData(
+                    user = currentUser!!,
+                    theme = selectedTheme!!,
+                    game = selectedGame!!,
+                    subgame = selectedSubGame!!,
+                    listCards = listPrintedCard,
+                    numberColumn = getNumberOfColumn(listPrintedCard.size)
+                )
 
-            val data = MemoryData(
-                user = currentUser!!,
-                theme = selectedTheme!!,
-                game = selectedGame!!,
-                subgame = selectedSubGame!!,
-                listCards = listPrintedCard,
-                numberColumn = getNumberOfColumn(listPrintedCard.size)
-            )
-
-            response.addData(data)
-
-            _listCardMemory.postValue(response)
-
+                response.addData(data)
+                _listCardMemory.postValue(response)
+            }
         }
     }
 
@@ -111,25 +110,32 @@ class MemoryViewModel : ViewModel() {
         var listPrintedCard = mutableListOf<Card>()
         var numberOfCardBySubGame = getNumberOfCardBySubGame()
 
-        //récupérer les cartes aléatoirement dans les la liste de cartes possible (selon le theme)
+        // Récupérer les cartes aléatoirement dans les la liste de cartes possible (selon le theme)
 
-        var nombreAleatoire = 0
+        var nombreAleatoire : Int
         var currentNumberCard = 1
         while (currentNumberCard <= numberOfCardBySubGame){
             nombreAleatoire = Random.nextInt(totalNumberCard)
-            //vérifier si la carte n'est pas déjà dans la liste
-            val containFilter = listPrintedCard.filter { it?.value == listAllCards?.get(nombreAleatoire)?.value }
-            //si la carte n'est pas dans la liste, on l'ajoute
+            // Vérifier si la carte n'est pas déjà dans la liste
+            val containFilter = listPrintedCard.filter { it.value == listAllCards?.get(nombreAleatoire)?.value }
+            // Si la carte n'est pas dans la liste, on l'ajoute
             if (containFilter.isEmpty()){
                 listPrintedCard.add(listAllCards?.get(nombreAleatoire)!!)
                 currentNumberCard++
             }
         }
 
-        //dupliquer les cartes de la liste afin de créer des paires (pour l'affichage)
-        listPrintedCard.addAll(listPrintedCard)
+        // Dupliquer les cartes de la liste afin de créer des paires (pour l'affichage)
+        // Ici on utilise pas le addAll car on veut des objets uniques
+        // Le but est que la carte A et la carte A ait un objet différent et pas une copy de reference
+        val tmpList = mutableListOf<Card>()
+        tmpList.addAll(listPrintedCard)
 
-        //mélanger les cartes
+        for (card in tmpList){
+            listPrintedCard.add(Card(card.value, card.type, card.image, card.isHidden, card.showType))
+        }
+
+        // Mélanger les cartes
         for (i in 1..NUMBER_SHUFFLE){
             listPrintedCard.shuffle()
         }
