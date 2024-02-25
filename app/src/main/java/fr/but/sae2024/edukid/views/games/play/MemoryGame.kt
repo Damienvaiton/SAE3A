@@ -1,7 +1,6 @@
 package fr.but.sae2024.edukid.views.games.play
 
 import android.os.Bundle
-import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.GridView
@@ -22,6 +21,9 @@ class MemoryGame : AppCompatActivity() {
 
     private lateinit var sato0 : ScaleAnimation
     private lateinit var sato1 : ScaleAnimation
+
+    private var selectedCards : ArrayList<Card> = arrayListOf()
+    private var validatedCards : ArrayList<Card> = arrayListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +59,7 @@ class MemoryGame : AppCompatActivity() {
 
                     this.createAnimation()
 
-                    // Ajouter un écouteur d'animation
+                    // Ajouter un écouteur d'animation pour dévoiler les cartes
                     sato0.setAnimationListener(object : Animation.AnimationListener {
                         override fun onAnimationStart(animation: Animation?) {}
                         override fun onAnimationEnd(animation: Animation?) {
@@ -76,14 +78,52 @@ class MemoryGame : AppCompatActivity() {
                         }
                         override fun onAnimationRepeat(animation: Animation?) {}
                     })
-
+                    
                     view.startAnimation(sato0)
+
+                    //mettre la carte cliqué dans la liste des cartes selectionné
+                    selectedCards.add(card)
+
+                    //si 2 card sont selectionné alors on les compare, on verifie si elles sont identiques ou non et on vide la liste des cartes selectionnées
+                    if (selectedCards.size == 2) {
+                        //si les 2 cartes sont identiques alors on les ajoute dans la liste des cartes validées
+                        if (selectedCards[0].value == selectedCards[1].value) {
+                            validatedCards.add(selectedCards[0])
+                            validatedCards.add(selectedCards[1])
+
+                            //si toutes les cartes sont validées alors on a gagné
+                            if (validatedCards.size == cards.size) {
+                                Timber.tag("MemoryGame").e("You win")
+                                //redirection au menu memory
+                                RouteManager.startActivity(
+                                    this@MemoryGame,
+                                    ActivityName.SubGameSelectionActivity,
+                                    false,
+                                    true
+                                )
+                            }
+
+                        } else {
+                            //si les 2 cartes ne sont pas identiques alors on les cache
+                            /*ajouter par la suite les animations*/
+                            selectedCards[0].isHidden = !selectedCards[0].isHidden
+                            selectedCards[1].isHidden = !selectedCards[1].isHidden
+
+                            adapter.notifyDataSetChanged()
+                        }
+
+                        //on supprime les cartes selectionnées pour pouvoir en selectionner d'autres
+                        selectedCards.clear()
+
+                    }
                 }
             }
         }
     }
 
     fun createAnimation() {
+
+        // Animation pour dévoiler les cartes
         sato0 = ScaleAnimation(
             1f, 0f, 1f, 1f,
             Animation.RELATIVE_TO_PARENT, 0.5f, Animation.RELATIVE_TO_PARENT,
