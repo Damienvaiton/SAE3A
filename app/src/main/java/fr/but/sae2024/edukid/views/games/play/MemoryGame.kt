@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.GridView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,8 @@ class MemoryGame : AppCompatActivity() {
 
     private var selectedCards : ArrayList<Card> = arrayListOf()
     private var validatedCards : ArrayList<Card> = arrayListOf()
+
+    private var hitCounteur : Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +58,8 @@ class MemoryGame : AppCompatActivity() {
 
                     if (!card.isHidden) {
                         return@setOnItemClickListener
+                    }else{
+                        hitCounteur++
                     }
 
                     this.createAnimation()
@@ -78,7 +83,7 @@ class MemoryGame : AppCompatActivity() {
                         }
                         override fun onAnimationRepeat(animation: Animation?) {}
                     })
-                    
+
                     view.startAnimation(sato0)
 
                     //mettre la carte cliqué dans la liste des cartes selectionné
@@ -93,7 +98,9 @@ class MemoryGame : AppCompatActivity() {
 
                             //si toutes les cartes sont validées alors on a gagné
                             if (validatedCards.size == cards.size) {
-                                Timber.tag("MemoryGame").e("You win")
+                                //le nombre de hit pour gagner est divisé par 2 car on compte 2 hit pour chaque paire de carte
+                                Timber.tag("MemoryGame").e("You win in " + hitCounteur/2 + " hits")
+                                Toast.makeText(this, "You win in " + hitCounteur/2 + " hits", Toast.LENGTH_SHORT).show()
                                 //redirection au menu memory
                                 RouteManager.startActivity(
                                     this@MemoryGame,
