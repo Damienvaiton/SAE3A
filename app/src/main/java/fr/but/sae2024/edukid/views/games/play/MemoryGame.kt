@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.games.Card
 import fr.but.sae2024.edukid.utils.enums.ActivityName
@@ -25,9 +26,6 @@ class MemoryGame : AppCompatActivity() {
 
     private var selectedCards : ArrayList<Card> = arrayListOf()
     private var validatedCards : ArrayList<Card> = arrayListOf()
-
-    private var hitCounteur : Int = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +58,7 @@ class MemoryGame : AppCompatActivity() {
                     if (!card.isHidden) {
                         return@setOnItemClickListener
                     }else{
-                        hitCounteur++
+                        memoryViewModel.addHitCounteur()
                     }
 
                     this.createAnimation()
@@ -96,7 +94,9 @@ class MemoryGame : AppCompatActivity() {
 
         when(resultReturnedCard){
             "WIN" -> {
-                Toast.makeText(this@MemoryGame, "You win in " + hitCounteur/2 + " hits", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MemoryGame, "You win in " + memoryViewModel.getHitCounteur() + " hits", Toast.LENGTH_SHORT).show()
+                val gameData = memoryViewModel.getGameData()
+                Timber.tag("MemoryGame").e("GameData : $gameData")
                 RouteManager.startActivity(
                     this@MemoryGame,
                     ActivityName.SubGameSelectionActivity,

@@ -9,6 +9,7 @@ import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.models.entities.app.User
 import fr.but.sae2024.edukid.models.entities.games.Card
+import fr.but.sae2024.edukid.models.entities.games.GameData
 import fr.but.sae2024.edukid.models.responses.Response
 import fr.but.sae2024.edukid.repositories.GameRepository
 import fr.but.sae2024.edukid.repositories.MemoryRepository
@@ -174,6 +175,71 @@ class MemoryViewModel : ViewModel() {
 
     fun setCards(cards: List<Card>){
         this.cards = cards
+    }
+
+    fun addHitCounteur(){
+        hitCounteur++
+    }
+
+    fun getHitCounteur() : Int{
+        return hitCounteur/2 //le nombre de hit pour gagner est divisé par 2 car on compte 2 hit pour chaque paire de carte
+    }
+
+    fun getGameData() : GameData{
+        val gameData = GameData(
+            userId = currentUser!!.id!!,
+            theme = selectedTheme!!.name,
+            game = selectedGame!!.id!!,
+            subgame = selectedSubGame!!.num,
+            win = true, //true de base car memory est toujours gagnant
+            stars = getNumberOfStars(),
+            date = System.currentTimeMillis(),
+            draw = null,
+            touchTime = null,
+            sound = null,
+            word = null
+        )
+        return gameData
+    }
+
+    fun getNumberOfStars() : Int{
+        when(getNumberOfCardBySubGame()){
+            2 -> {
+                return when (hitCounteur/2) {
+                    in 0..3 -> 3
+                    in 4..6 -> 2
+                    else -> 1
+                }
+            }
+            3 -> {
+                return when (hitCounteur/2) {
+                    in 0..4 -> 3
+                    in 5..8 -> 2
+                    else -> 1
+                }
+            }
+            4 -> {
+                return when (hitCounteur/2) {
+                    in 0..5 -> 3
+                    in 6..10 -> 2
+                    else -> 1
+                }
+            }
+            5 -> {
+                return when (hitCounteur/2) {
+                    in 0..6 -> 3
+                    in 7..12 -> 2
+                    else -> 1
+                }
+            }
+            else -> {
+                return when (hitCounteur/2) {
+                    in 0..7 -> 3
+                    in 8..14 -> 2
+                    else -> 1
+                }
+            }
+        }
     }
 
     //fonction qui permet de gerer les cartes retournées et de determiner si elles sont identiques ou non, si il y a victoire ou premiere carte retournée
