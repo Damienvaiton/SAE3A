@@ -45,6 +45,7 @@ class MemoryGame : AppCompatActivity() {
                 Timber.tag("MemoryGame").e("ListCardMemory : $it")
 
                 val cards = it.data()?.listCards
+                memoryViewModel.setCards(cards!!)
                 onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
                 val adapter = MemoryAdapter(this, cards!!, it.data()!!.numberColumn)
@@ -79,53 +80,42 @@ class MemoryGame : AppCompatActivity() {
                     sato1.setAnimationListener(object : Animation.AnimationListener {
                         override fun onAnimationStart(animation: Animation?) {}
                         override fun onAnimationEnd(animation: Animation?) {
-                            memoryViewModel.onReturnedCard(card)
+                            testCard(card, adapter)
                         }
                         override fun onAnimationRepeat(animation: Animation?) {}
                     })
 
                     view.startAnimation(sato0)
-
-                    //mettre la carte cliqué dans la liste des cartes selectionné
-                    selectedCards.add(card)
-
-                    //si 2 card sont selectionné alors on les compare, on verifie si elles sont identiques ou non et on vide la liste des cartes selectionnées
-                    if (selectedCards.size == 2) {
-                        //si les 2 cartes sont identiques alors on les ajoute dans la liste des cartes validées
-                        if (selectedCards[0].value == selectedCards[1].value) {
-                            validatedCards.add(selectedCards[0])
-                            validatedCards.add(selectedCards[1])
-
-                            //si toutes les cartes sont validées alors on a gagné
-                            if (validatedCards.size == cards.size) {
-                                //le nombre de hit pour gagner est divisé par 2 car on compte 2 hit pour chaque paire de carte
-                                Timber.tag("MemoryGame").e("You win in " + hitCounteur/2 + " hits")
-                                Toast.makeText(this, "You win in " + hitCounteur/2 + " hits", Toast.LENGTH_SHORT).show()
-                                //redirection au menu memory
-                                RouteManager.startActivity(
-                                    this@MemoryGame,
-                                    ActivityName.SubGameSelectionActivity,
-                                    false,
-                                    true
-                                )
-                            }
-
-                        } else {
-                            //si les 2 cartes ne sont pas identiques alors on les cache
-                            /*ajouter par la suite les animations*/
-                            selectedCards[0].isHidden = !selectedCards[0].isHidden
-                            selectedCards[1].isHidden = !selectedCards[1].isHidden
-
-                            adapter.notifyDataSetChanged()
-                        }
-
-                        //on supprime les cartes selectionnées pour pouvoir en selectionner d'autres
-                        selectedCards.clear()
-
-                    }
                 }
             }
         }
+    }
+
+    fun testCard(card: Card, adapter: MemoryAdapter) {
+        val resultReturnedCard : String = memoryViewModel.onReturnedCard(card)
+
+        when(resultReturnedCard){
+            "WIN" -> {
+                Toast.makeText(this@MemoryGame, "You win in " + hitCounteur/2 + " hits", Toast.LENGTH_SHORT).show()
+                RouteManager.startActivity(
+                    this@MemoryGame,
+                    ActivityName.SubGameSelectionActivity,
+                    false,
+                    true
+                )
+            }
+            "MATCH" -> {
+                Timber.tag("MemoryGame").e("Match")
+            }
+            "NO_MATCH" -> {
+                Timber.tag("MemoryGame").e("No Match")
+            }
+            "FIRST_CARD" -> {
+                Timber.tag("MemoryGame").e("First Card")
+            }
+        }
+
+        adapter.notifyDataSetChanged()
     }
 
     fun createAnimation() {

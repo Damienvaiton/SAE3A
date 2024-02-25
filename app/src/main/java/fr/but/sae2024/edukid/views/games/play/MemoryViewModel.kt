@@ -1,7 +1,5 @@
 package fr.but.sae2024.edukid.views.games.play
 
-
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -36,6 +34,13 @@ class MemoryViewModel : ViewModel() {
     private var selectedGame : Game? = null
     private var selectedSubGame : Subgame? = null
     private var totalNumberCard : Int = 0
+
+    private lateinit var cards : List<Card>
+
+    private var selectedCards : ArrayList<Card> = arrayListOf()
+    private var validatedCards : ArrayList<Card> = arrayListOf()
+
+    private var hitCounteur : Int = 0
 
     private val _listCardMemory : MutableLiveData<Response<MemoryData>> = MutableLiveData<Response<MemoryData>>()
     val listCardMemory : MutableLiveData<Response<MemoryData>> = _listCardMemory
@@ -167,9 +172,60 @@ class MemoryViewModel : ViewModel() {
         }
     }
 
-    fun onReturnedCard(card: Card){
-        // Traitement
-        Timber.e("Card returned : $card")
+    fun setCards(cards: List<Card>){
+        this.cards = cards
     }
+
+    //fonction qui permet de gerer les cartes retournées et de determiner si elles sont identiques ou non, si il y a victoire ou premiere carte retournée
+    fun onReturnedCard(card: Card) : String{
+        Timber.e("Card returned : $card")
+
+        //Liste des return possible : WIN, MATCH, NO_MATCH, FIRST_CARD
+        val WIN = "WIN"
+        val MATCH = "MATCH"
+        val NOMATCH = "NO_MATCH"
+        val FIRS_TCARD = "FIRST_CARD" //premiere carte retournée
+        val RETURN_VALUE : String
+
+        //mettre la carte cliqué dans la liste des cartes selectionné
+        selectedCards.add(card)
+
+        //si 2 card sont selectionné alors on les compare, on verifie si elles sont identiques ou non et on vide la liste des cartes selectionnées
+        if (selectedCards.size == 2) {
+            //si les 2 cartes sont identiques alors on les ajoute dans la liste des cartes validées
+            if (selectedCards[0].value == selectedCards[1].value) {
+                validatedCards.add(selectedCards[0])
+                validatedCards.add(selectedCards[1])
+
+                //si toutes les cartes sont validées alors on a gagné
+                if (validatedCards.size == cards.size) {
+                    //le nombre de hit pour gagner est divisé par 2 car on compte 2 hit pour chaque paire de carte
+                    Timber.tag("MemoryGame").e("You win in " + hitCounteur/2 + " hits")
+                    RETURN_VALUE = WIN
+                }else{
+                    RETURN_VALUE = MATCH
+                }
+
+            } else {
+                //si les 2 cartes ne sont pas identiques alors on les cache
+                /*ajouter par la suite les animations*/
+                selectedCards[0].isHidden = !selectedCards[0].isHidden
+                selectedCards[1].isHidden = !selectedCards[1].isHidden
+
+                RETURN_VALUE = NOMATCH
+            }
+
+            //on supprime les cartes selectionnées pour pouvoir en selectionner d'autres
+            selectedCards.clear()
+
+        }else{
+            RETURN_VALUE = FIRS_TCARD
+        }
+
+        return RETURN_VALUE
+
+    }
+
+
 
 }
