@@ -16,6 +16,7 @@ import fr.but.sae2024.edukid.repositories.MemoryRepository
 import fr.but.sae2024.edukid.repositories.SubgameRepository
 import fr.but.sae2024.edukid.repositories.ThemeRepository
 import fr.but.sae2024.edukid.repositories.UserRepository
+import fr.but.sae2024.edukid.utils.enums.MemoryReturn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import kotlin.random.Random
@@ -24,11 +25,11 @@ class MemoryViewModel : ViewModel() {
 
     private val NUMBER_SHUFFLE = 50
 
-    private val UserRepo = UserRepository
-    private val ThemRepo = ThemeRepository
-    private val GameRepo = GameRepository
-    private val SubGameRepo = SubgameRepository
-    private val MemoryRepo = MemoryRepository
+    private val userRepo = UserRepository
+    private val themRepo = ThemeRepository
+    private val gameRepo = GameRepository
+    private val subGameRepo = SubgameRepository
+    private val memoryRepo = MemoryRepository
 
     private var currentUser : User? = null
     private var selectedTheme : Theme? = null
@@ -47,50 +48,53 @@ class MemoryViewModel : ViewModel() {
     val listCardMemory : MutableLiveData<Response<MemoryData>> = _listCardMemory
 
     fun getData(){
+
+        this.hitCounteur = 0
+        this.selectedCards.clear()
+        this.validatedCards.clear()
+
         viewModelScope.launch {
             getCurrentUser() // recupérations des infos en cascade afin d'etre sur d'avoir toutes les données
         }
     }
 
-    suspend private fun getCurrentUser(){
-
-            UserRepo.getAuthenticatedUser().collect{ user ->
+    private suspend fun getCurrentUser(){
+            userRepo.getAuthenticatedUser().collect{ user ->
                 currentUser = user
                 getCurrentTheme()
             }
-
     }
 
-    fun getCurrentTheme(){
+    private fun getCurrentTheme(){
         viewModelScope.launch {
-            ThemRepo.getSelectedTheme().collect{ theme ->
+            themRepo.getSelectedTheme().collect{ theme ->
                 selectedTheme = theme
                 getCurrentGame()
             }
         }
     }
 
-    fun getCurrentGame(){
+    private fun getCurrentGame(){
         viewModelScope.launch {
-            GameRepo.getSelectedGame().collect{ game ->
+            gameRepo.getSelectedGame().collect{ game ->
                 selectedGame = game
                 getCurrentSubGame()
             }
         }
     }
 
-    fun getCurrentSubGame(){
+    private fun getCurrentSubGame(){
         viewModelScope.launch {
-            SubGameRepo.getSelectedSubGame().collect{ subgame ->
+            subGameRepo.getSelectedSubGame().collect{ subgame ->
                 selectedSubGame = subgame
                 getListCard()
             }
         }
     }
 
-    suspend fun getListCard(){
+    private suspend fun getListCard(){
         if (selectedTheme != null) {
-            MemoryRepo.getAllCard(selectedTheme!!.name).collect { listAllCards ->
+            memoryRepo.getAllCard(selectedTheme!!.name).collect { listAllCards ->
 
                 totalNumberCard = listAllCards?.size!!
 
@@ -113,10 +117,10 @@ class MemoryViewModel : ViewModel() {
         }
     }
 
-    fun getPrintedCard(listAllCards : List<Card?>?) : List<Card>{
+    private fun getPrintedCard(listAllCards : List<Card?>?) : List<Card>{
 
-        var listPrintedCard = mutableListOf<Card>()
-        var numberOfCardBySubGame = getNumberOfCardBySubGame()
+        val listPrintedCard = mutableListOf<Card>()
+        val numberOfCardBySubGame = getNumberOfCardBySubGame()
 
         // Récupérer les cartes aléatoirement dans les la liste de cartes possible (selon le theme)
 
@@ -151,7 +155,7 @@ class MemoryViewModel : ViewModel() {
         return listPrintedCard
     }
 
-    fun getNumberOfColumn(nbCards: Int) : Int{
+    private fun getNumberOfColumn(nbCards: Int) : Int{
 
         return when (nbCards) {
             4 -> 2
@@ -160,11 +164,9 @@ class MemoryViewModel : ViewModel() {
         }
     }
 
-    fun getNumberOfCardBySubGame() : Int{
+    private fun getNumberOfCardBySubGame() : Int{
 
-        val numSubGame = selectedSubGame?.num
-
-        return when (numSubGame) {
+        return when (selectedSubGame?.num) {
             1 -> 2
             2 -> 3
             3 -> 4
@@ -182,11 +184,12 @@ class MemoryViewModel : ViewModel() {
     }
 
     fun getHitCounteur() : Int{
-        return hitCounteur/2 //le nombre de hit pour gagner est divisé par 2 car on compte 2 hit pour chaque paire de carte
+        // Le nombre de hit pour gagner est divisé par 2 car on compte 2 hit pour chaque paire de carte
+        return hitCounteur/2
     }
 
-    fun getGameData() : GameData{
-        val gameData = GameData(
+    fun createGameData() : GameData {
+        val gameData =  GameData(
             userId = currentUser!!.id!!,
             theme = selectedTheme!!.name,
             game = selectedGame!!.id!!,
@@ -199,10 +202,15 @@ class MemoryViewModel : ViewModel() {
             sound = null,
             word = null
         )
+
+        viewModelScope.launch {
+            // MemoryGame Create GameData
+        }
+
         return gameData
     }
 
-    fun getNumberOfStars() : Int{
+    private fun getNumberOfStars() : Int{
         when(getNumberOfCardBySubGame()){
             2 -> {
                 return when (hitCounteur/2) {
@@ -243,15 +251,8 @@ class MemoryViewModel : ViewModel() {
     }
 
     //fonction qui permet de gerer les cartes retournées et de determiner si elles sont identiques ou non, si il y a victoire ou premiere carte retournée
-    fun onReturnedCard(card: Card) : String{
+    fun onReturnedCard(card: Card) : MemoryReturn {
         Timber.e("Card returned : $card")
-
-        //Liste des return possible : WIN, MATCH, NO_MATCH, FIRST_CARD
-        val WIN = "WIN"
-        val MATCH = "MATCH"
-        val NOMATCH = "NO_MATCH"
-        val FIRS_TCARD = "FIRST_CARD" //premiere carte retournée
-        val RETURN_VALUE : String
 
         //mettre la carte cliqué dans la liste des cartes selectionné
         selectedCards.add(card)
@@ -263,13 +264,15 @@ class MemoryViewModel : ViewModel() {
                 validatedCards.add(selectedCards[0])
                 validatedCards.add(selectedCards[1])
 
+                //on supprime les cartes selectionnées pour pouvoir en selectionner d'autres
+                selectedCards.clear()
                 //si toutes les cartes sont validées alors on a gagné
-                if (validatedCards.size == cards.size) {
+                return if (validatedCards.size == cards.size) {
                     //le nombre de hit pour gagner est divisé par 2 car on compte 2 hit pour chaque paire de carte
                     Timber.tag("MemoryGame").e("You win in " + hitCounteur/2 + " hits")
-                    RETURN_VALUE = WIN
+                    MemoryReturn.WIN
                 }else{
-                    RETURN_VALUE = MATCH
+                    MemoryReturn.MATCH
                 }
 
             } else {
@@ -278,20 +281,12 @@ class MemoryViewModel : ViewModel() {
                 selectedCards[0].isHidden = !selectedCards[0].isHidden
                 selectedCards[1].isHidden = !selectedCards[1].isHidden
 
-                RETURN_VALUE = NOMATCH
+                //on supprime les cartes selectionnées pour pouvoir en selectionner d'autres
+                selectedCards.clear()
+                return MemoryReturn.NO_MATCH
             }
-
-            //on supprime les cartes selectionnées pour pouvoir en selectionner d'autres
-            selectedCards.clear()
-
         }else{
-            RETURN_VALUE = FIRS_TCARD
+            return MemoryReturn.FIRST_CARD
         }
-
-        return RETURN_VALUE
-
     }
-
-
-
 }

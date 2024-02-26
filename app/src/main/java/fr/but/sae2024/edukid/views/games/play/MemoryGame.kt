@@ -1,6 +1,7 @@
 package fr.but.sae2024.edukid.views.games.play
 
 import android.os.Bundle
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.GridView
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import fr.but.sae2024.edukid.R
 import fr.but.sae2024.edukid.models.entities.games.Card
 import fr.but.sae2024.edukid.utils.enums.ActivityName
+import fr.but.sae2024.edukid.utils.enums.MemoryReturn
 import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.views.games.adapters.MemoryAdapter
 import timber.log.Timber
@@ -23,9 +25,9 @@ class MemoryGame : AppCompatActivity() {
 
     private lateinit var sato0 : ScaleAnimation
     private lateinit var sato1 : ScaleAnimation
+    private var isAnimating = false
 
-    private var selectedCards : ArrayList<Card> = arrayListOf()
-    private var validatedCards : ArrayList<Card> = arrayListOf()
+    private var selectedCards : ArrayList<View> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,7 @@ class MemoryGame : AppCompatActivity() {
                 memoryViewModel.setCards(cards!!)
                 onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
-                val adapter = MemoryAdapter(this, cards!!, it.data()!!.numberColumn)
+                val adapter = MemoryAdapter(this, cards, it.data()!!.numberColumn)
                 gameMemoryGrid.adapter = adapter
 
                 // Pour être sûr que tous les items sont cliquables
@@ -55,7 +57,7 @@ class MemoryGame : AppCompatActivity() {
                     val card = adapter.getItem(position) as Card
                     Timber.tag("MemoryGame").e("Card : $card")
 
-                    if (!card.isHidden) {
+                    if (!card.isHidden || isAnimating) {
                         return@setOnItemClickListener
                     }else{
                         memoryViewModel.addHitCounteur()
@@ -67,8 +69,6 @@ class MemoryGame : AppCompatActivity() {
                     sato0.setAnimationListener(object : Animation.AnimationListener {
                         override fun onAnimationStart(animation: Animation?) {}
                         override fun onAnimationEnd(animation: Animation?) {
-
-                            card.isHidden = !card.isHidden
                             adapter.notifyDataSetChanged()
                             view.startAnimation(sato1)
                         }
@@ -83,6 +83,9 @@ class MemoryGame : AppCompatActivity() {
                         override fun onAnimationRepeat(animation: Animation?) {}
                     })
 
+                    card.isHidden = !card.isHidden
+                    this.isAnimating = true
+                    this.selectedCards.add(view)
                     view.startAnimation(sato0)
                 }
             }
@@ -90,12 +93,12 @@ class MemoryGame : AppCompatActivity() {
     }
 
     fun testCard(card: Card, adapter: MemoryAdapter) {
-        val resultReturnedCard : String = memoryViewModel.onReturnedCard(card)
 
-        when(resultReturnedCard){
-            "WIN" -> {
+        when(memoryViewModel.onReturnedCard(card)){
+            MemoryReturn.WIN -> {
+                isAnimating = false
                 Toast.makeText(this@MemoryGame, "You win in " + memoryViewModel.getHitCounteur() + " hits", Toast.LENGTH_SHORT).show()
-                val gameData = memoryViewModel.getGameData()
+                val gameData = memoryViewModel.createGameData()
                 Timber.tag("MemoryGame").e("GameData : $gameData")
                 RouteManager.startActivity(
                     this@MemoryGame,
@@ -104,21 +107,45 @@ class MemoryGame : AppCompatActivity() {
                     true
                 )
             }
-            "MATCH" -> {
+            MemoryReturn.MATCH -> {
                 Timber.tag("MemoryGame").e("Match")
+                isAnimating = false
             }
-            "NO_MATCH" -> {
+            MemoryReturn.NO_MATCH -> {
                 Timber.tag("MemoryGame").e("No Match")
+                for (view in this.selectedCards) {
+                    this.createAnimation()
+
+                    // Ajouter un écouteur d'animation pour dévoiler les cartes
+                    sato0.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {}
+                        override fun onAnimationEnd(animation: Animation?) {
+                            adapter.notifyDataSetChanged()
+                            view.startAnimation(sato1)
+                        }
+                        override fun onAnimationRepeat(animation: Animation?) {}
+                    })
+
+                    sato1.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {}
+                        override fun onAnimationEnd(animation: Animation?) {
+                            isAnimating = false
+                        }
+                        override fun onAnimationRepeat(animation: Animation?) {}
+                    })
+
+                    view.startAnimation(sato0)
+                }
+                this.selectedCards.clear()
             }
-            "FIRST_CARD" -> {
+            MemoryReturn.FIRST_CARD -> {
                 Timber.tag("MemoryGame").e("First Card")
+                isAnimating = false
             }
         }
-
-        adapter.notifyDataSetChanged()
     }
 
-    fun createAnimation() {
+    private fun createAnimation() {
 
         // Animation pour dévoiler les cartes
         sato0 = ScaleAnimation(
