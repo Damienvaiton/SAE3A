@@ -97,6 +97,7 @@ class MemoryGame : AppCompatActivity() {
         when(memoryViewModel.onReturnedCard(card)){
             MemoryReturn.WIN -> {
                 isAnimating = false
+                this.selectedCards.clear()
                 Toast.makeText(this@MemoryGame, "You win in " + memoryViewModel.getHitCounteur() + " hits", Toast.LENGTH_SHORT).show()
                 val gameData = memoryViewModel.createGameData()
                 Timber.tag("MemoryGame").e("GameData : $gameData")
@@ -110,6 +111,7 @@ class MemoryGame : AppCompatActivity() {
             MemoryReturn.MATCH -> {
                 Timber.tag("MemoryGame").e("Match")
                 isAnimating = false
+                this.selectedCards.clear()
             }
             MemoryReturn.NO_MATCH -> {
                 Timber.tag("MemoryGame").e("No Match")
