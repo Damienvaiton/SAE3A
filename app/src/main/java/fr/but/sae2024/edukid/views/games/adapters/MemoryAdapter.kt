@@ -101,12 +101,12 @@ class MemoryAdapter(private val context: Context, private val listCards: List<Ca
         }
 
         // Si la carte affiche une image, on charge l'image
-        if (card.showType!!.lowercase() == "image" && !card.isHidden) {
+        if (card.showType!!.lowercase() == "image") {
             Glide.with(context).load(card.image).override(imageWidth, imageWidth).into(holder.imageMemory)
             holder.valueMemory.visibility = View.INVISIBLE
 
             // Sinon on affiche la valeur de la carte
-        } else if (card.showType.lowercase() == "texte" && !card.isHidden) {
+        } else if (card.showType.lowercase() == "texte") {
             holder.valueMemory.text = card.value
             holder.imageMemory.visibility = View.INVISIBLE
         }
