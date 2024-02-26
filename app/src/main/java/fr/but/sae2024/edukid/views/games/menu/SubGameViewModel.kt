@@ -60,5 +60,4 @@ class SubGameViewModel : ViewModel(){
                 }
         }
     }
-
 }

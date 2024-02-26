@@ -2,6 +2,11 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
+    id("androidx.room")
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 android {
@@ -11,12 +16,17 @@ android {
 
     defaultConfig {
         applicationId = "fr.but.sae2024.edukid"
-        minSdk = 23
+        minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = 2
         versionName = "2.0"
 
+        setProperty("archivesBaseName", "Edukid-v$versionName")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildFeatures {
+            buildConfig = true
+        }
     }
 
     buildTypes {
@@ -26,6 +36,32 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            isDebuggable = true
+        }
+    }
+
+    flavorDimensions += "environment"
+    productFlavors {
+        create("develop") {
+            dimension = "environment"
+            versionNameSuffix = "-dev"
+            applicationIdSuffix = ".dev"
+            //buildConfigField("String", "NAME", "\"Something\"")
+        }
+
+        create("recette") {
+            dimension = "environment"
+            versionNameSuffix = "-recette"
+            applicationIdSuffix = ".recette"
+        }
+
+        create("production") {
+            dimension = "environment"
+            versionNameSuffix = "-prod"
+            applicationIdSuffix = ".prod"
         }
     }
 

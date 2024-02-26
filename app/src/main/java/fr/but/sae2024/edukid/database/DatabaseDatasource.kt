@@ -8,7 +8,6 @@ import fr.but.sae2024.edukid.models.entities.games.Card
 
 object DatabaseDatasource {
 
-
     suspend fun insertUser(user: User) {
         return EdukidDatabase.getInstance().userDao().insertUser(user)
     }

@@ -69,5 +69,4 @@ class SubGameSelectionActivity : AppCompatActivity() {
         super.onDestroy()
         Timber.i("onDestroy called")
     }
-
 }
