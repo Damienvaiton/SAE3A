@@ -101,7 +101,9 @@ class UserAddActivity : AppCompatActivity() {
 
         validateButton.setOnClickListener {
             if (pictureURI == "" || !hasCustomPhoto) {
-                pictureURI = "android.resource://fr.but.sae2024.edukid/drawable/profil$idPicture"
+                pictureURI = convertDrawableToUri(resources.getIdentifier(
+                    "profil$idPicture", "drawable", packageName
+                ))
             }
             userViewModel.createUserChild(username.text.toString(), pictureURI, this)
             RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
@@ -168,6 +170,9 @@ class UserAddActivity : AppCompatActivity() {
         return uri
     }
 
+    fun convertDrawableToUri(drawable: Int): String {
+        return "android.resource://$packageName/$drawable"
+    }
 
 }
 

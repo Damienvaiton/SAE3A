@@ -79,7 +79,7 @@ class UserManagingActivity : AppCompatActivity() {
                 personne = it
                 Timber.tag("UserManagingActivity").e("IT : ${it}")
                 username.setText(it.username)
-                pictureURI = it.picture ?: ""
+                pictureURI = it.picture.toString()
                 Glide.with(this).load(pictureURI).into(picture)
             }
         }
@@ -140,7 +140,10 @@ class UserManagingActivity : AppCompatActivity() {
 
         validateButton.setOnClickListener {
             if (pictureURI == "" || !hasCustomPhoto) {
-                pictureURI = "android.resource://fr.but.sae2024.edukid/drawable/profil$idPicture"
+                val intPicture = resources.getIdentifier(
+                    "profil$idPicture", "drawable", packageName
+                )
+                pictureURI = convertDrawableToUri(intPicture)
             }
             tempUser.id?.let { it1 ->
                 userViewModel.updateUserChild(
@@ -215,5 +218,9 @@ class UserManagingActivity : AppCompatActivity() {
         }
 
         return uri
+    }
+
+    fun convertDrawableToUri(drawable: Int): String {
+        return "android.resource://$packageName/$drawable"
     }
 }
