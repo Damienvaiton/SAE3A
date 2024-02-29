@@ -17,6 +17,9 @@ object TemplateDatabase {
     private val themeLettres = "Lettres"
     private val themeChiffres = "Chiffres"
     private val themeCouleurs = "Couleurs"
+    private val themeAnimaux = "Animaux"
+    private val themeFruitsetlegumes = "Fruits et légumes"
+    private val themeFormes = "Formes géométriques"
 
     suspend fun initDatabase(context: Context) : Flow<Boolean> = flow {
         db  = EdukidDatabase.getInstance()
@@ -40,6 +43,9 @@ object TemplateDatabase {
             db.themeDao().insertTheme(Theme(themeLettres, R.drawable.logo_theme_lettres))
             db.themeDao().insertTheme(Theme(themeChiffres, R.drawable.logo_theme_chiffres))
             db.themeDao().insertTheme(Theme(themeCouleurs, R.drawable.logo_theme_couleurs))
+            db.themeDao().insertTheme(Theme(themeAnimaux, R.drawable.logo_theme_animaux))
+            db.themeDao().insertTheme(Theme(themeFruitsetlegumes, R.drawable.logo_theme_fruits_legumes))
+            db.themeDao().insertTheme(Theme(themeFormes, R.drawable.logo_theme_formes))
         }
     }
 
@@ -54,6 +60,12 @@ object TemplateDatabase {
             db.gameDao().insertGame(Game("Ecoute", themeChiffres, R.drawable.logo_playwithsound))
 
             db.gameDao().insertGame(Game("Memory", themeCouleurs, R.drawable.logo_memory))
+
+            db.gameDao().insertGame(Game("Memory", themeAnimaux, R.drawable.logo_memory))
+
+            db.gameDao().insertGame(Game("Memory", themeFruitsetlegumes, R.drawable.logo_memory))
+
+            db.gameDao().insertGame(Game("Memory", themeFormes, R.drawable.logo_memory))
         }
     }
 
@@ -130,6 +142,83 @@ object TemplateDatabase {
             db.gameDao().getGameId("Memory", themeCouleurs),
             R.drawable.logo_memory_img_chiffre
         )
+
+        insertSubgameIfNotExist(
+            1,
+            db.gameDao().getGameId("Memory", themeAnimaux),
+            R.drawable.logo_memory_img_img
+        )
+
+        insertSubgameIfNotExist(
+            2,
+            db.gameDao().getGameId("Memory", themeAnimaux),
+            R.drawable.logo_memory_img_imgdiff
+        )
+
+        insertSubgameIfNotExist(
+            3,
+            db.gameDao().getGameId("Memory", themeAnimaux),
+            R.drawable.logo_memory_chiffre_chiffre
+        )
+
+        insertSubgameIfNotExist(
+            4,
+            db.gameDao().getGameId("Memory", themeAnimaux),
+            R.drawable.logo_memory_img_chiffre
+        )
+
+        insertSubgameIfNotExist(
+            1,
+            db.gameDao().getGameId("Memory", themeFruitsetlegumes),
+            R.drawable.logo_memory_img_img
+        )
+
+        insertSubgameIfNotExist(
+            2,
+            db.gameDao().getGameId("Memory", themeFruitsetlegumes),
+            R.drawable.logo_memory_img_imgdiff
+        )
+
+        insertSubgameIfNotExist(
+            3,
+            db.gameDao().getGameId("Memory", themeFruitsetlegumes),
+            R.drawable.logo_memory_chiffre_chiffre
+        )
+
+        insertSubgameIfNotExist(
+            4,
+            db.gameDao().getGameId("Memory", themeFruitsetlegumes),
+            R.drawable.logo_memory_img_chiffre
+        )
+
+        insertSubgameIfNotExist(
+            1,
+            db.gameDao().getGameId("Memory", themeFormes),
+            R.drawable.logo_memory_img_img
+        )
+
+        insertSubgameIfNotExist(
+            2,
+            db.gameDao().getGameId("Memory", themeFormes),
+            R.drawable.logo_memory_img_imgdiff
+        )
+
+        insertSubgameIfNotExist(
+            3,
+            db.gameDao().getGameId("Memory", themeFormes),
+            R.drawable.logo_memory_chiffre_chiffre
+        )
+
+        insertSubgameIfNotExist(
+            4,
+            db.gameDao().getGameId("Memory", themeFormes),
+            R.drawable.logo_memory_img_chiffre
+        )
+
+
+
+
+
     }
 
     private suspend fun createWords() {
@@ -184,6 +273,53 @@ object TemplateDatabase {
         db.cardDao().insertCard(Card("MARRON", themeCouleurs, R.drawable.color_brown,true, "Image"))
         db.cardDao().insertCard(Card("GRIS", themeCouleurs, R.drawable.color_gray,true, "Image"))
         db.cardDao().insertCard(Card("ROSE", themeCouleurs, R.drawable.color_pink,true, "Image"))
+
+        db.cardDao().insertCard(Card("CHAT", themeAnimaux, R.drawable.chat,true, "Image"))
+        db.cardDao().insertCard(Card("CHEVAL", themeAnimaux, R.drawable.cheval,true, "Image"))
+        db.cardDao().insertCard(Card("CHIEN", themeAnimaux, R.drawable.chien,true, "Image"))
+        db.cardDao().insertCard(Card("CHEVRE", themeAnimaux, R.drawable.chevre,true, "Image"))
+        db.cardDao().insertCard(Card("COCHON", themeAnimaux, R.drawable.cochon,true, "Image"))
+        db.cardDao().insertCard(Card("ELEPHANT", themeAnimaux, R.drawable.elephant,true, "Image"))
+        db.cardDao().insertCard(Card("ECUREUIL", themeAnimaux, R.drawable.ecureuil,true, "Image"))
+        db.cardDao().insertCard(Card("GIRAFE", themeAnimaux, R.drawable.girafe,true, "Image"))
+        db.cardDao().insertCard(Card("GRENOUILLE", themeAnimaux, R.drawable.grenouille,true, "Image"))
+        db.cardDao().insertCard(Card("LAPIN", themeAnimaux, R.drawable.lapin,true, "Image"))
+        db.cardDao().insertCard(Card("LION", themeAnimaux, R.drawable.lion,true, "Image"))
+        db.cardDao().insertCard(Card("LOUP", themeAnimaux, R.drawable.loup,true, "Image"))
+        db.cardDao().insertCard(Card("MOUTON", themeAnimaux, R.drawable.mouton,true, "Image"))
+        db.cardDao().insertCard(Card("OURS", themeAnimaux, R.drawable.ours,true, "Image"))
+        db.cardDao().insertCard(Card("OISEAU", themeAnimaux, R.drawable.oiseau,true, "Image"))
+        db.cardDao().insertCard(Card("POULE", themeAnimaux, R.drawable.poule,true, "Image"))
+        db.cardDao().insertCard(Card("PANDA", themeAnimaux, R.drawable.panda,true, "Image"))
+        db.cardDao().insertCard(Card("POISSON", themeAnimaux, R.drawable.poisson,true, "Image"))
+        db.cardDao().insertCard(Card("PAPILLON", themeAnimaux, R.drawable.papillon,true, "Image"))
+        db.cardDao().insertCard(Card("PINGOUIN", themeAnimaux, R.drawable.pinguin,true, "Image"))
+        db.cardDao().insertCard(Card("TORTUE", themeAnimaux, R.drawable.tortue,true, "Image"))
+        db.cardDao().insertCard(Card("VACHE", themeAnimaux, R.drawable.vache,true, "Image"))
+        db.cardDao().insertCard(Card("BALEINE", themeAnimaux, R.drawable.baleine,true, "Image"))
+        db.cardDao().insertCard(Card("CASTOR", themeAnimaux, R.drawable.castor,true, "Image"))
+        db.cardDao().insertCard(Card("CROCODILE", themeAnimaux, R.drawable.crocodile,true, "Image"))
+        db.cardDao().insertCard(Card("CERF", themeAnimaux, R.drawable.cerf,true, "Image"))
+        db.cardDao().insertCard(Card("DAUPHIN", themeAnimaux, R.drawable.dauphin,true, "Image"))
+        db.cardDao().insertCard(Card("CHAMEAU", themeAnimaux, R.drawable.chameau,true, "Image"))
+        db.cardDao().insertCard(Card("CIGOGNE", themeAnimaux, R.drawable.cigogne,true, "Image"))
+        db.cardDao().insertCard(Card("HIPPOPOTAME", themeAnimaux, R.drawable.hippopotame,true, "Image"))
+        db.cardDao().insertCard(Card("KANGOUROU", themeAnimaux, R.drawable.kangourou,true, "Image"))
+        db.cardDao().insertCard(Card("KOALA", themeAnimaux, R.drawable.koala,true, "Image"))
+        db.cardDao().insertCard(Card("LOUTRE", themeAnimaux, R.drawable.loutre,true, "Image"))
+        db.cardDao().insertCard(Card("MARMOTTE", themeAnimaux, R.drawable.marmotte,true, "Image"))
+        db.cardDao().insertCard(Card("ORQUE", themeAnimaux, R.drawable.orque,true, "Image"))
+        db.cardDao().insertCard(Card("OTARIE", themeAnimaux, R.drawable.otarie,true, "Image"))
+        db.cardDao().insertCard(Card("PANTHERE", themeAnimaux, R.drawable.panthere,true, "Image"))
+        db.cardDao().insertCard(Card("RENARD", themeAnimaux, R.drawable.renard,true, "Image"))
+        db.cardDao().insertCard(Card("REQUIN", themeAnimaux, R.drawable.requin,true, "Image"))
+        db.cardDao().insertCard(Card("SINGE", themeAnimaux, R.drawable.singe,true, "Image"))
+        db.cardDao().insertCard(Card("TIGRE", themeAnimaux, R.drawable.tigre,true, "Image"))
+        db.cardDao().insertCard(Card("ZEBRE", themeAnimaux, R.drawable.zebre,true, "Image"))
+
+
+
+
     }
 
     private suspend fun insertSubgameIfNotExist(num : Int, gameId : Int, image : Int? = null) {
