@@ -29,7 +29,6 @@ class GameSelectionActivity : AppCompatActivity() {
             val adapter = GameSelectionAdapter(listGame)
             gameRV.adapter = adapter
             gameRV.layoutManager = LinearLayoutManager(this@GameSelectionActivity)
-            gameRV.setHasFixedSize(true)
 
             adapter.gameLD.observe(this) { game ->
                 gameViewModel.gameDefine(game, this)

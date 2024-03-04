@@ -8,7 +8,6 @@ import fr.but.sae2024.edukid.models.entities.app.Game
 import fr.but.sae2024.edukid.models.entities.app.Subgame
 import fr.but.sae2024.edukid.repositories.GameRepository
 import fr.but.sae2024.edukid.repositories.SubgameRepository
-import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.enums.GameName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.utils.managers.VibrateManager
@@ -39,7 +38,7 @@ class SubGameViewModel : ViewModel(){
         }
     }
 
-    fun getSelectedSubGame(context : Context){
+    fun getSelectedSubGame() {
         viewModelScope.launch {
             subGameRepo.getSelectedSubGame()
                 .collect {
@@ -48,7 +47,7 @@ class SubGameViewModel : ViewModel(){
         }
     }
 
-    fun getAllSubGamesByGame(context : Context){
+    fun getAllSubGamesByGame() {
         viewModelScope.launch {
             gameRepo.getSelectedGame()
                 .collect {game ->

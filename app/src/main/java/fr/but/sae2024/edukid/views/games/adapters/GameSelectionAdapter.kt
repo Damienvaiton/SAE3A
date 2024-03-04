@@ -36,10 +36,6 @@ class GameSelectionAdapter(val listGame : List<Game?>) : RecyclerView.Adapter<Ga
 
         val game = listGame[position]
 
-        if (listGame == null) {
-            return
-        }
-
         holder.gameName.text = game?.name
         Glide
             .with(holder.itemView.context)

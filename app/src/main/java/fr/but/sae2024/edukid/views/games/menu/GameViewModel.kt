@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.models.entities.app.Game
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.repositories.GameRepository
@@ -12,7 +11,6 @@ import fr.but.sae2024.edukid.repositories.ThemeRepository
 import fr.but.sae2024.edukid.utils.enums.ActivityName
 import fr.but.sae2024.edukid.utils.managers.RouteManager
 import fr.but.sae2024.edukid.utils.managers.VibrateManager
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -26,7 +24,7 @@ class GameViewModel : ViewModel() {
     private val gameRepo = GameRepository
     private val themeRepo = ThemeRepository
 
-    fun getAllGame(context : Context){
+    fun getAllGame() {
         viewModelScope.launch {
             gameRepo.getAllGame()
                 .collect {

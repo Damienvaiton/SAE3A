@@ -1,4 +1,6 @@
 package fr.but.sae2024.edukid.views.statistics
 
-class StatisticActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class StatisticActivity : AppCompatActivity() {
 }

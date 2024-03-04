@@ -30,11 +30,7 @@ class ThemeSelectionAdapter(val listTheme : List<Theme?>): RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ThemeSelectionViewHolder, position: Int) {
-        val theme = listTheme[position]
-
-        if (theme == null) {
-            return
-        }
+        val theme : Theme = listTheme[position] ?: return
 
         holder.themename.text = theme.name
         Glide
@@ -43,7 +39,7 @@ class ThemeSelectionAdapter(val listTheme : List<Theme?>): RecyclerView.Adapter<
             .into(holder.themePicture)
 
         holder.itemView.setOnClickListener {
-            _themeLD.postValue(theme!!)
+            _themeLD.postValue(theme)
         }
 
     }

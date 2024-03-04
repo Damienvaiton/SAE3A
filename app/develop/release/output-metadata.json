@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "fr.but.sae2024.edukid.dev",
+  "variantName": "developRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 2,
+      "versionName": "2.0-dev",
+      "outputFile": "Edukid-v2.0-develop-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

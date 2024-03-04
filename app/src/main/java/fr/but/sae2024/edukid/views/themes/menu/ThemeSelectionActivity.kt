@@ -31,13 +31,12 @@ class ThemeSelectionActivity() : AppCompatActivity() {
             val adapter = ThemeSelectionAdapter(listTheme)
             themeRv.adapter = adapter
             themeRv.layoutManager = LinearLayoutManager(this@ThemeSelectionActivity)
-            themeRv.setHasFixedSize(true)
 
             adapter.themeLD.observe(this) {theme ->
                 themeViewModel.themeDefine(theme, this)
             }
         }
-        themeViewModel.getListTheme(applicationContext)
+        themeViewModel.getListTheme()
     }
 
 

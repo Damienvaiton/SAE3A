@@ -38,6 +38,7 @@ class UserManagingActivity : AppCompatActivity() {
 
     private lateinit var tempUser: User
     private var pictureURI: String = ""
+    private var personne = User()
     var hasCustomPhoto = false
     var idPicture: Int = 1
 
@@ -55,7 +56,7 @@ class UserManagingActivity : AppCompatActivity() {
             RouteManager.startActivity(this, ActivityName.UserSelectionActivity, true, false)
         }
 
-        var personne: User = User()
+        personne = User()
 
 
         val pickMedia =

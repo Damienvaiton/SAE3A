@@ -31,7 +31,6 @@ class SubGameSelectionActivity : AppCompatActivity() {
             val adapter = SubGameSelectionAdapter(listSubGame)
             gameRV.adapter = adapter
             gameRV.layoutManager = LinearLayoutManager(this@SubGameSelectionActivity)
-            gameRV.setHasFixedSize(true)
 
             adapter.subGameLD.observe(this) { subGame ->
                 subGameViewModel.subGameDefine(subGame, this)
@@ -44,7 +43,7 @@ class SubGameSelectionActivity : AppCompatActivity() {
             Timber.tag("SubGameSelectionActivity").e("Game by the observe : ${game.name}")
         }
 
-        subGameViewModel.getAllSubGamesByGame(this)
+        subGameViewModel.getAllSubGamesByGame()
 
     }
 

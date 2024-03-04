@@ -105,7 +105,7 @@ class UserAddActivity : AppCompatActivity() {
                     "profil$idPicture", "drawable", packageName
                 ))
             }
-            userViewModel.createUserChild(username.text.toString(), pictureURI, this)
+            userViewModel.createUserChild(username.text.toString(), pictureURI)
             RouteManager.startActivity(this, ActivityName.UserSelectionActivity, false, true)
         }
     }

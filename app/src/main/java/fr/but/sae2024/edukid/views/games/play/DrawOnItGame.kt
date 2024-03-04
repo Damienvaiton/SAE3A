@@ -1,4 +1,6 @@
 package fr.but.sae2024.edukid.views.games.play
 
-class DrawOnItGame {
+import androidx.appcompat.app.AppCompatActivity
+
+class DrawOnItGame : AppCompatActivity() {
 }

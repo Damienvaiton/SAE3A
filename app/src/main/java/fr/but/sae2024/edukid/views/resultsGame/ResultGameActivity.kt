@@ -1,4 +1,6 @@
 package fr.but.sae2024.edukid.views.resultsGame
 
-class ResultGameActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class ResultGameActivity : AppCompatActivity() {
 }

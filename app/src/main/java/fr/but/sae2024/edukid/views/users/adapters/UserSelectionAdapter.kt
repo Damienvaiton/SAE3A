@@ -41,7 +41,7 @@ class UserSelectionAdapter(val listUser : List<User>) : RecyclerView.Adapter<Use
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: UserSelectionViewHolder, position: Int) {
-        val resources = holder.itemView.context.resources
+        holder.itemView.context.resources
 
         val user = listUser[position]
 

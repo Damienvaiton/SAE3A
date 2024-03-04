@@ -86,8 +86,6 @@ object RouteManager {
                     Intent(context, StatisticActivity::class.java)
                 )
             }
-
-            else -> Timber.tag(Log.ERROR.toString()).e("Problem with the activity name %s", activityName.toString())
         }
 
         if (wantToFinish) {
@@ -132,7 +130,6 @@ object RouteManager {
                 )
             }
 
-            else -> Timber.tag(Log.ERROR.toString()).e("Problem with the game name")
         }
 
         if (wantToFinish) {
@@ -141,7 +138,7 @@ object RouteManager {
         this.stopAllSound();
     }
 
-    fun stopAllSound() {
+    private fun stopAllSound() {
         MediaPlayerManager.stop()
     }
 }

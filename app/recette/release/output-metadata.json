@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "fr.but.sae2024.edukid.recette",
+  "variantName": "recetteRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 2,
+      "versionName": "2.0-recette",
+      "outputFile": "Edukid-v2.0-recette-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

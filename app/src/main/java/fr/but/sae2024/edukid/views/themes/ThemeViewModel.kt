@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fr.but.sae2024.edukid.database.EdukidDatabase
 import fr.but.sae2024.edukid.models.entities.app.Theme
 import fr.but.sae2024.edukid.repositories.ThemeRepository
 import fr.but.sae2024.edukid.utils.enums.ActivityName
@@ -21,7 +20,7 @@ class ThemeViewModel: ViewModel(){
 
     private val themeRepo = ThemeRepository
 
-    fun getListTheme(context : Context){
+    fun getListTheme() {
         viewModelScope.launch {
             themeRepo.getAllTheme()
                 .collect {

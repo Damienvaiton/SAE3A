@@ -32,10 +32,6 @@ class SubGameSelectionAdapter(val listSubGame : List<Subgame?>) : RecyclerView.A
     override fun onBindViewHolder(holder: SubGameSelectionViewHolder, position: Int) {
         val subGame = listSubGame[position]
 
-        if (listSubGame == null) {
-            return
-        }
-
         holder.subGameName.text = subGame?.name
         Glide
             .with(holder.itemView.context)

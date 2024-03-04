@@ -1,4 +1,6 @@
 package fr.but.sae2024.edukid.views.games.play
 
-class WordWithHoleGame {
+import androidx.appcompat.app.AppCompatActivity
+
+class WordWithHoleGame : AppCompatActivity() {
 }

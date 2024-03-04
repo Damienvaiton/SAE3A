@@ -35,7 +35,6 @@ class UserSelectionActivity : AppCompatActivity() {
             val adapter = UserSelectionAdapter(listUser)
             userRv.adapter = adapter
             userRv.layoutManager = LinearLayoutManager(this@UserSelectionActivity)
-            userRv.setHasFixedSize(true)
 
             adapter.userLD.observe(this) { user ->
                 userViewModel.saveAuthUser(user, this)
@@ -67,7 +66,7 @@ class UserSelectionActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
-        userViewModel.getListUser(applicationContext)
+        userViewModel.getListUser()
 
 
         addNewUserButton.setOnClickListener {

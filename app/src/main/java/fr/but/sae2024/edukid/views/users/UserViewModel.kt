@@ -23,7 +23,7 @@ class UserViewModel : ViewModel() {
 
     private val userRepo = UserRepository
 
-    fun createUserChild(username : String, picture : String, context : Context){
+    fun createUserChild(username: String, picture: String){
         val user = User(username , "", "", picture, 0)
         insertUser(user)
     }
@@ -36,7 +36,7 @@ class UserViewModel : ViewModel() {
     }
 
 
-    fun getListUser(context : Context){
+    fun getListUser() {
         viewModelScope.launch {
             userRepo.getAllUsers()
                 .collect {

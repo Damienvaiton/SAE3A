@@ -1,4 +1,6 @@
 package fr.but.sae2024.edukid.views.games.play
 
-class PlayWithSoundGame {
+import androidx.appcompat.app.AppCompatActivity
+
+class PlayWithSoundGame : AppCompatActivity() {
 }

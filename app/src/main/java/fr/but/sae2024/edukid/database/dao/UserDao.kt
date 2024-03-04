@@ -19,10 +19,10 @@ interface UserDao {
     suspend fun getAllUsers(): List<User>
 
     @Query("SELECT * FROM users WHERE LOWER(mail) = :mail")
-    suspend fun getUserByMail(mail: String): User
+    suspend fun getUserByMail(mail: String): User?
 
     @Query("SELECT * FROM users WHERE LOWER(username) = :username")
-    suspend fun getUserByUsername(username: String): User
+    suspend fun getUserByUsername(username: String): User?
 
     @Query("SELECT * FROM users WHERE LOWER(mail) = :mail")
     suspend fun isEmailUsed(mail: String): Boolean {
